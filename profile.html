@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>My Companies — Clearly.</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="profile.css" />
+  <link rel="stylesheet" href="profile-documents.css" />
+  <style>.logout-button{border:1px solid var(--line);border-radius:20px;background:#fff;color:var(--navy);padding:8px 13px;font-size:11px;font-weight:800;white-space:nowrap;cursor:pointer}.logout-button:hover{border-color:var(--blue);color:var(--blue)}.date-warning{width:max-content;max-width:100%;margin:-10px 0 18px;padding:9px 12px;border:1px solid #ffd2d2;border-radius:10px;background:#fff4f4;color:#b43e4d;font-size:11px;font-weight:700}</style>
+</head>
+<body>
+  <header class="profile-nav"><a class="brand" href="index.html">Clearly<span>.</span></a><a class="category-link" href="index.html#categories">▤ Shop Categories</a><label class="profile-search"><input placeholder="Search products, categories, and brands…" /><button>⌕</button></label><a class="user-link" href="profile.html">♙ <span id="nav-user">My profile</span></a><button class="logout-button" id="logout-button" type="button">Log out</button><a class="cart-link" href="cart.html">🛒 Cart</a></header>
+  <main class="profile-main">
+    <section id="companies-view">
+      <div class="page-heading"><div><span class="eyebrow">MY PROFILE</span><h1>My Companies</h1><p>Select a company to view orders, manage addresses, and update business details.</p></div><button class="outline-button" data-open-drawer="company">＋ Add new company</button></div>
+      <div class="company-list" id="company-list"><div class="loading-state">Loading your companies…</div></div>
+    </section>
+
+    <section id="company-view" hidden>
+      <button class="back-button" data-back="companies">← All companies</button>
+      <div class="page-heading compact"><div><span class="eyebrow">COMPANY PROFILE</span><h1 id="company-name">Company</h1><p>Manage orders, invoices, payments, addresses, and contacts.</p></div><span class="company-location" id="company-location"></span></div>
+      <div class="company-menu" id="company-menu"></div>
+    </section>
+
+    <section id="table-view" hidden>
+      <button class="back-button" data-back="company">← Company overview</button>
+      <div class="page-heading compact"><div><span class="eyebrow" id="table-company"></span><h1 id="table-title">Orders</h1><p id="table-subtitle"></p></div><button class="outline-button" id="table-add" hidden></button></div>
+      <form class="date-filter" id="date-filter"><label>From date<input type="date" id="from-date" /></label><label>To date<input type="date" id="to-date" /></label><button type="submit">⌁ Apply</button><button type="button" id="reset-filter">× Reset</button></form>
+      <p class="date-warning" id="date-warning" role="alert" hidden></p>
+      <div class="business-table" id="business-table"></div><div class="pagination" id="pagination"></div>
+    </section>
+  </main>
+
+  <footer class="profile-footer"><div><b>🚚</b><p><strong>Free shipping</strong><span>Orders above ₹500 ship free to your doorstep.</span></p></div><div><b>↩</b><p><strong>Easy returns</strong><span>Hassle-free returns within 30 days.</span></p></div><div><b>⌖</b><p><strong>19,000+ pincodes</strong><span>Reliable delivery across India.</span></p></div><div><b>▤</b><p><strong>300+ products</strong><span>Professional chemicals from trusted brands.</span></p></div><div><b>▧</b><p><strong>100% GST compliant</strong><span>Proper invoices with every business order.</span></p></div></footer>
+
+  <div class="drawer-overlay" id="drawer-overlay" hidden></div>
+  <aside class="profile-drawer" id="profile-drawer" aria-hidden="true"><div class="drawer-head"><h2 id="drawer-title">Add Company</h2><button id="close-drawer">×</button></div>
+    <form id="company-form" class="drawer-form"><label>Company name*<input name="name" required /></label><label>Country*<input name="country" value="India" required /></label><label>Street address*<input name="streetAddress" required /></label><label>State/Province*<input name="state" required /></label><label>City*<input name="city" required /></label><label>Postal code*<input name="postalCode" inputmode="numeric" required /></label><label>GSTIN (optional)<input name="gstin" /></label><div class="drawer-actions"><button type="button" data-close>Cancel</button><button type="submit">✓ Save</button></div></form>
+    <form id="address-form" class="drawer-form" hidden><label>Address type<select name="addressType"><option>Shipping</option><option>Billing</option><option>Billing &amp; Shipping</option></select></label><label>Country*<input name="country" value="India" required /></label><label>Street address*<input name="streetAddress" required /></label><label>State/Province*<input name="state" required /></label><label>City*<input name="city" required /></label><label>Postal code*<input name="postalCode" inputmode="numeric" required /></label><div class="drawer-actions"><button type="button" data-close>Cancel</button><button type="submit">✓ Save</button></div></form>
+    <form id="contact-form" class="drawer-form" hidden><label>First name*<input name="firstName" required /></label><label>Last name<input name="lastName" /></label><label>Email<input name="email" type="email" /></label><label>Phone number*<input name="phone" placeholder="+91 98765 43210" required /></label><label>Role<input name="role" placeholder="Purchasing manager" /></label><div class="drawer-actions"><button type="button" data-close>Cancel</button><button type="submit">✓ Save</button></div></form>
+    <p class="drawer-message" id="drawer-message"></p>
+  </aside>
+  <div class="profile-toast" id="profile-toast"></div><script src="site-nav.js?v=live-search-1"></script><script src="profile.js"></script>
+</body>
+</html>

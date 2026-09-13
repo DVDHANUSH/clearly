@@ -1,0 +1,12 @@
+.document-download {
+  border: 1px solid #b9cdf8;
+  border-radius: 9px;
+  background: #edf3ff;
+  color: #2d68f6;
+  padding: 7px 11px;
+  font-size: 10px;
+  font-weight: 800;
+  white-space: nowrap;
+  cursor: pointer;
+}
+.document-download:hover { background: #2d68f6; border-color: #2d68f6; color: #fff; }

@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Home Care &amp; Cleaning — Clearly.</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="category.css?v=compact-selector-1" />
+    <link rel="stylesheet" href="product-card-shared.css?v=1" />
+  </head>
+  <body>
+    <header class="category-nav">
+      <a class="category-logo" href="index.html">Clearly<span>.</span></a>
+      <a class="category-shop-link" href="products.html">▦&nbsp; Shop all products</a>
+      <div class="category-actions"><a href="index.html#categories">← Categories</a><a id="category-cart" href="cart.html" aria-label="Shopping bag">Bag <b>0</b></a></div>
+    </header>
+    <main>
+      <section class="category-hero">
+        <div class="category-hero-copy"><span class="category-eyebrow">HOME CARE &amp; CLEANING</span><h1>A cleaner home,<br /><em>beautifully simple.</em></h1><p>Everyday products for floors, kitchens, bathrooms and the spaces that make home feel like home.</p><div class="category-stats"><span><strong id="category-count">0</strong> products</span><span><strong>5</strong> care zones</span><span><strong>24–48h</strong> dispatch</span></div></div>
+        <div class="category-hero-art"><img src="assets/categories/floor-care-living-hall.png" alt="Bright living room with polished flooring" /><div class="hero-art-note">Clean spaces.<br /><strong>Clear mind.</strong></div></div>
+      </section>
+      <section class="category-content">
+        <div class="category-section-head"><div><span class="category-eyebrow">SHOP YOUR WAY</span><h2>Choose a brand. Find the right clean.</h2><p>Browse trusted brands, then narrow the collection by the space you are caring for.</p></div></div>
+        <div class="filter-studio">
+          <section class="filter-group" aria-labelledby="brand-filter-title">
+            <div class="filter-heading"><div><span>01</span><h3 id="brand-filter-title">Select a brand</h3></div><small>Mix and match with any care area</small></div>
+            <div class="brand-rail" id="brand-rail" role="group" aria-label="Filter products by brand"></div>
+          </section>
+          <section class="filter-group care-filter" aria-label="Filter by care area">
+            <div class="subcategory-rail" id="subcategory-rail">
+              <button class="subcategory active" data-category="all">All</button>
+              <button class="subcategory" data-category="Floor Care">Floor Care</button>
+              <button class="subcategory" data-category="Bathroom Care">Bathroom Care</button>
+              <button class="subcategory" data-category="Kitchen Care">Kitchen Care</button>
+              <button class="subcategory" data-category="Laundry Care">Laundry Care</button>
+              <button class="subcategory" data-category="Surface Care">Surface Care</button>
+            </div>
+          </section>
+        </div>
+        <div class="category-results-head"><div><span class="results-kicker">YOUR SELECTION</span><p>Showing <strong id="category-result-count">0</strong> products <span id="category-filter-copy"></span></p></div><div class="result-actions"><button id="category-clear" type="button">Clear filters</button><select id="category-sort" aria-label="Sort products"><option value="featured">Featured</option><option value="price-low">Price: low to high</option><option value="price-high">Price: high to low</option><option value="rating">Top rated</option></select></div></div>
+        <div class="category-products" id="category-products"></div>
+      </section>
+    </main>
+    <script src="taski-catalog.js"></script>
+  <script src="shop-state.js?v=guest-cart-1"></script><script src="site-nav.js?v=cart-accent-2"></script>
+    <script src="products-app.v2.js?v=6"></script><script src="catalog-live.js?v=3"></script>
+  <script src="category.js?v=guest-cart-1"></script>
+  </body>
+</html>

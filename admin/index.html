@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Clearly Admin</title>
+  <link rel="stylesheet" href="admin.css?v=homepage-presets-1" />
+  <style>body.auth-pending>#admin-login,body.auth-pending>#admin-shell{display:none!important}.panel-filters{display:flex;align-items:center;gap:10px}.panel-filters select{border:1px solid var(--line);border-radius:9px;padding:9px 32px 9px 12px;background:#fff;color:var(--ink);outline:none;min-width:160px}.panel-filters select:focus{border-color:var(--blue);box-shadow:0 0 0 3px #2d68f612}@media(max-width:580px){.panel-filters{display:grid;margin-top:10px}.panel-filters select,.panel-filters input{width:100%;margin:0}}</style>
+</head>
+<body class="auth-pending" aria-busy="true">
+  <section class="admin-login" id="admin-login">
+    <form id="admin-login-form"><a class="admin-login-logo" href="../index.html">Clearly<span>.</span></a><p class="eyebrow">ADMIN PORTAL</p><h1>Administrator sign in</h1><p>Use an account with the ADMIN role.</p><label>Email or phone<input id="admin-identifier" autocomplete="username" required /></label><label>Password<input id="admin-password" type="password" autocomplete="current-password" required /></label><p class="admin-login-message" id="admin-login-message"></p><button class="primary" type="submit">Sign in securely</button><a href="../index.html">← Back to store</a></form>
+  </section>
+  <div class="admin-shell hidden" id="admin-shell">
+    <aside class="sidebar">
+      <a class="admin-logo" href="../index.html">Clearly<span>.</span><small>ADMIN</small></a>
+      <nav>
+        <button class="nav-item active" data-view="products">Products</button>
+        <button class="nav-item" data-view="users">Users</button>
+        <button class="nav-item" data-view="homepage">Home page</button>
+        <button class="nav-item" data-view="catalog">Catalog setup</button>
+        <button class="nav-item" data-view="database">Database preview</button>
+      </nav>
+      <div class="sidebar-footer"><button id="admin-logout">Sign out</button><a class="store-link" href="../products.html">← Back to store</a></div>
+    </aside>
+
+    <main class="workspace">
+      <section class="view active" id="view-products">
+        <div class="topbar"><div><p class="eyebrow">CATALOG CONTROL</p><h1>Products</h1><p class="subtext">Manage product images, documents, instructions, and quantity pricing.</p></div><button class="primary" id="new-product">+ New product</button></div>
+        <div class="stats"><div><b id="stat-total">0</b><span>Total products</span></div><div><b id="stat-images">0</b><span>With images</span></div><div><b id="stat-bulk">0</b><span>Bulk discounts enabled</span></div></div>
+        <div class="panel product-panel"><div class="panel-heading"><h2>Product catalogue</h2><div class="panel-filters"><select id="brand-filter" aria-label="Filter products by brand"><option value="">All brands</option></select><input id="product-search" placeholder="Search products..." /></div></div><div id="products-table" class="table-wrap"><div class="loading">Loading products…</div></div></div>
+      </section>
+
+      <section class="view" id="view-users">
+        <div class="topbar"><div><p class="eyebrow">CUSTOMER ACCOUNTS</p><h1>Users</h1><p class="subtext">View registered customers, email and phone verification, sign-in provider, and recent activity.</p></div><button class="secondary" id="refresh-users">↻ Refresh</button></div>
+        <div class="stats user-stats"><div><b id="stat-users">0</b><span>Registered users</span></div><div><b id="stat-verified">0</b><span>Verified accounts</span></div><div><b id="stat-google">0</b><span>Google connected</span></div></div>
+        <div class="panel user-panel"><div class="panel-heading"><div><h2>All users</h2><small>Private credentials are never displayed</small></div><input id="user-search" placeholder="Search name, email, phone, provider..." /></div><div id="users-table" class="table-wrap"><div class="loading">Loading users…</div></div><div class="user-pagination" id="user-pagination"></div></div>
+      </section>
+
+      <section class="view" id="view-catalog">
+        <div class="topbar"><div><p class="eyebrow">CATALOG SETUP</p><h1>Brands & categories</h1><p class="subtext">Create the supporting catalogue values used by product forms and storefront filters.</p></div></div>
+        <div class="catalog-setup-grid">
+          <div class="panel setup-panel"><div class="panel-heading"><h2>Brands</h2></div><form class="setup-form" id="brand-form"><label>Brand name<input id="new-brand-name" required placeholder="e.g. Fosroc" /></label><label>Brand key<input id="new-brand-key" placeholder="fosroc" /></label><button class="primary" type="submit">+ Create brand</button></form><div id="brand-list" class="chip-list"></div></div>
+          <div class="panel setup-panel"><div class="panel-heading"><h2>Categories</h2></div><form class="setup-form" id="category-form"><label>Category name<input id="new-category-name" required placeholder="e.g. Waterproofing" /></label><button class="primary" type="submit">+ Create category</button></form><div id="category-list" class="chip-list"></div></div>
+        </div>
+        <div class="notice setup-note"><b>Dependencies are connected.</b><span>New brands and categories are immediately available in the Product editor dropdowns after saving.</span></div>
+      </section>
+
+      <section class="view" id="view-homepage">
+        <div class="topbar"><div><p class="eyebrow">STOREFRONT CONTENT</p><h1>Home page</h1><p class="subtext">Update homepage content without changing the current design.</p></div><a class="secondary homepage-preview" href="../index.html" target="_blank">View home page</a></div>
+        <form class="homepage-form" id="homepage-form">
+          <div class="panel homepage-panel"><div class="panel-heading"><div><h2>Hero section</h2><small>The first section visitors see.</small></div></div><div class="homepage-fields">
+            <label>Eyebrow<input name="heroEyebrow" required /></label><label>First title line<input name="heroTitleLine1" required /></label>
+            <label>Second title line<input name="heroTitleLine2" required /></label><label>Highlighted title line<input name="heroTitleAccent" required /></label>
+            <label class="wide">Description<textarea name="heroDescription" rows="3" required></textarea></label>
+            <label>Button label<input name="heroButtonLabel" required /></label><label>Button destination<input name="heroButtonUrl" required /></label>
+            <label>Desktop image URL<input name="heroImage" required /><span class="homepage-upload"><input id="homepage-desktop-file" type="file" accept="image/png,image/jpeg,image/webp" /><small>Upload a desktop image</small></span></label><label>Mobile image URL<input name="heroMobileImage" required /><span class="homepage-upload"><input id="homepage-mobile-file" type="file" accept="image/png,image/jpeg,image/webp" /><small>Upload a mobile image</small></span></label>
+            <div class="homepage-presets wide"><div class="homepage-preset-heading"><div><b>Ready-made desktop images</b><small>Select one now, or keep using your own upload above.</small></div><span>Recommended: 1920 × 1080 px (16:9), PNG/JPG/WebP, under 2 MB.<br />Mobile: 1080 × 1350 px (4:5), under 1.5 MB.</span></div><div class="homepage-preset-grid" id="homepage-preset-grid"></div></div>
+          </div></div>
+          <div class="panel homepage-panel"><div class="panel-heading"><div><h2>Promotional offer</h2><small>Controls the current offer banner.</small></div></div><div class="homepage-fields">
+            <label>Eyebrow<input name="offerEyebrow" required /></label><label>Title<input name="offerTitle" required /></label>
+            <label>Highlighted title<input name="offerAccent" required /></label><label>Discount percentage<input name="offerDiscount" type="number" min="0" max="100" required /></label>
+            <label class="wide">Description<textarea name="offerDescription" rows="2" required></textarea></label>
+            <label>Button label<input name="offerButtonLabel" required /></label><label>Button destination<input name="offerButtonUrl" required /></label>
+          </div></div>
+          <div class="panel homepage-panel"><div class="panel-heading"><div><h2>Our promise</h2><small>Controls the closing brand-message section.</small></div></div><div class="homepage-fields">
+            <label>Eyebrow<input name="promiseEyebrow" required /></label><label>Title<input name="promiseTitle" required /></label>
+            <label>Highlighted title<input name="promiseAccent" required /></label><label class="wide">Description<textarea name="promiseDescription" rows="3" required></textarea></label>
+          </div></div>
+          <div class="homepage-save"><span id="homepage-status"></span><button class="primary" type="submit">Save home page</button></div>
+        </form>
+      </section>
+
+      <section class="view" id="view-database">
+        <div class="topbar"><div><p class="eyebrow">MYSQL PLANNING</p><h1>Database preview</h1><p class="subtext">Review the proposed tables before any database is created.</p></div><span class="review-badge">Preview only</span></div>
+        <div class="notice"><b>Database schema connected.</b><span>The normalized MySQL structure is active. Products now use a brand, main category and subcategory, with prices and discounts managed per package.</span></div>
+        <div id="schema-cards" class="schema-grid"></div>
+        <div class="panel sql-panel"><div class="panel-heading"><h2>SQL preview</h2><button class="secondary" id="copy-schema">Copy SQL</button></div><pre id="schema-preview"></pre></div>
+      </section>
+    </main>
+  </div>
+
+  <div class="drawer-backdrop hidden" id="drawer-backdrop"></div>
+  <aside class="editor-drawer" id="editor-drawer" aria-label="Product editor">
+    <div class="drawer-header"><div><p class="eyebrow">PRODUCT EDITOR</p><h2 id="editor-title">New product</h2></div><button class="close" id="close-editor">×</button></div>
+    <form id="product-form">
+      <input type="hidden" id="product-id" />
+      <div class="form-grid">
+        <label>Product name<input id="product-name" required /></label>
+        <label>HSN code<input id="product-hsn" inputmode="numeric" maxlength="8" pattern="[0-9]{4,8}" required placeholder="4 to 8 digits" /></label>
+        <label>Brand<select id="product-brand"><option value="fosroc">Fosroc</option><option value="diversey">Diversey</option><option value="godrej">Godrej</option><option value="aditya-birla">Aditya Birla</option><option value="shine-all">Shine All</option></select></label>
+        <label>Main category<select id="product-category" required><option value="">Select main category</option></select></label>
+        <label>Subcategory<select id="product-subcategory" required><option value="">Select subcategory</option></select></label>
+      </div>
+      <input id="product-price" type="hidden" /><input id="product-original" type="hidden" />
+      <div class="editor-section package-editor"><div class="section-title"><div><h3>Package sizes &amp; pricing</h3><p>Set a separate MRP, discount and selling price for every available size.</p></div><button class="secondary small" type="button" id="add-package">+ Add package</button></div><div class="package-head"><span>Quantity</span><span>Unit</span><span>MRP</span><span>Discount</span><span>Selling price</span><span>Stock</span><span>Default</span><span></span></div><div id="package-rows"></div></div>
+      <label>Short description<textarea id="product-description" rows="2"></textarea></label>
+      <label>Measure & dilute / how to use<textarea id="product-howto" rows="4" placeholder="Write the customer-facing instruction..." ></textarea></label>
+
+      <div class="editor-section"><div class="section-title"><div><h3>Product carousel images</h3><p>Add every image that should appear in the product carousel. The first image is used as the main image.</p></div><span class="mini-badge">PNG · JPG · WebP</span></div><div class="upload-row"><label class="upload-box" for="image-file"><span>＋</span>Upload images<input id="image-file" type="file" accept="image/png,image/jpeg,image/webp" multiple /></label><input id="product-image" placeholder="assets/uploads/product.png" /></div><div id="image-preview" class="image-preview gallery-preview"></div></div>
+
+      <div class="editor-section"><div class="section-title"><div><h3>Product document</h3><p>Upload a product information sheet for download.</p></div><span class="mini-badge">PDF preferred</span></div><div class="upload-row"><label class="upload-box" for="document-file"><span>⇧</span>Upload document<input id="document-file" type="file" accept="application/pdf,image/png,image/jpeg" /></label><div id="document-status" class="file-status">No document selected</div></div><input id="document-url" type="hidden" /><input id="document-name" type="hidden" /></div>
+
+      <div class="editor-section"><div class="section-title"><div><h3>Bulk discounts</h3><p>Enable the table and set a percentage for each package tier.</p></div><label class="switch"><input id="bulk-enabled" type="checkbox" /><span></span></label></div><div id="discount-tiers"></div><button class="secondary small" type="button" id="add-tier">+ Add package tier</button></div>
+
+      <div class="drawer-actions"><span id="save-status"></span><button class="secondary" type="button" id="cancel-editor">Cancel</button><button class="primary" type="submit">Save product</button></div>
+    </form>
+  </aside>
+  <script src="admin.js?v=product-hsn-1"></script>
+</body>
+</html>

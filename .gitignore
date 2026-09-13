@@ -1,0 +1,34 @@
+# Environment and local credentials
+.env
+.env.*
+!.env.example
+
+# Java / Spring build output
+**/target/
+**/.maven-home/
+**/.m2/
+*.class
+
+# Node dependencies and build output
+node_modules/
+dist/
+
+# Runtime logs and local preview files
+*.log
+*.log.*
+preview.err.log
+preview.log
+
+# Local working and generated reference material
+tmp/
+work/
+output/
+outputs/
+reference-microservices/
+
+# Editor and operating-system files
+.vscode/
+.idea/
+*.iml
+Thumbs.db
+.DS_Store

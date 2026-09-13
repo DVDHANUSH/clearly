@@ -1,0 +1,5 @@
+<svg width="260" height="96" viewBox="0 0 260 96" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs><linearGradient id="shine" x1="23" y1="16" x2="78" y2="82" gradientUnits="userSpaceOnUse"><stop stop-color="#85E7FF"/><stop offset=".48" stop-color="#2E70FF"/><stop offset="1" stop-color="#153AAA"/></linearGradient></defs>
+  <path d="M48 6L55.4 31.4 80 39 55.4 46.6 48 72 40.6 46.6 16 39 40.6 31.4 48 6Z" fill="url(#shine)"/><path d="M78 57L81.8 69.2 94 73 81.8 76.8 78 89 74.2 76.8 62 73 74.2 69.2 78 57Z" fill="#91DBFF"/>
+  <text x="102" y="48" fill="#0A1B53" font-family="Arial, sans-serif" font-weight="800" font-size="31" letter-spacing="-1">SHINE</text><text x="104" y="72" fill="#2665FF" font-family="Arial, sans-serif" font-weight="700" font-size="17" letter-spacing="4">ALL</text>
+</svg>

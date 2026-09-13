@@ -1,0 +1,19 @@
+spring:
+  application:
+    name: discovery-service
+
+eureka:
+  client:
+    register-with-eureka: false
+    fetch-registry: false
+# telling the server that, this project is not a microservice, hence marking it as false.
+#  Tells the application not to register itself as a service with the Eureka Server.
+#In Contrast:
+#If your app is a client (like a microservice) that needs to register and discover other services, you use:
+#
+#  eureka:
+#    client:
+#      register-with-eureka: true
+#      fetch-registry: true
+server:
+  port: 8761

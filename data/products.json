@@ -1,0 +1,1983 @@
+{
+  "products": [
+    {
+      "id": "PROD-1",
+      "brand": "fosroc",
+      "subBrand": "",
+      "name": "Nitotile Grout",
+      "category": "Tile Care",
+      "price": 399,
+      "originalPrice": 449,
+      "rating": 4.8,
+      "use": "For filling 1-6 mm joints in glazed wall tiles, porcelain, mosaic, vitrified and fully vitrified tiles, natural stone and engineered stone.",
+      "packaging": "",
+      "sizes": [
+        "1 kg"
+      ],
+      "image": "assets/nitotile-grout-pack.png",
+      "tags": [
+        "cementitious",
+        "tile",
+        "joint-filler"
+      ],
+      "inStock": true,
+      "bulkDiscounts": [
+        {
+          "minQty": 1,
+          "unitPrice": 399
+        },
+        {
+          "minQty": 2,
+          "unitPrice": 387,
+          "savePct": 3,
+          "saveAmt": 24
+        },
+        {
+          "minQty": 5,
+          "unitPrice": 375,
+          "savePct": 6,
+          "saveAmt": 120
+        },
+        {
+          "minQty": 10,
+          "unitPrice": 360,
+          "savePct": 10,
+          "saveAmt": 390
+        }
+      ],
+      "howToItems": [],
+      "slug": "nitotile-grout",
+      "createdAt": "2026-09-07T11:47:04.272Z",
+      "updatedAt": "2026-09-07T11:47:04.273Z"
+    },
+    {
+      "id": "PROD-2",
+      "brand": "fosroc",
+      "subBrand": "",
+      "name": "Nitobond EP",
+      "category": "Concrete Repair",
+      "price": 1199,
+      "originalPrice": 1499,
+      "rating": 4.8,
+      "use": "A two-part epoxy bonding agent that helps bond fresh concrete to an existing concrete surface.",
+      "packaging": "",
+      "sizes": [
+        "2 L",
+        "4 L"
+      ],
+      "image": "assets/nitobond-ep-new.png",
+      "tags": [
+        "epoxy",
+        "concrete",
+        "bonding-agent"
+      ],
+      "inStock": true,
+      "bulkDiscounts": [
+        {
+          "minQty": 1,
+          "unitPrice": 1299
+        },
+        {
+          "minQty": 2,
+          "unitPrice": 1250,
+          "savePct": 3.8,
+          "saveAmt": 98
+        },
+        {
+          "minQty": 4,
+          "unitPrice": 1200,
+          "savePct": 7.6,
+          "saveAmt": 396
+        },
+        {
+          "minQty": 8,
+          "unitPrice": 1140,
+          "savePct": 12.2,
+          "saveAmt": 1272
+        }
+      ],
+      "howToItems": [],
+      "slug": "nitobond-ep",
+      "createdAt": "2026-09-07T11:47:04.273Z",
+      "updatedAt": "2026-09-07T11:48:03.061Z"
+    },
+    {
+      "id": "PROD-3",
+      "brand": "fosroc",
+      "subBrand": "",
+      "name": "Brushbond RFX",
+      "category": "Waterproofing",
+      "price": 899,
+      "originalPrice": 999,
+      "rating": 4.8,
+      "use": "A two-component cementitious waterproof coating for concrete, brick and blockwork, including roofs, water tanks, wet areas and other exposed structures.",
+      "packaging": "",
+      "sizes": [
+        "6.71 kg",
+        "20.088 kg",
+        "30 kg"
+      ],
+      "image": "assets/brushbond-rfx-pack.png",
+      "tags": [
+        "waterproofing",
+        "concrete",
+        "coating"
+      ],
+      "inStock": true,
+      "bulkDiscounts": [
+        {
+          "minQty": 1,
+          "unitPrice": 899
+        },
+        {
+          "minQty": 2,
+          "unitPrice": 868,
+          "savePct": 3.4,
+          "saveAmt": 62
+        },
+        {
+          "minQty": 4,
+          "unitPrice": 836,
+          "savePct": 7,
+          "saveAmt": 252
+        },
+        {
+          "minQty": 8,
+          "unitPrice": 800,
+          "savePct": 11,
+          "saveAmt": 792
+        }
+      ],
+      "howToItems": [
+        [
+          "🧹",
+          "Clean & dampen",
+          "Remove oil, grease, dirt and loose material, then dampen the surface."
+        ],
+        [
+          "🪣",
+          "Mix the components",
+          "Combine powder, liquid and the required clean water."
+        ],
+        [
+          "🖌️",
+          "Apply two coats",
+          "Brush, roll or trowel on the coating. Let coat one become touch-dry before coat two."
+        ]
+      ],
+      "slug": "brushbond-rfx",
+      "createdAt": "2026-09-07T11:47:04.273Z",
+      "updatedAt": "2026-09-07T11:47:04.273Z"
+    },
+    {
+      "id": "PROD-4",
+      "brand": "fosroc",
+      "subBrand": "",
+      "name": "Conbextra GP2",
+      "category": "Precision Grouting",
+      "price": 2499,
+      "originalPrice": 2799,
+      "rating": 4.8,
+      "use": "A free-flow, high-strength, non-shrink cementitious precision grout for machine bases, bridge bearings, precast construction and structural load transfer.",
+      "packaging": "",
+      "sizes": [
+        "25 kg"
+      ],
+      "image": "assets/conbextra-gp2-pack.png",
+      "tags": [
+        "cementitious",
+        "precision-grout",
+        "non-shrink",
+        "high-strength"
+      ],
+      "inStock": true,
+      "bulkDiscounts": [
+        {
+          "minQty": 1,
+          "unitPrice": 2499
+        },
+        {
+          "minQty": 2,
+          "unitPrice": 2424,
+          "savePct": 3,
+          "saveAmt": 148
+        },
+        {
+          "minQty": 4,
+          "unitPrice": 2324,
+          "savePct": 7,
+          "saveAmt": 696
+        },
+        {
+          "minQty": 8,
+          "unitPrice": 2200,
+          "savePct": 12,
+          "saveAmt": 2392
+        }
+      ],
+      "howToItems": [
+        [
+          "🧹",
+          "Prepare the base",
+          "Clean the substrate, remove loose material and dampen the surface without leaving standing water."
+        ],
+        [
+          "🪣",
+          "Mix the grout",
+          "Measure 4.125 litres for pourable or 4.5 litres for flowable consistency, then slowly add the 25 kg powder while mixing."
+        ],
+        [
+          "⬇️",
+          "Place continuously",
+          "Pour from one side to avoid trapped air and maintain a continuous grout front beneath the supported element."
+        ]
+      ],
+      "slug": "conbextra-gp2",
+      "createdAt": "2026-09-07T11:47:04.273Z",
+      "updatedAt": "2026-09-07T11:47:04.273Z"
+    },
+    {
+      "id": "PROD-5",
+      "brand": "fosroc",
+      "subBrand": "",
+      "name": "Auramix 500",
+      "category": "Concrete Admixture",
+      "price": 12499,
+      "originalPrice": 13999,
+      "rating": 4.9,
+      "use": "A high-performance polycarboxylic superplasticiser for ultra-high-strength, self-compacting and pumpable concrete where very low water-cement ratio and long workability retention are required.",
+      "packaging": "",
+      "sizes": [
+        "200 L barrel"
+      ],
+      "image": "assets/auramix-500-barrel.png",
+      "tags": [
+        "superplasticiser",
+        "polycarboxylic",
+        "high-strength",
+        "workability-retention"
+      ],
+      "inStock": true,
+      "bulkDiscounts": [
+        {
+          "minQty": 1,
+          "unitPrice": 12499
+        },
+        {
+          "minQty": 2,
+          "unitPrice": 12124,
+          "savePct": 3,
+          "saveAmt": 750
+        },
+        {
+          "minQty": 4,
+          "unitPrice": 11624,
+          "savePct": 7,
+          "saveAmt": 3496
+        },
+        {
+          "minQty": 6,
+          "unitPrice": 11199,
+          "savePct": 10.4,
+          "saveAmt": 7800
+        }
+      ],
+      "howToItems": [
+        [
+          "🧪",
+          "Dose accurately",
+          "Measure the recommended admixture dose for the concrete mix and confirm the mix design before batching."
+        ],
+        [
+          "🌀",
+          "Blend into concrete",
+          "Add Auramix 500 with the mixing water and disperse it thoroughly through the concrete."
+        ],
+        [
+          "🏗️",
+          "Place with confidence",
+          "Pump or place the cohesive concrete while retaining workability and avoiding segregation."
+        ]
+      ],
+      "slug": "auramix-500",
+      "createdAt": "2026-09-07T11:47:04.273Z",
+      "updatedAt": "2026-09-07T11:47:04.273Z"
+    },
+    {
+      "id": "PROD-6",
+      "brand": "fosroc",
+      "subBrand": "",
+      "name": "Brushbond Roofguard",
+      "category": "Waterproofing",
+      "price": 1299,
+      "originalPrice": 1499,
+      "rating": 4.8,
+      "use": "A high-build fibre-reinforced acrylic elastomeric waterproofing coating for old and new roofs, applied in multiple coats to form a seamless, weather-resistant protective layer.",
+      "packaging": "",
+      "sizes": [
+        "20 L bucket"
+      ],
+      "image": "assets/brushbond-roofguard-studio.png",
+      "tags": [
+        "waterproofing",
+        "roofing",
+        "acrylic",
+        "fibre-reinforced"
+      ],
+      "inStock": true,
+      "bulkDiscounts": [
+        {
+          "minQty": 1,
+          "unitPrice": 1299
+        },
+        {
+          "minQty": 2,
+          "unitPrice": 1256,
+          "savePct": 3.3,
+          "saveAmt": 86
+        },
+        {
+          "minQty": 4,
+          "unitPrice": 1200,
+          "savePct": 7.6,
+          "saveAmt": 396
+        },
+        {
+          "minQty": 8,
+          "unitPrice": 1130,
+          "savePct": 11.5,
+          "saveAmt": 1352
+        }
+      ],
+      "howToItems": [
+        [
+          "🧹",
+          "Prepare the roof",
+          "Remove oil, grease, wax, dirt and loose material. Repair weak areas and dampen the sound surface."
+        ],
+        [
+          "🪣",
+          "Apply the primer",
+          "Dilute one part Roofguard with one part water and brush it over the prepared roof."
+        ],
+        [
+          "🖌️",
+          "Build the waterproof layer",
+          "Apply three coats with a short stiff brush, allowing each coat to become touch-dry."
+        ]
+      ],
+      "slug": "brushbond-roofguard",
+      "createdAt": "2026-09-07T11:47:04.273Z",
+      "updatedAt": "2026-09-07T11:47:04.273Z"
+    },
+    {
+      "id": "PROD-7",
+      "brand": "fosroc",
+      "subBrand": "",
+      "name": "Brushbond AquaProtect",
+      "category": "Waterproofing",
+      "price": 1899,
+      "originalPrice": 2199,
+      "rating": 4.9,
+      "use": "A two-component cementitious waterproof coating for water-retaining structures, suitable for potable-water tanks, swimming pools and concrete or masonry surfaces.",
+      "packaging": "",
+      "sizes": [
+        "5 kg",
+        "15 kg"
+      ],
+      "image": "assets/brushbond-aquaprotect-studio.png",
+      "tags": [
+        "waterproofing",
+        "potable-water",
+        "water-tanks",
+        "swimming-pools"
+      ],
+      "inStock": true,
+      "bulkDiscounts": [
+        {
+          "minQty": 1,
+          "unitPrice": 1899
+        },
+        {
+          "minQty": 2,
+          "unitPrice": 1832,
+          "savePct": 3.5,
+          "saveAmt": 134
+        },
+        {
+          "minQty": 4,
+          "unitPrice": 1767,
+          "savePct": 7,
+          "saveAmt": 528
+        },
+        {
+          "minQty": 8,
+          "unitPrice": 1695,
+          "savePct": 10.7,
+          "saveAmt": 1632
+        }
+      ],
+      "howToItems": [
+        [
+          "🧹",
+          "Prepare the surface",
+          "Clean sound concrete or masonry and dampen the substrate before coating."
+        ],
+        [
+          "🪣",
+          "Mix the coating",
+          "Combine the powder and liquid components until the mix is smooth and uniform."
+        ],
+        [
+          "🖌️",
+          "Apply two coats",
+          "Brush on two even coats, allowing the first coat to become touch-dry before the second."
+        ]
+      ],
+      "slug": "brushbond-aquaprotect",
+      "createdAt": "2026-09-07T11:47:04.273Z",
+      "updatedAt": "2026-09-07T11:47:04.273Z"
+    },
+    {
+      "id": "PROD-8",
+      "brand": "fosroc",
+      "subBrand": "",
+      "name": "Conplast SP430",
+      "category": "Concrete Admixture",
+      "price": 799,
+      "originalPrice": 899,
+      "rating": 4.8,
+      "use": "A chloride-free superplasticising admixture for improving concrete workability, increasing strength and reducing water demand in site-mixed and precast concrete.",
+      "packaging": "",
+      "sizes": [
+        "5 L",
+        "20 L"
+      ],
+      "image": "assets/conplast-sp430-studio.png",
+      "tags": [
+        "superplasticiser",
+        "concrete",
+        "chloride-free",
+        "precast"
+      ],
+      "inStock": true,
+      "bulkDiscounts": [
+        {
+          "minQty": 1,
+          "unitPrice": 799
+        },
+        {
+          "minQty": 2,
+          "unitPrice": 773,
+          "savePct": 3.3,
+          "saveAmt": 52
+        },
+        {
+          "minQty": 5,
+          "unitPrice": 746,
+          "savePct": 6.7,
+          "saveAmt": 265
+        },
+        {
+          "minQty": 10,
+          "unitPrice": 712,
+          "savePct": 10.9,
+          "saveAmt": 870
+        }
+      ],
+      "howToItems": [
+        [
+          "🧪",
+          "Measure the dose",
+          "Follow the approved mix design and measure the required admixture quantity accurately."
+        ],
+        [
+          "🌀",
+          "Disperse thoroughly",
+          "Add the brown liquid to the concrete mix with the mixing water and blend evenly."
+        ],
+        [
+          "🏗️",
+          "Place the concrete",
+          "Use the improved workability for faster placing and compaction with less vibration."
+        ]
+      ],
+      "slug": "conplast-sp430",
+      "createdAt": "2026-09-07T11:47:04.273Z",
+      "updatedAt": "2026-09-07T11:47:04.273Z"
+    },
+    {
+      "id": "PROD-9",
+      "brand": "fosroc",
+      "subBrand": "",
+      "name": "Lokfix P",
+      "category": "Concrete Repair",
+      "price": 899,
+      "originalPrice": 999,
+      "rating": 4.8,
+      "use": "A rapid-strength polyester resin anchor grout for horizontal, vertical and overhead anchoring applications, including anchoring into concrete and masonry.",
+      "packaging": "",
+      "sizes": [
+        "500 ml"
+      ],
+      "image": "assets/lokfix-p-enhanced.png",
+      "tags": [
+        "anchor-grout",
+        "rapid-strength",
+        "non-shrink",
+        "chemical-anchor"
+      ],
+      "inStock": true,
+      "bulkDiscounts": [
+        {
+          "minQty": 1,
+          "unitPrice": 899
+        },
+        {
+          "minQty": 3,
+          "unitPrice": 872,
+          "savePct": 3,
+          "saveAmt": 81
+        },
+        {
+          "minQty": 6,
+          "unitPrice": 844,
+          "savePct": 6.1,
+          "saveAmt": 330
+        },
+        {
+          "minQty": 12,
+          "unitPrice": 1780,
+          "savePct": 7.7,
+          "saveAmt": 648
+        }
+      ],
+      "howToItems": [
+        [
+          "🧹",
+          "Prepare the hole",
+          "Drill to the specified diameter and depth, then remove dust, debris and standing water."
+        ],
+        [
+          "🌀",
+          "Mix and place",
+          "Mix the resin and filler components until uniform, then place the grout from the back of the hole."
+        ],
+        [
+          "⚓",
+          "Position and cure",
+          "Insert the clean anchor with a twisting motion, align it and allow the grout to cure before loading."
+        ]
+      ],
+      "slug": "lokfix-p",
+      "createdAt": "2026-09-07T11:47:04.273Z",
+      "updatedAt": "2026-09-07T11:47:04.273Z"
+    },
+    {
+      "id": "PROD-10",
+      "brand": "fosroc",
+      "subBrand": "",
+      "name": "Nitobond SBR Latex",
+      "category": "Concrete Repair",
+      "price": 899,
+      "originalPrice": 999,
+      "rating": 4.8,
+      "use": "A single-component polymer latex for improved screed and plaster, helping improve bond, tensile and flexural strength, durability and crack resistance.",
+      "packaging": "",
+      "sizes": [
+        "5 L"
+      ],
+      "image": "assets/nitobond-sbr-studio.png",
+      "tags": [
+        "polymer-latex",
+        "concrete-repair",
+        "bonding-agent",
+        "screed"
+      ],
+      "inStock": true,
+      "bulkDiscounts": [
+        {
+          "minQty": 1,
+          "unitPrice": 899
+        },
+        {
+          "minQty": 2,
+          "unitPrice": 872,
+          "savePct": 3,
+          "saveAmt": 54
+        },
+        {
+          "minQty": 4,
+          "unitPrice": 836,
+          "savePct": 7,
+          "saveAmt": 252
+        },
+        {
+          "minQty": 8,
+          "unitPrice": 792,
+          "savePct": 12,
+          "saveAmt": 856
+        }
+      ],
+      "howToItems": [
+        [
+          "🧹",
+          "Prepare the surface",
+          "Clean sound concrete or masonry and remove dust, oil, loose material and laitance."
+        ],
+        [
+          "🧪",
+          "Mix the latex system",
+          "Measure Nitobond SBR Latex as specified and blend it into the bonding slurry or repair mix."
+        ],
+        [
+          "🧱",
+          "Apply and cure",
+          "Apply the polymer-modified screed, plaster or repair mortar, finish it properly and protect it while curing."
+        ]
+      ],
+      "slug": "nitobond-sbr-latex",
+      "createdAt": "2026-09-07T11:47:04.273Z",
+      "updatedAt": "2026-09-07T11:47:04.273Z"
+    },
+    {
+      "id": "PROD-11",
+      "brand": "godrej",
+      "subBrand": "",
+      "name": "Nature's Carpet Shampoo",
+      "category": "Floor Care",
+      "price": 169,
+      "originalPrice": 219,
+      "rating": 4.6,
+      "packaging": "1 L",
+      "sizes": [
+        "500 ml",
+        "1 L"
+      ],
+      "image": "assets/brands/godrej.png",
+      "tags": [
+        "liquid",
+        "carpet",
+        "fragrance"
+      ],
+      "inStock": true,
+      "bulkDiscounts": [
+        {
+          "minQty": 1,
+          "unitPrice": 169
+        },
+        {
+          "minQty": 2,
+          "unitPrice": 164,
+          "savePct": 3,
+          "saveAmt": 10
+        },
+        {
+          "minQty": 5,
+          "unitPrice": 157,
+          "savePct": 7.1,
+          "saveAmt": 60
+        },
+        {
+          "minQty": 10,
+          "unitPrice": 150,
+          "savePct": 11.2,
+          "saveAmt": 190
+        }
+      ],
+      "howToItems": [],
+      "slug": "nature-s-carpet-shampoo",
+      "createdAt": "2026-09-07T11:47:04.273Z",
+      "updatedAt": "2026-09-07T11:47:04.273Z"
+    },
+    {
+      "id": "PROD-12",
+      "brand": "godrej",
+      "subBrand": "",
+      "name": "Toilet Cleaner",
+      "category": "Bathroom Care",
+      "price": 149,
+      "originalPrice": 199,
+      "rating": 4.8,
+      "packaging": "1 L",
+      "sizes": [
+        "500 ml",
+        "1 L"
+      ],
+      "image": "assets/brands/godrej.png",
+      "tags": [
+        "liquid",
+        "bathroom",
+        "disinfectant"
+      ],
+      "inStock": true,
+      "bulkDiscounts": [
+        {
+          "minQty": 1,
+          "unitPrice": 149
+        },
+        {
+          "minQty": 2,
+          "unitPrice": 145,
+          "savePct": 2.7,
+          "saveAmt": 8
+        },
+        {
+          "minQty": 5,
+          "unitPrice": 138,
+          "savePct": 7.4,
+          "saveAmt": 55
+        },
+        {
+          "minQty": 10,
+          "unitPrice": 131,
+          "savePct": 12.1,
+          "saveAmt": 180
+        }
+      ],
+      "howToItems": [],
+      "slug": "toilet-cleaner",
+      "createdAt": "2026-09-07T11:47:04.273Z",
+      "updatedAt": "2026-09-07T11:47:04.273Z"
+    },
+    {
+      "id": "PROD-13",
+      "brand": "godrej",
+      "subBrand": "",
+      "name": "Dish Wash Liquid",
+      "category": "Kitchen Care",
+      "price": 129,
+      "originalPrice": 169,
+      "rating": 4.6,
+      "packaging": "500 ml",
+      "sizes": [
+        "250 ml",
+        "500 ml"
+      ],
+      "image": "assets/brands/godrej.png",
+      "tags": [
+        "liquid",
+        "kitchen",
+        "fragrance"
+      ],
+      "inStock": true,
+      "bulkDiscounts": [
+        {
+          "minQty": 1,
+          "unitPrice": 129
+        },
+        {
+          "minQty": 2,
+          "unitPrice": 125,
+          "savePct": 3.1,
+          "saveAmt": 8
+        },
+        {
+          "minQty": 5,
+          "unitPrice": 120,
+          "savePct": 7,
+          "saveAmt": 45
+        },
+        {
+          "minQty": 10,
+          "unitPrice": 113,
+          "savePct": 12.4,
+          "saveAmt": 160
+        }
+      ],
+      "howToItems": [],
+      "slug": "dish-wash-liquid",
+      "createdAt": "2026-09-07T11:47:04.273Z",
+      "updatedAt": "2026-09-07T11:47:04.273Z"
+    },
+    {
+      "id": "PROD-14",
+      "brand": "godrej",
+      "subBrand": "",
+      "name": "Laundry Liquid",
+      "category": "Laundry Care",
+      "price": 349,
+      "originalPrice": 449,
+      "rating": 4.7,
+      "packaging": "5 L",
+      "sizes": [
+        "1 L",
+        "5 L"
+      ],
+      "image": "assets/brands/godrej.png",
+      "tags": [
+        "liquid",
+        "laundry",
+        "fragrance"
+      ],
+      "inStock": true,
+      "bulkDiscounts": [
+        {
+          "minQty": 1,
+          "unitPrice": 349
+        },
+        {
+          "minQty": 2,
+          "unitPrice": 338,
+          "savePct": 3.1,
+          "saveAmt": 22
+        },
+        {
+          "minQty": 5,
+          "unitPrice": 323,
+          "savePct": 7.4,
+          "saveAmt": 130
+        },
+        {
+          "minQty": 10,
+          "unitPrice": 308,
+          "savePct": 11.7,
+          "saveAmt": 410
+        }
+      ],
+      "howToItems": [],
+      "slug": "laundry-liquid",
+      "createdAt": "2026-09-07T11:47:04.273Z",
+      "updatedAt": "2026-09-07T11:47:04.273Z"
+    },
+    {
+      "id": "PROD-15",
+      "brand": "godrej",
+      "subBrand": "",
+      "name": "Surface Cleaner Spray",
+      "category": "Surface Care",
+      "price": 189,
+      "originalPrice": 239,
+      "rating": 4.7,
+      "packaging": "500 ml",
+      "sizes": [
+        "500 ml"
+      ],
+      "image": "assets/brands/godrej.png",
+      "tags": [
+        "spray",
+        "multi-surface",
+        "disinfectant"
+      ],
+      "inStock": true,
+      "bulkDiscounts": [
+        {
+          "minQty": 1,
+          "unitPrice": 189
+        },
+        {
+          "minQty": 2,
+          "unitPrice": 184,
+          "savePct": 2.6,
+          "saveAmt": 10
+        },
+        {
+          "minQty": 5,
+          "unitPrice": 176,
+          "savePct": 6.9,
+          "saveAmt": 65
+        },
+        {
+          "minQty": 10,
+          "unitPrice": 168,
+          "savePct": 11.1,
+          "saveAmt": 210
+        }
+      ],
+      "howToItems": [],
+      "slug": "surface-cleaner-spray",
+      "createdAt": "2026-09-07T11:47:04.273Z",
+      "updatedAt": "2026-09-07T11:47:04.273Z"
+    },
+    {
+      "id": "PROD-16",
+      "brand": "aditya-birla",
+      "subBrand": "",
+      "name": "Industrial Floor Wash",
+      "category": "Floor Care",
+      "price": 599,
+      "originalPrice": 799,
+      "rating": 4.7,
+      "packaging": "20 L",
+      "sizes": [
+        "5 L",
+        "20 L"
+      ],
+      "image": "assets/brands/aditya-birla.png",
+      "tags": [
+        "liquid",
+        "concentrate",
+        "bulk"
+      ],
+      "inStock": true,
+      "bulkDiscounts": [
+        {
+          "minQty": 1,
+          "unitPrice": 599
+        },
+        {
+          "minQty": 2,
+          "unitPrice": 575,
+          "savePct": 4,
+          "saveAmt": 48
+        },
+        {
+          "minQty": 4,
+          "unitPrice": 549,
+          "savePct": 8.3,
+          "saveAmt": 200
+        },
+        {
+          "minQty": 8,
+          "unitPrice": 520,
+          "savePct": 13.2,
+          "saveAmt": 632
+        }
+      ],
+      "howToItems": [],
+      "slug": "industrial-floor-wash",
+      "createdAt": "2026-09-07T11:47:04.273Z",
+      "updatedAt": "2026-09-07T11:47:04.273Z"
+    },
+    {
+      "id": "PROD-17",
+      "brand": "aditya-birla",
+      "subBrand": "",
+      "name": "Kitchen Surface Cleaner",
+      "category": "Kitchen Care",
+      "price": 219,
+      "originalPrice": 279,
+      "rating": 4.6,
+      "packaging": "1 L",
+      "sizes": [
+        "500 ml",
+        "1 L"
+      ],
+      "image": "assets/brands/aditya-birla.png",
+      "tags": [
+        "spray",
+        "kitchen",
+        "degreaser"
+      ],
+      "inStock": true,
+      "bulkDiscounts": [
+        {
+          "minQty": 1,
+          "unitPrice": 219
+        },
+        {
+          "minQty": 2,
+          "unitPrice": 212,
+          "savePct": 3.2,
+          "saveAmt": 14
+        },
+        {
+          "minQty": 5,
+          "unitPrice": 202,
+          "savePct": 7.8,
+          "saveAmt": 85
+        },
+        {
+          "minQty": 10,
+          "unitPrice": 192,
+          "savePct": 12.3,
+          "saveAmt": 270
+        }
+      ],
+      "howToItems": [],
+      "slug": "kitchen-surface-cleaner",
+      "createdAt": "2026-09-07T11:47:04.273Z",
+      "updatedAt": "2026-09-07T11:47:04.273Z"
+    },
+    {
+      "id": "PROD-18",
+      "brand": "aditya-birla",
+      "subBrand": "",
+      "name": "Delicate Wash Liquid",
+      "category": "Laundry Care",
+      "price": 249,
+      "originalPrice": 329,
+      "rating": 4.7,
+      "packaging": "5 L",
+      "sizes": [
+        "1 L",
+        "5 L"
+      ],
+      "image": "assets/brands/aditya-birla.png",
+      "tags": [
+        "liquid",
+        "laundry",
+        "fragrance"
+      ],
+      "inStock": true,
+      "bulkDiscounts": [
+        {
+          "minQty": 1,
+          "unitPrice": 249
+        },
+        {
+          "minQty": 2,
+          "unitPrice": 241,
+          "savePct": 3.2,
+          "saveAmt": 16
+        },
+        {
+          "minQty": 5,
+          "unitPrice": 229,
+          "savePct": 8,
+          "saveAmt": 100
+        },
+        {
+          "minQty": 10,
+          "unitPrice": 217,
+          "savePct": 12.9,
+          "saveAmt": 320
+        }
+      ],
+      "howToItems": [],
+      "slug": "delicate-wash-liquid",
+      "createdAt": "2026-09-07T11:47:04.273Z",
+      "updatedAt": "2026-09-07T11:47:04.273Z"
+    },
+    {
+      "id": "PROD-19",
+      "brand": "aditya-birla",
+      "subBrand": "",
+      "name": "All Purpose Cleaner",
+      "category": "Surface Care",
+      "price": 129,
+      "originalPrice": 169,
+      "rating": 4.5,
+      "packaging": "500 ml",
+      "sizes": [
+        "500 ml"
+      ],
+      "image": "assets/brands/aditya-birla.png",
+      "tags": [
+        "spray",
+        "multi-surface",
+        "fragrance"
+      ],
+      "inStock": true,
+      "bulkDiscounts": [
+        {
+          "minQty": 1,
+          "unitPrice": 129
+        },
+        {
+          "minQty": 2,
+          "unitPrice": 125,
+          "savePct": 3.1,
+          "saveAmt": 8
+        },
+        {
+          "minQty": 5,
+          "unitPrice": 120,
+          "savePct": 7,
+          "saveAmt": 45
+        },
+        {
+          "minQty": 10,
+          "unitPrice": 113,
+          "savePct": 12.4,
+          "saveAmt": 160
+        }
+      ],
+      "howToItems": [],
+      "slug": "all-purpose-cleaner",
+      "createdAt": "2026-09-07T11:47:04.273Z",
+      "updatedAt": "2026-09-07T11:47:04.273Z"
+    },
+    {
+      "id": "PROD-20",
+      "brand": "aditya-birla",
+      "subBrand": "",
+      "name": "Bathroom Freshener Spray",
+      "category": "Bathroom Care",
+      "price": 159,
+      "originalPrice": 209,
+      "rating": 4.5,
+      "packaging": "500 ml",
+      "sizes": [
+        "500 ml"
+      ],
+      "image": "assets/brands/aditya-birla.png",
+      "tags": [
+        "spray",
+        "bathroom",
+        "fragrance"
+      ],
+      "inStock": true,
+      "bulkDiscounts": [
+        {
+          "minQty": 1,
+          "unitPrice": 159
+        },
+        {
+          "minQty": 2,
+          "unitPrice": 154,
+          "savePct": 3.1,
+          "saveAmt": 10
+        },
+        {
+          "minQty": 5,
+          "unitPrice": 147,
+          "savePct": 7.5,
+          "saveAmt": 60
+        },
+        {
+          "minQty": 10,
+          "unitPrice": 140,
+          "savePct": 11.9,
+          "saveAmt": 190
+        }
+      ],
+      "howToItems": [],
+      "slug": "bathroom-freshener-spray",
+      "createdAt": "2026-09-07T11:47:04.273Z",
+      "updatedAt": "2026-09-07T11:47:04.273Z"
+    },
+    {
+      "id": "PROD-21",
+      "brand": "shine-all",
+      "subBrand": "",
+      "name": "Quick Shine Floor Cleaner",
+      "category": "Floor Care",
+      "price": 199,
+      "originalPrice": 249,
+      "rating": 4.8,
+      "packaging": "1 L",
+      "sizes": [
+        "500 ml",
+        "1 L"
+      ],
+      "image": "assets/brands/shine-all.svg",
+      "tags": [
+        "liquid",
+        "multi-surface",
+        "fragrance"
+      ],
+      "inStock": true,
+      "bulkDiscounts": [
+        {
+          "minQty": 1,
+          "unitPrice": 199
+        },
+        {
+          "minQty": 2,
+          "unitPrice": 193,
+          "savePct": 3,
+          "saveAmt": 12
+        },
+        {
+          "minQty": 5,
+          "unitPrice": 184,
+          "savePct": 7.5,
+          "saveAmt": 75
+        },
+        {
+          "minQty": 10,
+          "unitPrice": 175,
+          "savePct": 12,
+          "saveAmt": 240
+        }
+      ],
+      "howToItems": [],
+      "slug": "quick-shine-floor-cleaner",
+      "createdAt": "2026-09-07T11:47:04.273Z",
+      "updatedAt": "2026-09-07T11:47:04.273Z"
+    },
+    {
+      "id": "PROD-22",
+      "brand": "shine-all",
+      "subBrand": "",
+      "name": "Toilet Power Gel",
+      "category": "Bathroom Care",
+      "price": 149,
+      "originalPrice": 199,
+      "rating": 4.8,
+      "packaging": "1 L",
+      "sizes": [
+        "500 ml",
+        "1 L"
+      ],
+      "image": "assets/brands/shine-all.svg",
+      "tags": [
+        "liquid",
+        "bathroom",
+        "disinfectant"
+      ],
+      "inStock": true,
+      "bulkDiscounts": [
+        {
+          "minQty": 1,
+          "unitPrice": 149
+        },
+        {
+          "minQty": 2,
+          "unitPrice": 145,
+          "savePct": 2.7,
+          "saveAmt": 8
+        },
+        {
+          "minQty": 5,
+          "unitPrice": 136,
+          "savePct": 8.7,
+          "saveAmt": 65
+        },
+        {
+          "minQty": 10,
+          "unitPrice": 129,
+          "savePct": 13.4,
+          "saveAmt": 200
+        }
+      ],
+      "howToItems": [],
+      "slug": "toilet-power-gel",
+      "createdAt": "2026-09-07T11:47:04.273Z",
+      "updatedAt": "2026-09-07T11:47:04.273Z"
+    },
+    {
+      "id": "PROD-23",
+      "brand": "shine-all",
+      "subBrand": "",
+      "name": "Kitchen Grease Buster",
+      "category": "Kitchen Care",
+      "price": 179,
+      "originalPrice": 229,
+      "rating": 4.6,
+      "packaging": "500 ml",
+      "sizes": [
+        "500 ml"
+      ],
+      "image": "assets/brands/shine-all.svg",
+      "tags": [
+        "spray",
+        "kitchen",
+        "degreaser"
+      ],
+      "inStock": true,
+      "bulkDiscounts": [
+        {
+          "minQty": 1,
+          "unitPrice": 179
+        },
+        {
+          "minQty": 2,
+          "unitPrice": 174,
+          "savePct": 2.8,
+          "saveAmt": 10
+        },
+        {
+          "minQty": 5,
+          "unitPrice": 165,
+          "savePct": 7.8,
+          "saveAmt": 70
+        },
+        {
+          "minQty": 10,
+          "unitPrice": 157,
+          "savePct": 12.3,
+          "saveAmt": 220
+        }
+      ],
+      "howToItems": [],
+      "slug": "kitchen-grease-buster",
+      "createdAt": "2026-09-07T11:47:04.273Z",
+      "updatedAt": "2026-09-07T11:47:04.273Z"
+    },
+    {
+      "id": "PROD-24",
+      "brand": "shine-all",
+      "subBrand": "",
+      "name": "Laundry Liquid",
+      "category": "Laundry Care",
+      "price": 349,
+      "originalPrice": 449,
+      "rating": 4.7,
+      "packaging": "5 L",
+      "sizes": [
+        "1 L",
+        "5 L"
+      ],
+      "image": "assets/brands/shine-all.svg",
+      "tags": [
+        "liquid",
+        "laundry",
+        "fragrance"
+      ],
+      "inStock": true,
+      "bulkDiscounts": [
+        {
+          "minQty": 1,
+          "unitPrice": 349
+        },
+        {
+          "minQty": 2,
+          "unitPrice": 338,
+          "savePct": 3.1,
+          "saveAmt": 22
+        },
+        {
+          "minQty": 5,
+          "unitPrice": 324,
+          "savePct": 7.2,
+          "saveAmt": 125
+        },
+        {
+          "minQty": 10,
+          "unitPrice": 310,
+          "savePct": 11.2,
+          "saveAmt": 390
+        }
+      ],
+      "howToItems": [],
+      "slug": "laundry-liquid",
+      "createdAt": "2026-09-07T11:47:04.273Z",
+      "updatedAt": "2026-09-07T11:47:04.273Z"
+    },
+    {
+      "id": "PROD-25",
+      "brand": "shine-all",
+      "subBrand": "",
+      "name": "All Surface Spray",
+      "category": "Surface Care",
+      "price": 149,
+      "originalPrice": 199,
+      "rating": 4.7,
+      "packaging": "500 ml",
+      "sizes": [
+        "500 ml"
+      ],
+      "image": "assets/brands/shine-all.svg",
+      "tags": [
+        "spray",
+        "multi-surface",
+        "anti-microbial"
+      ],
+      "inStock": true,
+      "bulkDiscounts": [
+        {
+          "minQty": 1,
+          "unitPrice": 149
+        },
+        {
+          "minQty": 2,
+          "unitPrice": 145,
+          "savePct": 2.7,
+          "saveAmt": 8
+        },
+        {
+          "minQty": 5,
+          "unitPrice": 139,
+          "savePct": 6.7,
+          "saveAmt": 50
+        },
+        {
+          "minQty": 10,
+          "unitPrice": 131,
+          "savePct": 12,
+          "saveAmt": 180
+        }
+      ],
+      "howToItems": [],
+      "slug": "all-surface-spray",
+      "createdAt": "2026-09-07T11:47:04.273Z",
+      "updatedAt": "2026-09-07T11:47:04.273Z"
+    },
+    {
+      "id": "PROD-26",
+      "brand": "shine-all",
+      "subBrand": "",
+      "name": "Germ Shield Disinfectant",
+      "category": "Surface Care",
+      "price": 229,
+      "originalPrice": 299,
+      "rating": 4.9,
+      "packaging": "1 L",
+      "sizes": [
+        "500 ml",
+        "1 L"
+      ],
+      "image": "assets/brands/shine-all.svg",
+      "tags": [
+        "spray",
+        "disinfectant",
+        "anti-microbial"
+      ],
+      "inStock": true,
+      "bulkDiscounts": [
+        {
+          "minQty": 1,
+          "unitPrice": 229
+        },
+        {
+          "minQty": 2,
+          "unitPrice": 222,
+          "savePct": 3.1,
+          "saveAmt": 14
+        },
+        {
+          "minQty": 5,
+          "unitPrice": 211,
+          "savePct": 7.9,
+          "saveAmt": 90
+        },
+        {
+          "minQty": 10,
+          "unitPrice": 201,
+          "savePct": 12.2,
+          "saveAmt": 280
+        }
+      ],
+      "howToItems": [],
+      "slug": "germ-shield-disinfectant",
+      "createdAt": "2026-09-07T11:47:04.273Z",
+      "updatedAt": "2026-09-07T11:47:04.273Z"
+    },
+    {
+      "id": "PROD-27",
+      "brand": "diversey",
+      "subBrand": "TASKI",
+      "name": "TASKI R1 Super",
+      "category": "Bathroom Care",
+      "price": 1950,
+      "originalPrice": 2399,
+      "use": "Concentrated cleaner for routine cleaning of suitable bathroom sinks, tubs, tiles and fittings. Designed for professional housekeeping.",
+      "packaging": "",
+      "sizes": [
+        "5 L"
+      ],
+      "image": "assets/taski/r1-studio.png",
+      "tags": [
+        "taski",
+        "r1",
+        "bathroom cleaner concentrate",
+        "bathroom"
+      ],
+      "inStock": true,
+      "bulkDiscounts": [
+        {
+          "minQty": 1,
+          "unitPrice": 1950
+        },
+        {
+          "minQty": 2,
+          "unitPrice": 1890,
+          "savePct": 3.1,
+          "saveAmt": 120
+        },
+        {
+          "minQty": 4,
+          "unitPrice": 1810,
+          "savePct": 7.2,
+          "saveAmt": 560
+        },
+        {
+          "minQty": 8,
+          "unitPrice": 1740,
+          "savePct": 10.8,
+          "saveAmt": 1680
+        }
+      ],
+      "howToItems": [
+        [
+          "✓",
+          "Measure & dilute",
+          "Measure the dilution stated on the pack into water."
+        ],
+        [
+          "✓",
+          "Apply & clean",
+          "Wipe suitable bathroom surfaces with a cloth or sponge."
+        ],
+        [
+          "✓",
+          "Rinse & dry",
+          "Rinse thoroughly and dry fittings."
+        ]
+      ],
+      "slug": "taski-r1-super-bathroom-cleaner-sanitiser-concentrate-5l-dv1001",
+      "createdAt": "2026-09-07T11:47:04.273Z",
+      "updatedAt": "2026-09-07T11:47:04.273Z"
+    },
+    {
+      "id": "PROD-28",
+      "brand": "diversey",
+      "subBrand": "TASKI",
+      "name": "TASKI R2",
+      "category": "Industrial",
+      "price": 2050,
+      "originalPrice": 2399,
+      "use": "A concentrated general-purpose cleaner for suitable washable hard surfaces, including cabinets, tables and other housekeeping surfaces. Apply to a cloth rather than directly to electrical equipment.",
+      "packaging": "",
+      "sizes": [
+        "5 L"
+      ],
+      "image": "assets/taski/r2-studio.png",
+      "tags": [
+        "taski",
+        "r2",
+        "hard-surface cleaner concentrate",
+        "housekeeping"
+      ],
+      "inStock": true,
+      "bulkDiscounts": [
+        {
+          "minQty": 1,
+          "discountPct": 0,
+          "unitPrice": 2050
+        }
+      ],
+      "howToItems": [
+        [
+          "✓",
+          "Measure & dilute",
+          "Follow the pack dilution for the intended task."
+        ],
+        [
+          "✓",
+          "Apply to a cloth",
+          "Wipe suitable hard surfaces with the diluted solution."
+        ],
+        [
+          "✓",
+          "Wipe & finish",
+          "Remove residue with a clean, dry cloth."
+        ]
+      ],
+      "slug": "taski-r2",
+      "createdAt": "2026-09-07T11:47:04.273Z",
+      "updatedAt": "2026-09-07T14:15:57.146Z",
+      "images": [
+        "assets/taski/r2-studio.png",
+        "assets/taski/r2-benefits.png",
+        "assets/taski/r2-howto.png",
+        "assets/taski/r2-source.webp"
+      ],
+      "description": "A concentrated general-purpose cleaner for suitable washable hard surfaces, including cabinets, tables and other housekeeping surfaces. Apply to a cloth rather than directly to electrical equipment.",
+      "measureDilute": "",
+      "howToUse": "",
+      "documentUrl": "",
+      "documentName": "",
+      "bulkDiscountEnabled": true
+    },
+    {
+      "id": "PROD-29",
+      "brand": "diversey",
+      "subBrand": "TASKI",
+      "name": "TASKI R3",
+      "category": "Industrial",
+      "price": 2450,
+      "originalPrice": 2399,
+      "use": "A concentrated cleaner for windows, mirrors and other suitable glass surfaces. Use with a clean, lint-free cloth for a clear finish.",
+      "packaging": "",
+      "sizes": [
+        "5 L"
+      ],
+      "image": "assets/taski/r3-studio.png",
+      "tags": [
+        "taski",
+        "r3",
+        "glass & mirror cleaner concentrate",
+        "housekeeping"
+      ],
+      "inStock": true,
+      "bulkDiscounts": [
+        {
+          "minQty": 1,
+          "unitPrice": 2450
+        },
+        {
+          "minQty": 2,
+          "unitPrice": 2376,
+          "savePct": 3,
+          "saveAmt": 148
+        },
+        {
+          "minQty": 4,
+          "unitPrice": 2279,
+          "savePct": 7,
+          "saveAmt": 724
+        },
+        {
+          "minQty": 8,
+          "unitPrice": 2180,
+          "savePct": 11,
+          "saveAmt": 2160
+        }
+      ],
+      "howToItems": [
+        [
+          "✓",
+          "Measure & dilute",
+          "Use the dilution stated on the product label."
+        ],
+        [
+          "✓",
+          "Apply & wipe",
+          "Apply to a clean cloth and wipe the glass."
+        ],
+        [
+          "✓",
+          "Buff dry",
+          "Finish with a dry, lint-free cloth."
+        ]
+      ],
+      "slug": "taski-r3-professional-glass-mirror-cleaner-concentrate-5l-dv1003",
+      "createdAt": "2026-09-07T11:47:04.273Z",
+      "updatedAt": "2026-09-07T11:47:04.273Z"
+    },
+    {
+      "id": "PROD-30",
+      "brand": "diversey",
+      "subBrand": "TASKI",
+      "name": "TASKI R4 Shine-Up",
+      "category": "Industrial",
+      "price": 2600,
+      "originalPrice": 2399,
+      "use": "Ready-to-use furniture maintainer for suitable sealed wooden furnishings. Apply sparingly to a soft cloth, then wipe and buff.",
+      "packaging": "",
+      "sizes": [
+        "5 L"
+      ],
+      "image": "assets/taski/r4-studio.png",
+      "tags": [
+        "taski",
+        "r4",
+        "wooden furniture maintainer",
+        "housekeeping"
+      ],
+      "inStock": true,
+      "bulkDiscounts": [
+        {
+          "minQty": 1,
+          "unitPrice": 2600
+        },
+        {
+          "minQty": 2,
+          "unitPrice": 2520,
+          "savePct": 3.1,
+          "saveAmt": 160
+        },
+        {
+          "minQty": 4,
+          "unitPrice": 2410,
+          "savePct": 7.3,
+          "saveAmt": 760
+        },
+        {
+          "minQty": 8,
+          "unitPrice": 2310,
+          "savePct": 11.2,
+          "saveAmt": 2320
+        }
+      ],
+      "howToItems": [
+        [
+          "✓",
+          "Ready to use",
+          "Shake well. Do not dilute."
+        ],
+        [
+          "✓",
+          "Apply to a cloth",
+          "Use a small amount on a soft cloth, not directly on furniture."
+        ],
+        [
+          "✓",
+          "Wipe & buff",
+          "Wipe suitable sealed wood and buff to a sheen."
+        ]
+      ],
+      "slug": "taski-r4-shine-up-wooden-furniture-polish-maintainer-5l-dv1004",
+      "createdAt": "2026-09-07T11:47:04.273Z",
+      "updatedAt": "2026-09-07T11:47:04.273Z"
+    },
+    {
+      "id": "PROD-31",
+      "brand": "diversey",
+      "subBrand": "TASKI",
+      "name": "TASKI R5",
+      "category": "Industrial",
+      "price": 1850,
+      "originalPrice": 2399,
+      "use": "A ready-to-use, water-based air freshener for guest rooms, offices and shared indoor spaces. Use after cleaning and dealing with the source of unwanted odours.",
+      "packaging": "",
+      "sizes": [
+        "5 L"
+      ],
+      "image": "assets/taski/r5-studio.png",
+      "tags": [
+        "taski",
+        "r5",
+        "room air freshener",
+        "housekeeping"
+      ],
+      "inStock": true,
+      "bulkDiscounts": [
+        {
+          "minQty": 1,
+          "unitPrice": 1850
+        },
+        {
+          "minQty": 2,
+          "unitPrice": 1793,
+          "savePct": 3.1,
+          "saveAmt": 114
+        },
+        {
+          "minQty": 4,
+          "unitPrice": 1718,
+          "savePct": 7.1,
+          "saveAmt": 528
+        },
+        {
+          "minQty": 8,
+          "unitPrice": 1646,
+          "savePct": 11,
+          "saveAmt": 1632
+        }
+      ],
+      "howToItems": [
+        [
+          "✓",
+          "Clean first",
+          "Finish cleaning and remove the source of odours."
+        ],
+        [
+          "✓",
+          "Ready to use",
+          "Use an appropriately labelled trigger bottle. Do not dilute."
+        ],
+        [
+          "✓",
+          "Mist into the air",
+          "Spray upward, away from people, fabrics and furniture."
+        ]
+      ],
+      "slug": "taski-r5-professional-air-freshener-room-deodorizer-5l-dv1005",
+      "createdAt": "2026-09-07T11:47:04.273Z",
+      "updatedAt": "2026-09-07T11:47:04.273Z"
+    },
+    {
+      "id": "PROD-32",
+      "brand": "diversey",
+      "subBrand": "TASKI",
+      "name": "TASKI R6",
+      "category": "Bathroom Care",
+      "price": 1250,
+      "originalPrice": 2399,
+      "use": "Ready-to-use cleaner for toilet bowls and urinals. Apply with a suitable dispensing bottle, allow the label-specified contact time, brush and flush.",
+      "packaging": "",
+      "sizes": [
+        "5 L"
+      ],
+      "image": "assets/taski/r6-studio.png",
+      "tags": [
+        "taski",
+        "r6",
+        "toilet bowl & urinal cleaner",
+        "bathroom"
+      ],
+      "inStock": true,
+      "bulkDiscounts": [
+        {
+          "minQty": 1,
+          "unitPrice": 1250
+        },
+        {
+          "minQty": 2,
+          "unitPrice": 1210,
+          "savePct": 3.2,
+          "saveAmt": 80
+        },
+        {
+          "minQty": 4,
+          "unitPrice": 1160,
+          "savePct": 7.2,
+          "saveAmt": 360
+        },
+        {
+          "minQty": 8,
+          "unitPrice": 1110,
+          "savePct": 11.2,
+          "saveAmt": 1120
+        }
+      ],
+      "howToItems": [
+        [
+          "✓",
+          "Ready to use",
+          "Wet the bowl. Apply using a suitable dispensing bottle."
+        ],
+        [
+          "✓",
+          "Allow & brush",
+          "Follow label contact time, then scrub with a toilet brush."
+        ],
+        [
+          "✓",
+          "Flush thoroughly",
+          "Flush away all cleaner residue."
+        ]
+      ],
+      "slug": "taski-r6-professional-toilet-bowl-urinal-cleaner-5l-dv1006",
+      "createdAt": "2026-09-07T11:47:04.273Z",
+      "updatedAt": "2026-09-07T11:47:04.273Z"
+    },
+    {
+      "id": "PROD-33",
+      "brand": "diversey",
+      "subBrand": "TASKI",
+      "name": "TASKI R7",
+      "category": "Industrial",
+      "price": 910,
+      "originalPrice": 2399,
+      "use": "Concentrated cleaner for routine wet mopping of suitable water-resistant floors. Also suitable for compatible floor-cleaning machines when used according to their instructions.",
+      "packaging": "",
+      "sizes": [
+        "5 L"
+      ],
+      "image": "assets/taski/r7-studio.png",
+      "tags": [
+        "taski",
+        "r7",
+        "floor cleaner concentrate",
+        "housekeeping"
+      ],
+      "inStock": true,
+      "bulkDiscounts": [
+        {
+          "minQty": 1,
+          "unitPrice": 910
+        },
+        {
+          "minQty": 2,
+          "unitPrice": 882,
+          "savePct": 3.1,
+          "saveAmt": 56
+        },
+        {
+          "minQty": 4,
+          "unitPrice": 846,
+          "savePct": 7,
+          "saveAmt": 256
+        },
+        {
+          "minQty": 8,
+          "unitPrice": 810,
+          "savePct": 11,
+          "saveAmt": 800
+        }
+      ],
+      "howToItems": [
+        [
+          "✓",
+          "Measure & dilute",
+          "Follow the pack dilution for the soil level."
+        ],
+        [
+          "✓",
+          "Mop the floor",
+          "Wring the mop and work toward the exit."
+        ],
+        [
+          "✓",
+          "Let it dry",
+          "Keep the area closed until the floor is dry."
+        ]
+      ],
+      "slug": "taski-r7-neutral-floor-cleaner-concentrate-5l-dv1007",
+      "createdAt": "2026-09-07T11:47:04.273Z",
+      "updatedAt": "2026-09-07T11:47:04.273Z"
+    },
+    {
+      "id": "PROD-34",
+      "brand": "diversey",
+      "subBrand": "TASKI",
+      "name": "TASKI R9",
+      "category": "Bathroom Care",
+      "price": 1450,
+      "originalPrice": 2399,
+      "use": "A concentrated bathroom cleaner for hard-water areas, designed to address deposits and routine soiling on compatible bathroom surfaces. Rinse thoroughly after cleaning.",
+      "packaging": "",
+      "sizes": [
+        "5 L"
+      ],
+      "image": "assets/taski/r9-studio.png",
+      "tags": [
+        "taski",
+        "r9",
+        "hard-water bathroom cleaner concentrate",
+        "bathroom"
+      ],
+      "inStock": true,
+      "bulkDiscounts": [
+        {
+          "minQty": 1,
+          "unitPrice": 1450
+        },
+        {
+          "minQty": 2,
+          "unitPrice": 1405,
+          "savePct": 3.1,
+          "saveAmt": 90
+        },
+        {
+          "minQty": 4,
+          "unitPrice": 1340,
+          "savePct": 7.6,
+          "saveAmt": 440
+        },
+        {
+          "minQty": 8,
+          "unitPrice": 1280,
+          "savePct": 11.7,
+          "saveAmt": 1360
+        }
+      ],
+      "howToItems": [
+        [
+          "✓",
+          "Check & dilute",
+          "Avoid acid-sensitive surfaces. Follow label dilution."
+        ],
+        [
+          "✓",
+          "Apply & clean",
+          "Apply with a cloth or sponge to suitable bathroom surfaces."
+        ],
+        [
+          "✓",
+          "Rinse & dry",
+          "Rinse thoroughly and dry the fittings."
+        ]
+      ],
+      "slug": "taski-r9-hard-water-bathroom-cleaner-descaler-conc-5l-dv1016",
+      "createdAt": "2026-09-07T11:47:04.273Z",
+      "updatedAt": "2026-09-07T11:47:04.273Z"
+    }
+  ],
+  "brands": {
+    "fosroc": "Fosroc",
+    "diversey": "Diversey",
+    "godrej": "Godrej",
+    "aditya-birla": "Aditya Birla",
+    "shine-all": "Shine All"
+  },
+  "categories": [
+    "Floor Care",
+    "Bathroom Care",
+    "Kitchen Care",
+    "Laundry Care",
+    "Tile Care",
+    "Concrete Repair",
+    "Waterproofing",
+    "Precision Grouting",
+    "Concrete Admixture",
+    "Surface Care",
+    "Industrial"
+  ],
+  "nextId": 35
+}
