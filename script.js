@@ -49,13 +49,13 @@ window.addEventListener('pageshow', updateHomeShoppingCounts);
 window.addEventListener('clearly-shop-loaded', updateHomeShoppingCounts);
 if (window.ClearlyShop) window.ClearlyShop.load().then(updateHomeShoppingCounts).catch(() => {});
 
-// Keep the second row in sync with the same category cards and links.
+// Use one category row: the continuous version replaces the former fixed row.
 const originalCategories = document.querySelector('#categories');
 if (originalCategories && !document.querySelector('#categories-continuous')) {
   const duplicate = originalCategories.cloneNode(true);
   duplicate.id = 'categories-continuous';
   duplicate.dataset.autoscroll = 'continuous';
-  originalCategories.after(duplicate);
+  originalCategories.replaceWith(duplicate);
 }
 
 document.querySelectorAll('.categories').forEach(section => {
