@@ -2,7 +2,7 @@
   'use strict';
   if(document.querySelector('.site-nav'))return;
   if(/(?:^|\/)index\.html$/.test(location.pathname)||location.pathname.endsWith('/'))document.body.classList.add('site-home');
-  const stylesheet=document.createElement('link');stylesheet.rel='stylesheet';stylesheet.href='site-nav.css?v=cart-accent-2';const menuStyles=document.createElement('link');menuStyles.rel='stylesheet';menuStyles.href='site-nav-menu.css';
+  const stylesheet=document.createElement('link');stylesheet.rel='stylesheet';stylesheet.href='site-nav.css?v=cart-revert-3';const menuStyles=document.createElement('link');menuStyles.rel='stylesheet';menuStyles.href='site-nav-menu.css';
   const signedIn=()=>!!(sessionStorage.getItem('clearly_access_token')||localStorage.getItem('clearly_access_token'));
   let profile={};try{profile=JSON.parse(localStorage.getItem('clearly_profile')||'{}')||{};}catch(error){}
   const categories=[
@@ -19,7 +19,6 @@
   nav.querySelector('.site-logo').innerHTML='Clearly<span>.</span>';
   if(location.pathname.endsWith('/products.html')||location.pathname.endsWith('products.html'))nav.querySelector('.site-search input').id='search';
   const categoryButton=nav.querySelector('#site-categories');
-  const cartAction=nav.querySelector('a[href="cart.html"]');if(cartAction)cartAction.classList.add('site-cart-action');
   categoryButton.querySelector('span').textContent='Categories';
   categoryButton.insertAdjacentHTML('beforebegin','<nav class="site-main-links"><a href="index.html">Home</a><a href="products.html">Shop</a></nav>');
   categoryButton.insertAdjacentHTML('afterend','<nav class="site-main-links site-main-links-after"><a href="index.html#about">About Us</a><a href="index.html#offers">Offers</a></nav>');
