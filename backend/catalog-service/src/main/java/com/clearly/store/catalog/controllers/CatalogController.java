@@ -2,6 +2,7 @@ package com.clearly.store.catalog.controllers;
 
 import com.clearly.store.catalog.services.CatalogService;
 import com.clearly.store.catalog.services.DeliveryEstimateService;
+import com.clearly.store.catalog.services.ProductImageNormalizer;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,6 +20,8 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.server.ResponseStatusException;
+import org.springframework.http.HttpStatus;
 
 @RestController
 @RequestMapping("/api")
@@ -80,8 +83,17 @@ public class CatalogController {
     @PutMapping("/products/{id}") public Object update(@PathVariable String id, @RequestBody Map<String,Object> payload) { return catalogService.saveProduct(payload, id); }
     @Operation(summary = "Upload a product image or document", tags = {"Media Uploads"})
     @PostMapping("/uploads") public Map<String,String> upload(@RequestParam("file") MultipartFile file) throws Exception {
-        String safeName = UUID.randomUUID() + "-" + Path.of(file.getOriginalFilename() == null ? "file" : file.getOriginalFilename()).getFileName();
-        Path dir = Paths.get("uploads"); Files.createDirectories(dir); Files.write(dir.resolve(safeName), file.getBytes());
+        String originalName = Path.of(file.getOriginalFilename() == null ? "file" : file.getOriginalFilename()).getFileName().toString();
+        String contentType = file.getContentType() == null ? "" : file.getContentType().toLowerCase();
+        boolean image = contentType.startsWith("image/");
+        String safeName = image ? UUID.randomUUID() + ".jpg" : UUID.randomUUID() + "-" + originalName;
+        Path dir = Paths.get("uploads"); Files.createDirectories(dir);
+        try {
+            if (image) ProductImageNormalizer.write(file.getBytes(), dir.resolve(safeName));
+            else Files.write(dir.resolve(safeName), file.getBytes());
+        } catch (java.io.IOException error) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Upload a valid PNG, JPG, or WebP image.");
+        }
         return Map.of("url", "uploads/" + safeName, "name", safeName);
     }
     @Operation(summary = "Serve an uploaded image or document", tags = {"Media Uploads"})
