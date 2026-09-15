@@ -3,6 +3,7 @@ package com.clearly.store.catalog.repositories;
 import jakarta.annotation.PostConstruct;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -351,6 +352,7 @@ public class CatalogRepository {
         return new int[]{((Number) row.get("category_id")).intValue(), subcategoryId};
     }
 
+    @Transactional
     public Map<String,Object> saveProduct(Map<String,Object> payload, String id) {
         int brandId = brandId(payload.getOrDefault("brandId", payload.getOrDefault("brand", "")));
         int[] taxonomy = resolveTaxonomy(payload);
@@ -379,6 +381,7 @@ public class CatalogRepository {
                     payload.getOrDefault("description", ""), howTo, measure, payload.getOrDefault("image", ""),
                     payload.get("documentUrl"), payload.getOrDefault("bulkDiscountEnabled", false),
                     payload.getOrDefault("featured", false), payload.getOrDefault("status", "ACTIVE"));
+            if (payload.containsKey("images")) replaceProductImages(productId(code), payload.get("images"));
             return findOne(code);
         }
         String where = id.matches("\\d+") ? "id=?" : "product_code=?";
@@ -390,7 +393,25 @@ public class CatalogRepository {
                 payload.getOrDefault("description", ""), howTo, measure, payload.getOrDefault("image", ""),
                 payload.get("documentUrl"), payload.getOrDefault("bulkDiscountEnabled", false),
                 payload.getOrDefault("featured", false), payload.getOrDefault("status", "ACTIVE"), id);
+        if (payload.containsKey("images")) replaceProductImages(productId(id), payload.get("images"));
         return findOne(id);
+    }
+
+    private void replaceProductImages(int productId, Object value) {
+        if (!(value instanceof List<?> rawImages)) return;
+        Set<String> imageUrls = new java.util.LinkedHashSet<>();
+        for (Object rawImage : rawImages) {
+            if (rawImage == null) continue;
+            String imageUrl = String.valueOf(rawImage).trim();
+            if (!imageUrl.isBlank()) imageUrls.add(imageUrl);
+        }
+        jdbc.update("DELETE FROM product_images WHERE product_id=?", productId);
+        int sortOrder = 0;
+        for (String imageUrl : imageUrls) {
+            jdbc.update("INSERT INTO product_images(product_id,image_url,sort_order,alt_text,is_primary) VALUES(?,?,?,?,?)",
+                    productId, imageUrl, sortOrder, "", sortOrder == 0);
+            sortOrder++;
+        }
     }
 
     public List<Map<String,Object>> images(String id) {
