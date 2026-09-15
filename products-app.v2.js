@@ -480,7 +480,7 @@ if (typeof module !== "undefined" && module.exports) {
     var sizesHtml = "";
     var packages=packageOptions(p),displayPackage=packages.find(function(item){return item.isDefault;})||packages[0]||p;
     if (packages.length) {
-      sizesHtml = "<div class='sizes' role='group' aria-label='Choose package size'>" + packages.map(function (pkg) { return "<button type='button' class='size-option' data-size='" + escapeAttr(pkg.label) + "' data-price='"+Number(pkg.price||0)+"' data-mrp='"+Number(pkg.originalPrice||pkg.price||0)+"' data-package-code='"+escapeAttr(pkg.packageCode||"")+"' aria-pressed='false'>" + escapeHtml(pkg.label) + "</button>"; }).join("") + "</div><small class='size-prompt' aria-live='polite'>Select a package size</small>";
+      sizesHtml = "<div class='sizes'><select class='package-select' data-package-select aria-label='Choose package size'><option value=''>Select package size</option>" + packages.map(function (pkg,index) { return "<option value='"+index+"' data-size='" + escapeAttr(pkg.label) + "' data-price='"+Number(pkg.price||0)+"' data-mrp='"+Number(pkg.originalPrice||pkg.price||0)+"' data-package-code='"+escapeAttr(pkg.packageCode||"")+"'>" + escapeHtml(pkg.label) + "</option>"; }).join("") + "</select></div><small class='size-prompt' aria-live='polite'>Select a package size</small>";
     }
     return "<article class='product-card' data-id='" + p.id + "'>" +
       (p.image
@@ -583,17 +583,26 @@ if (typeof module !== "undefined" && module.exports) {
   }
 
   // click delegation
+  function handlePackageChange(e) {
+    var select=e.target.closest('select[data-package-select]');
+    if(!select)return;
+    var cardForSize=select.closest('.product-card'),selected=select.options[select.selectedIndex],prompt=cardForSize.querySelector('.size-prompt');
+    if(!select.value){if(prompt)prompt.textContent='Select a package size';return;}
+    cardForSize.classList.remove('needs-size');if(prompt)prompt.textContent='Selected: '+selected.dataset.size;
+    var priceBox=cardForSize.querySelector('.product-price'),price=Number(selected.dataset.price||0),mrp=Number(selected.dataset.mrp||price);
+    priceBox.innerHTML=(mrp>price?"<span class='old'>₹"+mrp.toLocaleString('en-IN')+"</span>":"")+"<span class='now'>₹"+price.toLocaleString('en-IN')+"</span>";
+  }
   function handleProductClick(e) {
-    var sizeButton=e.target.closest("button[data-size]");
-    if(sizeButton){e.preventDefault();var sizeGroup=sizeButton.closest('.sizes');sizeGroup.querySelectorAll('[data-size]').forEach(function(x){var on=x===sizeButton;x.classList.toggle('selected',on);x.setAttribute('aria-pressed',String(on));});var cardForSize=sizeButton.closest('.product-card');cardForSize.classList.remove('needs-size');var prompt=cardForSize.querySelector('.size-prompt');if(prompt)prompt.textContent='Selected: '+sizeButton.dataset.size;var priceBox=cardForSize.querySelector('.product-price'),price=Number(sizeButton.dataset.price||0),mrp=Number(sizeButton.dataset.mrp||price);priceBox.innerHTML=(mrp>price?"<span class='old'>₹"+mrp.toLocaleString('en-IN')+"</span>":"")+"<span class='now'>₹"+price.toLocaleString('en-IN')+"</span>";return;}
+    if(e.target.closest('select[data-package-select]'))return;
     var btn = e.target.closest("button[data-cart]");
-    if (btn) { e.preventDefault();var cardForCart=btn.closest('.product-card'),selected=cardForCart.querySelector('[data-size].selected');if(!selected){cardForCart.classList.add('needs-size');var prompt=cardForCart.querySelector('.size-prompt');if(prompt)prompt.textContent='Please select a package size first';setTimeout(function(){cardForCart.classList.remove('needs-size');},1400);return;}addToCart(btn.getAttribute("data-cart"),selected.dataset.size);btn.textContent='Added ✓';setTimeout(function(){btn.textContent='Add to bag';},1100);return; }
+    if (btn) { e.preventDefault();var cardForCart=btn.closest('.product-card'),select=cardForCart.querySelector('select[data-package-select]'),selected=select&&select.options[select.selectedIndex];if(!select||!select.value){cardForCart.classList.add('needs-size');var prompt=cardForCart.querySelector('.size-prompt');if(prompt)prompt.textContent='Please select a package size first';setTimeout(function(){cardForCart.classList.remove('needs-size');},1400);return;}addToCart(btn.getAttribute("data-cart"),selected.dataset.size);btn.textContent='Added ✓';setTimeout(function(){btn.textContent='Add to bag';},1100);return; }
     var wish = e.target.closest("button[data-wish]");
     if (wish) { e.preventDefault(); toggleSaved(wish.getAttribute("data-wish")); return; }
     var card = e.target.closest(".product-card");
     if (card && !e.target.closest('a')) { location.href = "product.html?id=" + encodeURIComponent(card.getAttribute("data-id")); }
   }
   gridEl.addEventListener('click',handleProductClick);
+  gridEl.addEventListener('change',handlePackageChange);
 
   function apply() { history.replaceState({},'',url); renderOptions(); renderGrid(); }
   function restoreLocation() { url=new URL(location.href); renderOptions(); renderGrid(); }
