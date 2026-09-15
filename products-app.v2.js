@@ -268,8 +268,9 @@ if (typeof module !== "undefined" && module.exports) {
   function renderCart() {
     var items = [];
     for (var key in cart) { items.push({ key:key, part:cartPart(key), qty: cart[key] }); }
-    bagCountEl.textContent = cartCount();
-    bagEl.classList.toggle("has-items", cartCount() > 0);
+    if (bagCountEl) bagCountEl.textContent = cartCount();
+    if (bagEl) bagEl.classList.toggle("has-items", cartCount() > 0);
+    if (!cartSummaryEl || !cartItemsEl || !cartTotalEl) return;
     if (items.length === 0) { cartSummaryEl.hidden = true; return; }
     cartSummaryEl.hidden = false;
     var html = "";
