@@ -433,7 +433,7 @@ if (typeof module !== "undefined" && module.exports) {
     if (selectedBrands.length === 1) {
       var selectedBrand = selectedBrands[0];
       var bl = BRANDS[selectedBrand] || selectedBrand;
-      var logoPath = "assets/brands/" + selectedBrand + (selectedBrand === "shine-all" ? ".svg" : ".png");
+      var logoPath = selectedBrand === "shine-all" ? "assets/shine-all-products/ShineAll Home Care Logo.png" : "assets/brands/" + selectedBrand + ".png";
       brandMarkEl.innerHTML = "<img src='" + logoPath + "' alt='" + escapeAttr(bl) + "' />";
       brandMarkEl.href = "products.html#" + selectedBrand;
       breadcrumbEl.innerHTML = "<span class='crumb'><a href='products.html'>All products</a></span><span class='sep'>/</span><span class='crumb'>" + escapeHtml(bl) + "</span>";
