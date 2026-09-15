@@ -107,23 +107,23 @@ FROM products p JOIN brands b ON b.id=p.brand_id
 WHERE b.slug='shine-all' AND p.product_code IN ('PROD-21','PROD-22','PROD-23','PROD-24','PROD-25','PROD-26','SHA-KC-410','SHA-RC-411');
 
 INSERT INTO product_packages(product_id,label,quantity,unit_id,package_type,package_code,price,original_price,stock_quantity,is_default,enabled,sort_order)
-SELECT p.id,'Small · 17 × 19 in · 30 pcs',30,6,'Roll',CONCAT(p.product_code,'-SMALL'),99,129,100,FALSE,TRUE,0
+SELECT p.id,'17 x 19 (30 pcs per roll)',30,6,'Roll',CONCAT(p.product_code,'-SMALL'),99,129,100,FALSE,TRUE,0
 FROM products p WHERE p.product_code='SHA-ACC-407';
 
 INSERT INTO product_packages(product_id,label,quantity,unit_id,package_type,package_code,price,original_price,stock_quantity,is_default,enabled,sort_order)
-SELECT p.id,'Medium · 19 × 21 in · 30 pcs',30,6,'Roll',CONCAT(p.product_code,'-MEDIUM'),119,149,100,FALSE,TRUE,1
+SELECT p.id,'19 x 21 (30 pcs per roll)',30,6,'Roll',CONCAT(p.product_code,'-MEDIUM'),119,149,100,FALSE,TRUE,1
 FROM products p WHERE p.product_code='SHA-ACC-407';
 
 INSERT INTO product_packages(product_id,label,quantity,unit_id,package_type,package_code,price,original_price,stock_quantity,is_default,enabled,sort_order)
-SELECT p.id,'Large · 24 × 32 in · 15 pcs',15,6,'Roll',CONCAT(p.product_code,'-LARGE'),129,159,100,FALSE,TRUE,2
+SELECT p.id,'24 x 32 (15 pcs per roll)',15,6,'Roll',CONCAT(p.product_code,'-LARGE'),129,159,100,FALSE,TRUE,2
 FROM products p WHERE p.product_code='SHA-ACC-407';
 
 INSERT INTO product_packages(product_id,label,quantity,unit_id,package_type,package_code,price,original_price,stock_quantity,is_default,enabled,sort_order)
-SELECT p.id,'Extra Large · 30 × 37 in · 15 pcs',15,6,'Roll',CONCAT(p.product_code,'-XL'),159,199,100,FALSE,TRUE,3
+SELECT p.id,'30 x 37 (15 pcs per roll)',15,6,'Roll',CONCAT(p.product_code,'-XL'),159,199,100,FALSE,TRUE,3
 FROM products p WHERE p.product_code='SHA-ACC-407';
 
 INSERT INTO product_packages(product_id,label,quantity,unit_id,package_type,package_code,price,original_price,stock_quantity,is_default,enabled,sort_order)
-SELECT p.id,'Jumbo · 30 × 45 in · 10 pcs',10,6,'Roll',CONCAT(p.product_code,'-JUMBO'),179,229,100,FALSE,TRUE,4
+SELECT p.id,'30 x 45 (10 pcs per roll)',10,6,'Roll',CONCAT(p.product_code,'-JUMBO'),179,229,100,FALSE,TRUE,4
 FROM products p WHERE p.product_code='SHA-ACC-407';
 
 INSERT INTO product_packages(product_id,label,quantity,unit_id,package_type,package_code,price,original_price,stock_quantity,is_default,enabled,sort_order)
