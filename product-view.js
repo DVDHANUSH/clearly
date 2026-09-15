@@ -116,17 +116,14 @@
   if(p.images && p.images.length) images=p.images.filter(function(src,index,list){return src&&list.indexOf(src)===index;});
   if(p.brand==='diversey') images.push('assets/usage-icons/pack-mixing.png');
   main.src=images[0];
-  var progress=document.getElementById('gallery-progress');
+  var progress=document.getElementById('gallery-progress');if(progress)progress.hidden=true;
   var visibleThumbnailCount=Math.min(images.length,5);
   images.slice(0,visibleThumbnailCount).forEach(function(src,i){var b=document.createElement('button');b.className='gallery-thumb'+(i===0?' active':'');b.dataset.galleryIndex=i;b.innerHTML='<img src="'+src+'" alt="Product image '+(i+1)+'">';b.setAttribute('aria-label',p.galleryAlts?.[i]||p.name+' image '+(i+1));b.onclick=function(){show(i);};thumbs.appendChild(b);});
   if(images.length>visibleThumbnailCount){var more=document.createElement('button');more.className='gallery-thumb gallery-more';more.dataset.galleryMore='true';more.textContent='+'+(images.length-visibleThumbnailCount);more.setAttribute('aria-label','View '+(images.length-visibleThumbnailCount)+' more product images');more.onclick=function(){show(visibleThumbnailCount);};thumbs.appendChild(more);}
   function restartProgress(){if(!progress)return;progress.classList.remove('is-running');void progress.offsetWidth;progress.classList.add('is-running');}
   function show(i){var direction=i<current?'carousel-prev':'carousel-next';current=(i+images.length)%images.length;main.classList.remove('carousel-next','carousel-prev');void main.offsetWidth;main.classList.add(direction);main.src=images[current];Array.from(thumbs.children).forEach(function(x){var index=Number(x.dataset.galleryIndex);x.classList.toggle('active',x.dataset.galleryMore==='true'?current>=visibleThumbnailCount:index===current);});restartProgress();}
   document.getElementById('prev-image').onclick=function(){show(current-1);}; document.getElementById('next-image').onclick=function(){show(current+1);};
-  var gallery=document.querySelector('.detail-gallery'),autoCarousel=null;
-  function stopAutoCarousel(){if(autoCarousel){clearInterval(autoCarousel);autoCarousel=null;}progress.classList.remove('is-running');}
-  function startAutoCarousel(){if(images.length<2||document.hidden||autoCarousel)return;restartProgress();autoCarousel=setInterval(function(){show(current+1);},7000);}
-  document.addEventListener('visibilitychange',function(){if(document.hidden)stopAutoCarousel();else startAutoCarousel();});startAutoCarousel();
+  // Carousel movement is intentionally manual: customers use the arrows or thumbnails.
   Array.from(sizeBox.children).forEach(function(el){el.onkeydown=function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();el.click();}};});
   if(sizeBox.children.length===1)sizeBox.children[0].click();
   function readCart(){try{var c=JSON.parse(sessionStorage.getItem('clearly_cart')||'{}');return c&&typeof c==='object'&&!Array.isArray(c)?c:{};}catch(e){return {};}}
