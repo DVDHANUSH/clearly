@@ -2,7 +2,7 @@
   var id=new URLSearchParams(location.search).get('id'), fallback=(typeof PRODUCTS!=='undefined'&&PRODUCTS.find(function(x){return x.id===id}))||PRODUCTS[0];
   function normalize(api, original){
     var p=Object.assign({},original||{},api||{});
-    p.id=api.product_code||String(api.id||((original||{}).id||''));
+    p.id=api.product_code||api.productCode||String(api.id||((original||{}).id||''));
     p.brand=api.brand_slug||api.brand||(original||{}).brand;
     p.category=api.category||(original||{}).category;
     p.image=api.image||api.image_url||(original||{}).image;
@@ -73,6 +73,17 @@
   function updatePrice(){var price=Number(selectedPackage.price||0),mrp=Number(selectedPackage.originalPrice||price);document.getElementById('price').textContent='₹'+price.toLocaleString('en-IN');document.getElementById('original-price').textContent=mrp>price?'₹'+mrp.toLocaleString('en-IN'):'';document.getElementById('discount').textContent=mrp>price?Math.round((1-price/mrp)*100)+'% OFF':'';}
   updatePrice();
   var sizeBox=document.getElementById('sizes'); sizeBox.innerHTML=packages.map(function(pkg){return '<span tabindex="0" role="button" data-package-code="'+(pkg.packageCode||'')+'">'+pkg.label+'</span>';}).join('');
+  var floorCleanerFragrances={
+    'PROD-21':{label:'Lavender'},
+    'PROD-24':{label:'Lemon'},
+    'PROD-25':{label:'Rose'}
+  };
+  if(floorCleanerFragrances[p.id]){
+    var fragranceBlock=document.createElement('div');fragranceBlock.className='detail-block fragrance-block';
+    fragranceBlock.innerHTML='<h3>Choose fragrance</h3><div class="fragrance-options" role="group" aria-label="Choose fragrance">'+Object.keys(floorCleanerFragrances).map(function(code){var fragrance=floorCleanerFragrances[code];return '<button type="button" class="fragrance-option'+(code===p.id?' selected':'')+'" data-fragrance-product="'+code+'" aria-pressed="'+(code===p.id)+'">'+fragrance.label+'</button>';}).join('')+'</div>';
+    var sizeBlock=sizeBox.closest('.detail-block');sizeBlock.parentNode.insertBefore(fragranceBlock,sizeBlock);
+    fragranceBlock.addEventListener('click',function(event){var choice=event.target.closest('[data-fragrance-product]');if(!choice||choice.dataset.fragranceProduct===p.id)return;location.href='product.html?id='+encodeURIComponent(choice.dataset.fragranceProduct);});
+  }
   var bulkQty=1, bulkDiscounts=[0,3.5,7,10.5], bulkPack=selectedPackage.label;
   var bulkSection=document.getElementById('bulk-section');
   if(p.brand!=='diversey'){bulkSection.hidden=true;} else {document.getElementById('bulk-discounts').innerHTML='<table class="bulk-table"><thead><tr><th class="bulk-check-col"></th><th>Quantity</th><th>Savings</th><th>Price per unit</th></tr></thead><tbody>'+[1,2,4,8].map(function(q,i){var unit=Math.round(p.price*(1-bulkDiscounts[i]/100));var saving=Math.round(p.price*q-unit*q);return '<tr data-bulk-qty="'+q+'" class="'+(q===1?'selected':'')+'"><td class="bulk-check-cell"><span>✓</span></td><td><b>'+q+' × '+bulkPack+'</b></td><td>'+(i?'Save '+bulkDiscounts[i]+'%':'-')+(i?'<small>₹'+saving.toLocaleString('en-IN')+'</small>':'')+'</td><td><strong>₹'+unit.toLocaleString('en-IN')+'</strong></td></tr>';}).join('')+'</tbody></table>';}
