@@ -1,5 +1,5 @@
 (function(){
-  var id=new URLSearchParams(location.search).get('id'), fallback=(typeof PRODUCTS!=='undefined'&&PRODUCTS.find(function(x){return x.id===id}))||PRODUCTS[0], catalogApi=(location.protocol==='file:'||location.port==='4173')?'http://localhost:8081/api':'/api';
+  var id=new URLSearchParams(location.search).get('id'), fallback=(typeof PRODUCTS!=='undefined'&&PRODUCTS.find(function(x){return x.id===id}))||PRODUCTS[0], selectedProduct=fallback, catalogApi=(location.protocol==='file:'||location.port==='4173')?'http://localhost:8080/api':'/api';
   function normalize(api, original){
     var p=Object.assign({},original||{},api||{});
     p.id=api.product_code||api.productCode||String(api.id||((original||{}).id||''));
@@ -154,5 +154,5 @@
   deliveryForm.onsubmit=function(event){event.preventDefault();checkDelivery(deliveryInput.value.trim());};
   var sharedPin=new URLSearchParams(location.search).get('pincode');if(sharedPin){deliveryInput.value=sharedPin.replace(/\D/g,'').slice(0,6);if(deliveryInput.value.length===6)checkDelivery(deliveryInput.value);}
   }
-  Promise.resolve(window.ClearlyCatalogReady).then(function(){var current=PRODUCTS.find(function(x){return String(x.id)===id||String(x.productRef)===id||String(x.databaseId)===id;})||fallback, productId=id||current.productRef||current.id;return fetch(catalogApi+'/products/'+encodeURIComponent(productId),{cache:'no-store'}).then(function(response){if(!response.ok)throw new Error('Product details unavailable');return response.json();}).then(function(product){renderProduct(normalize(product,current));});}).catch(function(){renderProduct(normalize(fallback,fallback));});
+  Promise.resolve(window.ClearlyCatalogReady).then(function(){selectedProduct=PRODUCTS.find(function(x){return String(x.id)===id||String(x.productRef)===id||String(x.databaseId)===id;})||fallback;var productId=id||selectedProduct.productRef||selectedProduct.id;return fetch(catalogApi+'/products/'+encodeURIComponent(productId),{cache:'no-store'}).then(function(response){if(!response.ok)throw new Error('Product details unavailable');return response.json();}).then(function(product){renderProduct(normalize(product,selectedProduct));});}).catch(function(){renderProduct(normalize(selectedProduct,selectedProduct));});
 })();
