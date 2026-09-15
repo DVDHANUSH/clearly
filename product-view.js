@@ -6,7 +6,7 @@
     p.brand=api.brand_slug||api.brand||(original||{}).brand;
     p.category=api.category||(original||{}).category;
     p.image=api.image||api.image_url||(original||{}).image;
-    p.images=api.images&&api.images.length?api.images:(original||{}).images;
+    p.images=api.images&&api.images.length?api.images.map(function(image){return typeof image==='string'?image:(image.imageUrl||image.image||'');}).filter(Boolean):(original||{}).images;
     p.packages=(api.packages||[]).filter(function(item){return item.enabled!==false;}).map(function(item){return Object.assign({},item,{price:Number(item.price||0),originalPrice:Number(item.originalPrice||item.price||0)});});
     var defaultPackage=p.packages.find(function(item){return item.isDefault;})||p.packages[0];
     p.price=defaultPackage?defaultPackage.price:Number(api.price||p.price||0);

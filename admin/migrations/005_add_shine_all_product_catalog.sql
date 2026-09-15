@@ -131,4 +131,56 @@ SELECT p.id,'1 unit',1,6,'Unit',CONCAT(p.product_code,'-UNIT'),p.price,p.origina
 FROM products p JOIN brands b ON b.id=p.brand_id
 WHERE b.slug='shine-all' AND p.product_code IN ('SHA-ACC-408','SHA-ACC-409');
 
+-- Use the supplied, distinct images in each Shine All product carousel.
+DELETE pi FROM product_images pi JOIN products p ON p.id=pi.product_id JOIN brands b ON b.id=p.brand_id WHERE b.slug='shine-all';
+
+INSERT INTO product_images(product_id,image_url,sort_order,alt_text,is_primary)
+SELECT p.id,g.image_url,g.sort_order,CONCAT(p.name,' image ',g.sort_order+1),g.sort_order=0
+FROM products p JOIN (
+  SELECT 'PROD-21' code,0 sort_order,'assets/shine-all-products/floor-cleaner-lavender/ShineAll Lavender Floor Cleaner Jug.png' image_url UNION ALL
+  SELECT 'PROD-21',1,'assets/shine-all-products/floor-cleaner-lavender/ShineAll Lavender Floor Cleaner.png' UNION ALL
+  SELECT 'PROD-21',2,'assets/shine-all-products/floor-cleaner-lavender/ShineAll Lavender Floor Cleaner(1).png' UNION ALL
+  SELECT 'PROD-21',3,'assets/shine-all-products/floor-cleaner-lavender/Powerful Cleaning, Brighter Floors.png' UNION ALL
+  SELECT 'PROD-21',4,'assets/shine-all-products/floor-cleaner-lavender/ShineAll Lavender Floor Care Ad.png' UNION ALL
+  SELECT 'PROD-22',0,'assets/shine-all-products/toilet-cleaner/ShineAll Marine Fresh Toilet Cleaner Ad.png' UNION ALL
+  SELECT 'PROD-22',1,'assets/shine-all-products/toilet-cleaner/ShineAll Easy Toilet Cleaning Guide.png' UNION ALL
+  SELECT 'PROD-22',2,'assets/shine-all-products/toilet-cleaner/ShineAll Powerful Cleaning Toilet Ad.png' UNION ALL
+  SELECT 'PROD-22',3,'assets/shine-all-products/toilet-cleaner/ShineAll Safe & Effective Toilet Cleaner Ad.png' UNION ALL
+  SELECT 'PROD-22',4,'assets/shine-all-products/toilet-cleaner/Long-Lasting Marine Freshness.png' UNION ALL
+  SELECT 'PROD-23',0,'assets/shine-all-products/Multipurpose-cleaner-liquid/ShineAll Multipurpose Cleaner Poster(1).png' UNION ALL
+  SELECT 'PROD-24',0,'assets/shine-all-products/floor-cleaner-lemon/ShineAll Lemon Fresh Floor Cleaner(2).png' UNION ALL
+  SELECT 'PROD-24',1,'assets/shine-all-products/floor-cleaner-lemon/ShineAll Lemon Fresh Floor Cleaner Ad.png' UNION ALL
+  SELECT 'PROD-24',2,'assets/shine-all-products/floor-cleaner-lemon/ShineAll Lemon Fresh Cleaning Guide.png' UNION ALL
+  SELECT 'PROD-24',3,'assets/shine-all-products/floor-cleaner-lemon/Lemon Freshness for Brighter Floors.png' UNION ALL
+  SELECT 'PROD-25',0,'assets/shine-all-products/floor-cleaner-rose/ShineAll Rose Freshness Floor Cleaner.png' UNION ALL
+  SELECT 'PROD-25',1,'assets/shine-all-products/floor-cleaner-rose/ShineAll Rose Freshness Floor Cleaner(1).png' UNION ALL
+  SELECT 'PROD-25',2,'assets/shine-all-products/floor-cleaner-rose/ShineAll Rose Floor Cleaner Poster.png' UNION ALL
+  SELECT 'PROD-25',3,'assets/shine-all-products/floor-cleaner-rose/ShineAll Rose Floor Cleaner Guide.png' UNION ALL
+  SELECT 'PROD-25',4,'assets/shine-all-products/floor-cleaner-rose/Long-Lasting Rose Freshness.png' UNION ALL
+  SELECT 'PROD-26',0,'assets/shine-all-products/air-freshners/Lemon Freshness for Happier Moments.png' UNION ALL
+  SELECT 'PROD-26',1,'assets/shine-all-products/air-freshners/Easy-to-Use Fine Mist Sprayer.png' UNION ALL
+  SELECT 'PROD-26',2,'assets/shine-all-products/air-freshners/Shine Air Fresheners_ Fragrance for Every Mood.png' UNION ALL
+  SELECT 'PROD-26',3,'assets/shine-all-products/air-freshners/Shine Home Care Freshness Collection.png' UNION ALL
+  SELECT 'PROD-26',4,'assets/shine-all-products/air-freshners/Shine Lemon Air Freshener Size Guide.png' UNION ALL
+  SELECT 'SHA-ACC-407',0,'assets/shine-all-products/garbage-bags/ShineAll Eco Garbage Bag Rolls.png' UNION ALL
+  SELECT 'SHA-ACC-407',1,'assets/shine-all-products/garbage-bags/ShineAll Garbage Bags for Every Space.png' UNION ALL
+  SELECT 'SHA-ACC-407',2,'assets/shine-all-products/garbage-bags/ShineAll Garbage Bags_ Cleaner Tomorrow.png' UNION ALL
+  SELECT 'SHA-ACC-407',3,'assets/shine-all-products/garbage-bags/ShineAll Strong & Reliable Garbage Bags.png' UNION ALL
+  SELECT 'SHA-ACC-407',4,'assets/shine-all-products/garbage-bags/Strong Bags for Tough Jobs.png' UNION ALL
+  SELECT 'SHA-ACC-408',0,'assets/shine-all-products/mop-sticks/ShineAll Mop Stick for Brighter Homes.png' UNION ALL
+  SELECT 'SHA-ACC-408',1,'assets/shine-all-products/mop-sticks/ShineAll Absorbent Mop Head.png' UNION ALL
+  SELECT 'SHA-ACC-408',2,'assets/shine-all-products/mop-sticks/ShineAll Mop Stick_ Cleaner Homes.png' UNION ALL
+  SELECT 'SHA-ACC-408',3,'assets/shine-all-products/mop-sticks/Strong & Durable Mop Handle.png' UNION ALL
+  SELECT 'SHA-ACC-408',4,'assets/shine-all-products/mop-sticks/Ideal for Multiple Surfaces.png' UNION ALL
+  SELECT 'SHA-ACC-409',0,'assets/shine-all-products/srubbers-green-all-purpose/ShineAll Durable Scrub Pad Power.png' UNION ALL
+  SELECT 'SHA-ACC-409',1,'assets/shine-all-products/srubbers-green-all-purpose/ShineAll Scrub Pad_ Cleaner Homes.png' UNION ALL
+  SELECT 'SHA-ACC-409',2,'assets/shine-all-products/srubbers-green-all-purpose/ShineAll Scrub Pad_ Tough Stains, No Problem.png' UNION ALL
+  SELECT 'SHA-ACC-409',3,'assets/shine-all-products/srubbers-green-all-purpose/ShineAll Scrub Pads_ Powerful Everyday Cleaning.png' UNION ALL
+  SELECT 'SHA-ACC-409',4,'assets/shine-all-products/srubbers-green-all-purpose/ShineAll_ One Pad, Many Uses.png' UNION ALL
+  SELECT 'SHA-KC-410',0,'assets/shine-all-products/soap-oil/ShineAll Soap Oil Cleaner Advertisement.png' UNION ALL
+  SELECT 'SHA-KC-410',1,'assets/shine-all-products/soap-oil/ShineAll Powerful Cleaning Ad.png' UNION ALL
+  SELECT 'SHA-KC-410',2,'assets/shine-all-products/soap-oil/ShineAll Multi-Surface Cleaning Banner.png' UNION ALL
+  SELECT 'SHA-RC-411',0,'assets/shine-all-products/restaurant-utensil-cleaning-liquid/ShineAll Restaurant Utensil Cleaner Ad.png'
+) g ON g.code=p.product_code;
+
 COMMIT;
