@@ -129,6 +129,7 @@ public class CatalogRepository {
         for (Map<String,Object> product : products) {
             List<Map<String,Object>> packageRows = packages(String.valueOf(product.get("id")));
             product.put("packages", packageRows);
+            product.put("bulkDiscounts", discounts(String.valueOf(product.get("id"))));
             product.put("sizes", packageRows.stream().filter(row -> Boolean.TRUE.equals(row.get("enabled"))).map(row -> row.get("label")).toList());
             packageRows.stream().filter(row -> Boolean.TRUE.equals(row.get("isDefault"))).findFirst().or(() -> packageRows.stream().findFirst()).ifPresent(row -> {
                 product.put("price", row.get("price"));
