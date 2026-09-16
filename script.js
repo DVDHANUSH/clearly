@@ -49,7 +49,8 @@ window.addEventListener('pageshow', updateHomeShoppingCounts);
 window.addEventListener('clearly-shop-loaded', updateHomeShoppingCounts);
 if (window.ClearlyShop) window.ClearlyShop.load().then(updateHomeShoppingCounts).catch(() => {});
 
-// Use one category row: the continuous version replaces the former fixed row.
+// The home category cards must follow the same live catalog as the admin drawer.
+// Keep the written card copy as a fallback, but replace it as soon as the API is available.
 const originalCategories = document.querySelector('#categories');
 if (originalCategories && !document.querySelector('#categories-continuous')) {
   const duplicate = originalCategories.cloneNode(true);
@@ -58,7 +59,35 @@ if (originalCategories && !document.querySelector('#categories-continuous')) {
   originalCategories.replaceWith(duplicate);
 }
 
-document.querySelectorAll('.categories').forEach(section => {
+const categoryCarouselReady = (() => {
+  const section = document.querySelector('#categories-continuous');
+  const track = section?.querySelector('.category-grid');
+  if (!track) return Promise.resolve();
+  const api = (location.protocol === 'file:' || location.port === '4173')
+    ? 'http://localhost:8080/api/categories' : '/api/categories';
+  const existing = new Map([...track.children].map(card => [new URL(card.href, location.href).searchParams.get('category'), card]));
+  const copy = value => String(value == null ? '' : value).replace(/[&<>"']/g, char => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char]));
+  const cardFor = category => {
+    const saved = existing.get(category.slug);
+    if (saved) return saved.cloneNode(true);
+    const card = document.createElement('a');
+    card.className = 'cat purple';
+    card.href = `./category.html?category=${encodeURIComponent(category.slug)}`;
+    card.setAttribute('aria-label', `Open ${category.name} collection`);
+    card.innerHTML = `<div><h3>${copy(category.name)}</h3><p>Explore our<br />collection.</p></div><img class="category-scene" src="${copy(category.imageUrl || 'assets/categories/floor-care-living-hall.png')}" alt=""><span class="cat-arrow" aria-hidden="true">→</span>`;
+    return card;
+  };
+  return fetch(api, {cache: 'no-store'}).then(response => {
+    if (!response.ok) throw new Error('Categories unavailable');
+    return response.json();
+  }).then(rows => {
+    const categories = (rows || []).filter(category => category.enabled !== false)
+      .sort((a, b) => Number(a.sortOrder || 0) - Number(b.sortOrder || 0) || String(a.name).localeCompare(String(b.name)));
+    track.replaceChildren(...categories.map(cardFor));
+  }).catch(() => {});
+})();
+
+function initialiseCategoryCarousels() { document.querySelectorAll('.categories').forEach(section => {
   const viewport = section.querySelector('.category-viewport');
   const track = section.querySelector('.category-grid');
   if (!viewport || !track) return;
@@ -193,4 +222,5 @@ document.querySelectorAll('.categories').forEach(section => {
   track.style.transition = 'none';
   render(0);
   schedule();
-});
+}); }
+categoryCarouselReady.then(initialiseCategoryCarousels);
