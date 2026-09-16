@@ -6,6 +6,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -540,7 +541,7 @@ public class CatalogRepository {
 
     public Map<String,Object> addPackageDiscount(Integer packageId, Map<String,Object> payload) {
         BigDecimal packagePrice = jdbc.queryForObject("SELECT price FROM product_packages WHERE id=?", BigDecimal.class, packageId);
-        BigDecimal discount = new BigDecimal(String.valueOf(payload.getOrDefault("discountPercent", "0")));
+        BigDecimal discount = wholeDiscount(payload.getOrDefault("discountPercent", "0"));
         Object unitPrice = payload.get("unitPrice");
         if (unitPrice == null) unitPrice = packagePrice.multiply(BigDecimal.ONE.subtract(discount.movePointLeft(2)));
         int minimumQuantity = positiveInteger(payload.getOrDefault("minQuantity", 1), "minQuantity");
@@ -554,11 +555,12 @@ public class CatalogRepository {
 
     public Map<String,Object> updateDiscount(Integer id, Map<String,Object> payload) {
         Object minimumQuantity = payload.get("minQuantity") == null ? null : positiveInteger(payload.get("minQuantity"), "minQuantity");
+        Object discount = payload.get("discountPercent") == null ? null : wholeDiscount(payload.get("discountPercent"));
         jdbc.update("""
             UPDATE bulk_discounts SET min_quantity=COALESCE(?,min_quantity),
             discount_percent=COALESCE(?,discount_percent),unit_price=COALESCE(?,unit_price),
             enabled=COALESCE(?,enabled) WHERE id=?
-            """, minimumQuantity, payload.get("discountPercent"),
+            """, minimumQuantity, discount,
                 payload.get("unitPrice"), payload.get("enabled"), id);
         return jdbc.queryForMap("SELECT * FROM bulk_discounts WHERE id=?", id);
     }
@@ -578,6 +580,11 @@ public class CatalogRepository {
         } catch (Exception error) {
             throw new IllegalArgumentException(field + " must be a positive whole number");
         }
+    }
+
+    private static BigDecimal wholeDiscount(Object value) {
+        return new BigDecimal(String.valueOf(value)).setScale(0, RoundingMode.HALF_UP)
+                .max(BigDecimal.ZERO).min(BigDecimal.valueOf(100));
     }
 
     public List<Map<String,Object>> documents(String id) {
