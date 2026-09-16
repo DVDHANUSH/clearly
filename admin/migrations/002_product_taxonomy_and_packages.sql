@@ -22,15 +22,11 @@ CREATE TABLE categories (
 
 INSERT INTO categories(name,slug,sort_order) VALUES
   ('Home Care & Cleaning','home-care-cleaning',10),
-  ('Commercial Cleaning','commercial-cleaning',20),
   ('Restaurant & Food Service','restaurant-food-service',30),
   ('Hotel & Hospitality','hotel-hospitality',40),
   ('Healthcare & Institutions','healthcare-institutions',50),
-  ('Industrial Cleaning','industrial-cleaning',60),
   ('Laundry Chemicals','laundry-chemicals',70),
   ('Swimming Pool Chemicals','swimming-pool-chemicals',80),
-  ('Automotive Cleaning','automotive-cleaning',90),
-  ('Hand & Hygiene','hand-hygiene',100),
   ('Specialty Chemicals','specialty-chemicals',110),
   ('Construction Chemicals','construction-chemicals',120);
 
