@@ -5,6 +5,16 @@
   var $$=function(s){return Array.from(document.querySelectorAll(s));};
   var esc=function(v){return String(v==null?'':v).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});};
   var format=function(n){return '₹'+Number(n||0).toLocaleString('en-IN');};
+  var categoryDefaultImages={
+    'home-care-cleaning':'../assets/categories/floor-care-living-hall.png',
+    'restaurant-food-service':'../assets/categories/restaurant-food-service.png',
+    'healthcare-institutions':'../assets/categories/healthcare-institutions.png',
+    'laundry-chemicals':'../assets/categories/laundry-chemicals.png',
+    'swimming-pool-chemicals':'../assets/categories/swimming-pool-chemicals.png',
+    'hotel-hospitality':'../assets/categories/hotel-hospitality.png',
+    'specialty-chemicals':'../assets/categories/specialty-chemicals.png',
+    'construction-chemicals':'../assets/categories/construction-chemicals.png'
+  };
   var schema={
     products:['id','product_code','hsn_code','brand_id','category_id','subcategory_id','name','price','original_price','description','how_to_use','measure_and_dilute','image_url','bulk_discount_enabled','status','created_at','updated_at'],
     categories:['id','name','slug','description','image_url','sort_order','enabled'],
@@ -35,7 +45,7 @@
   function saveCatalog(){return fetch(API+'/catalog',{method:'PUT',headers:adminHeaders({'Content-Type':'application/json'}),body:JSON.stringify(catalog)}).then(function(r){if(!r.ok)throw new Error('Could not save catalogue');return r.json();}).then(function(data){catalog=data;renderCatalog();populateProductOptions();});}
   function renderCatalog(){
     $('#brand-list').innerHTML=Object.keys(catalog.brands).sort().map(function(key){return '<span class="catalog-chip">'+esc(catalog.brands[key])+' <small>'+esc(key)+'</small></span>';}).join('')||'<span class="muted">No brands yet.</span>';
-    $('#category-list').innerHTML=(catalog.categoryTree||[]).slice().sort(function(a,b){return Number(a.sortOrder||0)-Number(b.sortOrder||0)||String(a.name).localeCompare(String(b.name));}).map(function(category){return '<article class="category-admin-row"><img src="'+esc(category.imageUrl||'../assets/categories/floor-care-living-hall.png')+'" alt=""><div><b>'+esc(category.name)+'</b><small>'+esc(category.slug)+' · Order '+Number(category.sortOrder||0)+' · '+(category.enabled?'Visible':'Hidden')+'</small></div><button class="icon-button" type="button" data-edit-category="'+category.id+'">Edit</button></article>';}).join('')||'<span class="muted">No categories yet.</span>';
+    $('#category-list').innerHTML=(catalog.categoryTree||[]).slice().sort(function(a,b){return Number(a.sortOrder||0)-Number(b.sortOrder||0)||String(a.name).localeCompare(String(b.name));}).map(function(category,index){var image=category.imageUrl||categoryDefaultImages[category.slug],visual=image?'<img src="'+esc(image)+'" alt="">':'<span class="category-admin-placeholder" aria-hidden="true">'+esc((category.name||'?').charAt(0))+'</span>';return '<article class="category-admin-row"><span class="category-admin-index" aria-label="Category '+(index+1)+'">'+(index+1)+'</span>'+visual+'<div><b>'+esc(category.name)+'</b><small>'+esc(category.slug)+' · '+(category.enabled?'Visible':'Hidden')+'</small></div><button class="icon-button" type="button" data-edit-category="'+category.id+'">Edit</button></article>';}).join('')||'<span class="muted">No categories yet.</span>';
     $$('[data-edit-category]').forEach(function(button){button.onclick=function(){var category=(catalog.categoryTree||[]).find(function(item){return String(item.id)===button.dataset.editCategory;});if(!category)return;$('#category-edit-id').value=category.id;$('#new-category-name').value=category.name||'';$('#new-category-slug').value=category.slug||'';$('#new-category-image').value=category.imageUrl||'';$('#new-category-order').value=Number(category.sortOrder||0);$('#new-category-enabled').checked=category.enabled!==false;$('#category-submit').textContent='Save category';$('#category-cancel').classList.remove('hidden');$('#new-category-name').focus();};});
   }
   function populateSubcategoryOptions(selected){
