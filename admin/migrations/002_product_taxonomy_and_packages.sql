@@ -21,14 +21,14 @@ CREATE TABLE categories (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 INSERT INTO categories(name,slug,sort_order) VALUES
-  ('Home Care & Cleaning','home-care-cleaning',10),
-  ('Restaurant & Food Service','restaurant-food-service',30),
-  ('Hotel & Hospitality','hotel-hospitality',40),
-  ('Healthcare & Institutions','healthcare-institutions',50),
-  ('Laundry Chemicals','laundry-chemicals',70),
-  ('Swimming Pool Chemicals','swimming-pool-chemicals',80),
-  ('Specialty Chemicals','specialty-chemicals',110),
-  ('Construction Chemicals','construction-chemicals',120);
+  ('Home Care & Cleaning','home-care-cleaning',1),
+  ('Restaurant & Food Service','restaurant-food-service',2),
+  ('Hotel & Hospitality','hotel-hospitality',3),
+  ('Healthcare & Institutions','healthcare-institutions',4),
+  ('Laundry Chemicals','laundry-chemicals',5),
+  ('Swimming Pool Chemicals','swimming-pool-chemicals',6),
+  ('Specialty Chemicals','specialty-chemicals',7),
+  ('Construction Chemicals','construction-chemicals',8);
 
 ALTER TABLE subcategories
   ADD COLUMN category_id INT NULL AFTER id,
