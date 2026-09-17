@@ -69,7 +69,24 @@ const categoryCarouselReady = (() => {
   const copy = value => String(value == null ? '' : value).replace(/[&<>"']/g, char => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char]));
   const cardFor = category => {
     const saved = existing.get(category.slug);
-    if (saved) return saved.cloneNode(true);
+    if (saved) {
+      const card = saved.cloneNode(true);
+      const image = card.querySelector('.category-scene');
+      card.href = `./category.html?category=${encodeURIComponent(category.slug)}`;
+      card.setAttribute('aria-label', `Open ${category.name} collection`);
+      card.title = `View ${category.name} collection`;
+      const heading = card.querySelector('h3');
+      if (heading) heading.textContent = category.name;
+      if (category.description) {
+        const description = card.querySelector('p');
+        if (description) description.textContent = category.description;
+      }
+      if (image && category.imageUrl) {
+        image.src = category.imageUrl;
+        image.alt = category.name;
+      }
+      return card;
+    }
     const card = document.createElement('a');
     card.className = 'cat purple';
     card.href = `./category.html?category=${encodeURIComponent(category.slug)}`;
