@@ -31,6 +31,14 @@ public class CatalogRepository {
         if (count == null || count == 0) {
             jdbc.execute("ALTER TABLE products ADD COLUMN hsn_code VARCHAR(8) NULL AFTER product_code");
         }
+        Integer parentCount = jdbc.queryForObject("""
+            SELECT COUNT(*) FROM information_schema.columns
+            WHERE table_schema=DATABASE() AND table_name='subcategories' AND column_name='parent_id'
+            """, Integer.class);
+        if (parentCount == null || parentCount == 0) {
+            jdbc.execute("ALTER TABLE subcategories ADD COLUMN parent_id INT NULL AFTER category_id");
+            jdbc.execute("CREATE INDEX idx_subcategories_parent ON subcategories(parent_id)");
+        }
     }
 
     private static final Map<String,String> HOMEPAGE_DEFAULTS = Map.ofEntries(
@@ -190,12 +198,21 @@ public class CatalogRepository {
             GROUP BY c.id ORDER BY c.sort_order,c.name
             """);
         for (Map<String,Object> category : categories) {
-            category.put("subcategories", jdbc.queryForList("""
-                SELECT s.id,s.name,s.slug,s.description,s.image_url AS imageUrl,s.sort_order AS sortOrder,s.enabled,
+            List<Map<String,Object>> subcategories = jdbc.queryForList("""
+                SELECT s.id,s.parent_id AS parentId,s.name,s.slug,s.description,s.image_url AS imageUrl,s.sort_order AS sortOrder,s.enabled,
                        COUNT(p.id) AS productCount
                 FROM subcategories s LEFT JOIN products p ON p.subcategory_id=s.id
-                WHERE s.category_id=? GROUP BY s.id ORDER BY s.sort_order,s.name
-                """, category.get("id")));
+                WHERE s.category_id=? AND s.parent_id IS NULL GROUP BY s.id ORDER BY s.sort_order,s.name
+                """, category.get("id"));
+            for (Map<String,Object> subcategory : subcategories) {
+                subcategory.put("children", jdbc.queryForList("""
+                    SELECT s.id,s.parent_id AS parentId,s.name,s.slug,s.description,s.image_url AS imageUrl,s.sort_order AS sortOrder,s.enabled,
+                           COUNT(p.id) AS productCount
+                    FROM subcategories s LEFT JOIN products p ON p.subcategory_id=s.id
+                    WHERE s.parent_id=? GROUP BY s.id ORDER BY s.sort_order,s.name
+                    """, subcategory.get("id")));
+            }
+            category.put("subcategories", subcategories);
             category.put("brands", jdbc.queryForList("""
                 SELECT b.id,b.name,b.slug,b.logo_url AS logoUrl,bc.enabled
                 FROM brand_categories bc JOIN brands b ON b.id=bc.brand_id
@@ -281,8 +298,8 @@ public class CatalogRepository {
 
     public List<Map<String,Object>> subcategories(Integer categoryId) {
         return categoryId == null
-                ? jdbc.queryForList("SELECT * FROM subcategories ORDER BY category_id,sort_order,name")
-                : jdbc.queryForList("SELECT * FROM subcategories WHERE category_id=? ORDER BY sort_order,name", categoryId);
+                ? jdbc.queryForList("SELECT s.*,s.parent_id AS parentId FROM subcategories s ORDER BY category_id,parent_id,sort_order,name")
+                : jdbc.queryForList("SELECT s.*,s.parent_id AS parentId FROM subcategories s WHERE category_id=? ORDER BY parent_id,sort_order,name", categoryId);
     }
 
     public Map<String,Object> createSubcategory(Map<String,Object> payload) {
@@ -290,19 +307,19 @@ public class CatalogRepository {
         String name = String.valueOf(payload.getOrDefault("name", "")).trim();
         String key = String.valueOf(payload.getOrDefault("slug", slug(name))).trim();
         jdbc.update("""
-            INSERT INTO subcategories(category_id,name,slug,description,image_url,sort_order,enabled)
-            VALUES(?,?,?,?,?,?,?)
-            """, categoryId, name, key, payload.get("description"), payload.get("imageUrl"),
+            INSERT INTO subcategories(category_id,parent_id,name,slug,description,image_url,sort_order,enabled)
+            VALUES(?,?,?,?,?,?,?,?)
+            """, categoryId, payload.get("parentId"), name, key, payload.get("description"), payload.get("imageUrl"),
                 payload.getOrDefault("sortOrder", 0), payload.getOrDefault("enabled", true));
         return jdbc.queryForMap("SELECT * FROM subcategories WHERE category_id=? AND slug=?", categoryId, key);
     }
 
     public Map<String,Object> updateSubcategory(Integer id, Map<String,Object> payload) {
         jdbc.update("""
-            UPDATE subcategories SET name=COALESCE(?,name),slug=COALESCE(?,slug),
+            UPDATE subcategories SET parent_id=COALESCE(?,parent_id),name=COALESCE(?,name),slug=COALESCE(?,slug),
             description=COALESCE(?,description),image_url=COALESCE(?,image_url),
             sort_order=COALESCE(?,sort_order),enabled=COALESCE(?,enabled) WHERE id=?
-            """, payload.get("name"), payload.get("slug"), payload.get("description"),
+            """, payload.get("parentId"), payload.get("name"), payload.get("slug"), payload.get("description"),
                 payload.get("imageUrl"), payload.get("sortOrder"), payload.get("enabled"), id);
         return jdbc.queryForMap("SELECT * FROM subcategories WHERE id=?", id);
     }

@@ -51,7 +51,7 @@
   function populateSubcategoryOptions(selected){
     var categorySelect=$('#product-category'),subcategorySelect=$('#product-subcategory');
     var tree=(catalog.categoryTree||[]).find(function(item){return item.name===categorySelect.value||item.slug===categorySelect.value;});
-    var options=tree&&tree.subcategories||[];
+    var options=(tree&&tree.subcategories||[]).reduce(function(result,item){return result.concat(item.children&&item.children.length?item.children:[item]);},[]);
     subcategorySelect.innerHTML='<option value="">Select subcategory</option>'+options.map(function(item){return '<option value="'+esc(item.name)+'">'+esc(item.name)+'</option>';}).join('');
     if(selected&&options.some(function(item){return item.name===selected;}))subcategorySelect.value=selected;
   }
