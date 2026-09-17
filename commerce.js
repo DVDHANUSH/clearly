@@ -128,8 +128,8 @@
     document.querySelector('#wish-grid')?.addEventListener('change', event => {
       const select=event.target.closest('[data-wish-package]'); if(!select)return;
       const card=select.closest('[data-wish-id]'),option=select.options[select.selectedIndex];
-      card.querySelector('.wish-package-prompt').textContent=select.value?`Selected: ${option.dataset.size}`:'Select a package size';
-      if(select.value)card.querySelector('.wish-price').textContent=money(option.dataset.price);
+      card.querySelector('.size-prompt').textContent=select.value?`Selected: ${option.dataset.size}`:'Select a package size';
+      if(select.value){const price=Number(option.dataset.price||0),mrp=Number(option.dataset.mrp||price);card.querySelector('.product-price').innerHTML=`${mrp>price?`<span class="old">${money(mrp)}</span>`:''}<span class="now">${money(price)}</span>`;}
     });
     document.querySelector('#wish-grid')?.addEventListener('click', event => {
       const card = event.target.closest('[data-wish-id]');
@@ -137,7 +137,7 @@
       const id = card.dataset.wishId;
       if (event.target.closest('[data-wish-add]')) {
         const select=card.querySelector('[data-wish-package]'),option=select&&select.options[select.selectedIndex];
-        if(!select||!select.value){card.classList.add('needs-package');card.querySelector('.wish-package-prompt').textContent='Please select a package size first';setTimeout(()=>card.classList.remove('needs-package'),1400);return;}
+        if(!select||!select.value){card.classList.add('needs-size');card.querySelector('.size-prompt').textContent='Please select a package size first';setTimeout(()=>card.classList.remove('needs-size'),1400);return;}
         const cart=readCart(),key=`${id}${CART_KEY_SEPARATOR}${encodeURIComponent(option.dataset.size)}`;
         cart[key]=Number(cart[key]||0)+1;saveCart(cart);updateCounts();toast('Added to bag');
         return;
