@@ -39,3 +39,4 @@
 @media(max-width:560px){.use-grid{grid-template-columns:1fr}}
 .service-card h2{letter-spacing:.15px}.service-card p,.service-card li{letter-spacing:.2px}
 .product-documents,.product-specifications{letter-spacing:.2px}.product-documents h2,.product-specifications h2{letter-spacing:.25px}.document-card,.spec-table,.spec-note{letter-spacing:.2px}
+.detail-block .package-select{min-width:180px;padding:10px 34px 10px 13px;border:1px solid #cbd7eb;border-radius:10px;background:#fff;color:var(--ink);font:700 13px/1.2 "DM Sans",sans-serif;cursor:pointer}.detail-block .package-select:focus{outline:0;border-color:var(--blue);box-shadow:0 0 0 3px rgba(38,101,255,.12)}

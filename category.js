@@ -127,7 +127,7 @@
     grid.innerHTML = list.map(product => {
       const href = `product.html?id=${encodeURIComponent(product.id)}`;
       const packages=packageOptions(product),displayPackage=packages.find(item=>item.isDefault)||packages[0]||product;
-      const sizeList = packages.length ? `<div class="sizes" role="group" aria-label="Choose package size">${packages.map(pkg => `<button type="button" class="size-option" data-size="${pkg.label}" data-price="${Number(pkg.price||0)}" data-mrp="${Number(pkg.originalPrice||pkg.price||0)}" aria-pressed="false">${pkg.label}</button>`).join('')}</div><small class="size-prompt" aria-live="polite">Select a package size</small>` : '';
+      const sizeList = packages.length ? `<div class="sizes"><select class="package-select" data-package-select aria-label="Choose package size"><option value="">Select package size</option>${packages.map((pkg,index) => `<option value="${index}" data-size="${pkg.label}" data-price="${Number(pkg.price||0)}" data-mrp="${Number(pkg.originalPrice||pkg.price||0)}">${pkg.label}</option>`).join('')}</select></div><small class="size-prompt" aria-live="polite">Select a package size</small>` : '';
       const originalPrice = displayPackage.originalPrice > displayPackage.price ? `<span class="old">₹${Number(displayPackage.originalPrice).toLocaleString('en-IN')}</span>` : '';
       const isSaved = saved.includes(product.id);
       return `<article class="product-card" data-id="${product.id}"><a class="product-img" href="${href}"><img src="${product.image}" alt="${product.name}" /></a><div class="product-category">${product.category}</div><h3 class="product-name"><a href="${href}">${product.name}</a></h3>${product.rating ? `<span class="product-stars">${stars(product.rating)}</span>` : ''}${sizeList}<div class="product-price">${originalPrice}<span class="now">₹${Number(displayPackage.price).toLocaleString('en-IN')}</span></div><div class="product-actions"><button class="cart-btn" data-cart="${product.id}">Add to bag</button><button class="wishlist-btn${isSaved ? ' on' : ''}" data-wish="${product.id}" aria-label="Save ${product.name} for later" title="Save for later"><span class="ico">${isSaved ? '♥' : '♡'}</span></button></div></article>`;
@@ -156,22 +156,22 @@
   });
   clearButton.addEventListener('click', clearFilters);
   sort.addEventListener('change', render);
+  grid.addEventListener('change', event => {
+    const select = event.target.closest('[data-package-select]');
+    if (!select) return;
+    const card = select.closest('.product-card'), selected = select.options[select.selectedIndex];
+    if (!select.value) { card.querySelector('.size-prompt').textContent='Select a package size'; return; }
+    card.classList.remove('needs-size');
+    card.querySelector('.size-prompt').textContent=`Selected: ${selected.dataset.size}`;
+    const price=Number(selected.dataset.price||0),mrp=Number(selected.dataset.mrp||price);
+    card.querySelector('.product-price').innerHTML=`${mrp>price?`<span class="old">₹${mrp.toLocaleString('en-IN')}</span>`:''}<span class="now">₹${price.toLocaleString('en-IN')}</span>`;
+  });
   grid.addEventListener('click', event => {
-    const sizeButton = event.target.closest('[data-size]');
-    if (sizeButton) {
-      const card = sizeButton.closest('.product-card');
-      card.querySelectorAll('[data-size]').forEach(button => { const selected=button===sizeButton;button.classList.toggle('selected',selected);button.setAttribute('aria-pressed',String(selected)); });
-      card.classList.remove('needs-size');
-      card.querySelector('.size-prompt').textContent=`Selected: ${sizeButton.dataset.size}`;
-      const price=Number(sizeButton.dataset.price||0),mrp=Number(sizeButton.dataset.mrp||price);
-      card.querySelector('.product-price').innerHTML=`${mrp>price?`<span class="old">₹${mrp.toLocaleString('en-IN')}</span>`:''}<span class="now">₹${price.toLocaleString('en-IN')}</span>`;
-      return;
-    }
     const cartButton = event.target.closest('[data-cart]');
     if (cartButton) {
       const id = cartButton.dataset.cart;
-      const card=cartButton.closest('.product-card'), selected=card.querySelector('[data-size].selected');
-      if(!selected){card.classList.add('needs-size');card.querySelector('.size-prompt').textContent='Please select a package size first';setTimeout(()=>card.classList.remove('needs-size'),1400);return;}
+      const card=cartButton.closest('.product-card'), select=card.querySelector('[data-package-select]'), selected=select&&select.options[select.selectedIndex];
+      if(!select||!select.value){card.classList.add('needs-size');card.querySelector('.size-prompt').textContent='Please select a package size first';setTimeout(()=>card.classList.remove('needs-size'),1400);return;}
       const key=cartKey(id,selected.dataset.size);
       cart[key] = Number(cart[key] || 0) + 1;
       try { sessionStorage.setItem('clearly_cart', JSON.stringify(cart)); } catch (error) {}
