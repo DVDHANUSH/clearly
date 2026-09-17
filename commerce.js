@@ -119,18 +119,27 @@
       grid.innerHTML = ''; empty.hidden = false; empty.innerHTML = emptyMarkup('wishlist'); updateCounts(); return;
     }
     empty.hidden = true;
-    grid.innerHTML = saved.map(id => productById[id]).filter(Boolean).map(product => `<article class="wish-card" data-wish-id="${escapeHtml(product.id)}"><a class="wish-image" href="product.html?id=${encodeURIComponent(product.id)}"><img src="${escapeHtml(product.image)}" alt="${escapeHtml(product.name)}" /></a><div class="wish-copy"><small>${escapeHtml(brandMap[product.brand] || product.brand)} · ${escapeHtml(product.category)}</small><h2>${escapeHtml(product.name)}</h2><div class="wish-price">${money(product.price)}</div><div class="wish-actions"><button class="wish-add" data-wish-add>Choose package</button><button class="wish-remove" data-wish-remove aria-label="Remove from wishlist">×</button></div></div></article>`).join('');
+    grid.innerHTML = saved.map(id => productById[id]).filter(Boolean).map(product => {const packages=(product.packages||[]).filter(item=>item.enabled!==false);const choices=packages.length?packages:[{label:product.packaging||product.sizes?.[0]||'Standard pack',price:product.price,originalPrice:product.originalPrice||product.price}];const defaultPackage=choices.find(item=>item.isDefault)||choices[0];return `<article class="wish-card" data-wish-id="${escapeHtml(product.id)}"><a class="wish-image" href="product.html?id=${encodeURIComponent(product.id)}"><img src="${escapeHtml(product.image)}" alt="${escapeHtml(product.name)}" /></a><div class="wish-copy"><small>${escapeHtml(brandMap[product.brand] || product.brand)} · ${escapeHtml(product.category)}</small><h2>${escapeHtml(product.name)}</h2><select class="wish-package-select" data-wish-package aria-label="Choose package size"><option value="">Select package size</option>${choices.map((pkg,index)=>`<option value="${index}" data-size="${escapeHtml(pkg.label)}" data-price="${Number(pkg.price||0)}">${escapeHtml(pkg.label)}</option>`).join('')}</select><small class="wish-package-prompt">Select a package size</small><div class="wish-price">${money(defaultPackage.price)}</div><div class="wish-actions"><button class="wish-add" data-wish-add>Add to bag</button><button class="wish-remove" data-wish-remove aria-label="Remove from wishlist">×</button></div></div></article>`;}).join('');
     updateCounts();
   }
 
   function initWishlist() {
     renderWishlist();
+    document.querySelector('#wish-grid')?.addEventListener('change', event => {
+      const select=event.target.closest('[data-wish-package]'); if(!select)return;
+      const card=select.closest('[data-wish-id]'),option=select.options[select.selectedIndex];
+      card.querySelector('.wish-package-prompt').textContent=select.value?`Selected: ${option.dataset.size}`:'Select a package size';
+      if(select.value)card.querySelector('.wish-price').textContent=money(option.dataset.price);
+    });
     document.querySelector('#wish-grid')?.addEventListener('click', event => {
       const card = event.target.closest('[data-wish-id]');
       if (!card) return;
       const id = card.dataset.wishId;
       if (event.target.closest('[data-wish-add]')) {
-        location.href=`product.html?id=${encodeURIComponent(id)}`;
+        const select=card.querySelector('[data-wish-package]'),option=select&&select.options[select.selectedIndex];
+        if(!select||!select.value){card.classList.add('needs-package');card.querySelector('.wish-package-prompt').textContent='Please select a package size first';setTimeout(()=>card.classList.remove('needs-package'),1400);return;}
+        const cart=readCart(),key=`${id}${CART_KEY_SEPARATOR}${encodeURIComponent(option.dataset.size)}`;
+        cart[key]=Number(cart[key]||0)+1;saveCart(cart);updateCounts();toast('Added to bag');
         return;
       }
       if (event.target.closest('[data-wish-remove]')) {
