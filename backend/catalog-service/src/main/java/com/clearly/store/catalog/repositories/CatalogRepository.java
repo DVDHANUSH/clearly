@@ -39,6 +39,8 @@ public class CatalogRepository {
             jdbc.execute("ALTER TABLE subcategories ADD COLUMN parent_id INT NULL AFTER category_id");
             jdbc.execute("CREATE INDEX idx_subcategories_parent ON subcategories(parent_id)");
         }
+        Integer packageImageCount = jdbc.queryForObject("SELECT COUNT(*) FROM information_schema.columns WHERE table_schema=DATABASE() AND table_name='product_packages' AND column_name='image_url'", Integer.class);
+        if (packageImageCount == null || packageImageCount == 0) jdbc.execute("ALTER TABLE product_packages ADD COLUMN image_url VARCHAR(1024) NULL AFTER package_code");
     }
 
     private static final Map<String,String> HOMEPAGE_DEFAULTS = Map.ofEntries(
@@ -478,7 +480,7 @@ public class CatalogRepository {
     public List<Map<String,Object>> packages(String id) {
         return jdbc.queryForList("""
             SELECT pp.id,pp.label,pp.quantity,u.code AS unit,u.name AS unitName,u.symbol,
-                   pp.package_type AS packageType,pp.package_code AS packageCode,
+                   pp.package_type AS packageType,pp.package_code AS packageCode,pp.image_url AS imageUrl,
                    pp.price,pp.original_price AS originalPrice,pp.stock_quantity AS stockQuantity,
                    pp.is_default AS isDefault,pp.enabled,pp.sort_order AS sortOrder
             FROM product_packages pp JOIN measurement_units u ON u.id=pp.unit_id
@@ -499,10 +501,10 @@ public class CatalogRepository {
         String packageCode = String.valueOf(payload.getOrDefault("packageCode",
                 "PKG-" + UUID.randomUUID().toString().substring(0,8).toUpperCase()));
         jdbc.update("""
-            INSERT INTO product_packages(product_id,label,quantity,unit_id,package_type,package_code,price,
+            INSERT INTO product_packages(product_id,label,quantity,unit_id,package_type,package_code,image_url,price,
             original_price,stock_quantity,is_default,enabled,sort_order)
-            VALUES(?,?,?,?,?,?,?,?,?,?,?,?)
-            """, pid, label, quantity, unitId, payload.get("packageType"), packageCode,
+            VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)
+        """, pid, label, quantity, unitId, payload.get("packageType"), packageCode, payload.get("imageUrl"),
                 payload.getOrDefault("price", defaultPrice), payload.get("originalPrice"),
                 payload.getOrDefault("stockQuantity", 0), payload.getOrDefault("isDefault", first),
                 payload.getOrDefault("enabled", true), payload.getOrDefault("sortOrder", 0));
@@ -519,12 +521,12 @@ public class CatalogRepository {
         jdbc.update("""
             UPDATE product_packages SET label=COALESCE(?,label),quantity=COALESCE(?,quantity),
             unit_id=COALESCE(?,unit_id),package_type=COALESCE(?,package_type),
-            package_code=COALESCE(?,package_code),price=COALESCE(?,price),
+            package_code=COALESCE(?,package_code),image_url=COALESCE(?,image_url),price=COALESCE(?,price),
             original_price=COALESCE(?,original_price),stock_quantity=COALESCE(?,stock_quantity),
             is_default=COALESCE(?,is_default),enabled=COALESCE(?,enabled),
             sort_order=COALESCE(?,sort_order) WHERE id=?
             """, payload.get("label"), payload.getOrDefault("quantity", payload.get("sizeValue")), unitId,
-                payload.get("packageType"), payload.get("packageCode"), payload.get("price"),
+                payload.get("packageType"), payload.get("packageCode"), payload.get("imageUrl"), payload.get("price"),
                 payload.get("originalPrice"), payload.get("stockQuantity"), payload.get("isDefault"),
                 payload.get("enabled"), payload.get("sortOrder"), id);
         return jdbc.queryForMap("SELECT * FROM product_packages WHERE id=?", id);
