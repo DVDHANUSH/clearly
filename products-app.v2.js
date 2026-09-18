@@ -486,10 +486,7 @@ if (typeof module !== "undefined" && module.exports) {
       (p.image
         ? "<div class='product-img'><img src='" + escapeAttr(p.image) + "' alt='" + escapeAttr(p.name) + "' /></div>"
         : "<div class='product-placeholder'></div>") +
-      "<div class='product-category'>" + escapeHtml(p.category) + "</div>" +
       "<h3 class='product-name'><a href='product.html?id=" + encodeURIComponent(p.id) + "'>" + escapeHtml(p.name) + "</a></h3>" +
-      (p.purpose ? "<p class='product-purpose'>" + escapeHtml(p.purpose) + "</p>" : "") +
-      (p.rating ? "<span class='product-stars'>" + starsHtml(p.rating) + "</span>" : "") +
       sizesHtml +
       "<div class='product-price'>" +
         (displayPackage.originalPrice && displayPackage.originalPrice > displayPackage.price
