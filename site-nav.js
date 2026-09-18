@@ -2,7 +2,7 @@
   'use strict';
   if(document.querySelector('.site-nav'))return;
   if(/(?:^|\/)index\.html$/.test(location.pathname)||location.pathname.endsWith('/'))document.body.classList.add('site-home');
-  const stylesheet=document.createElement('link');stylesheet.rel='stylesheet';stylesheet.href='site-nav.css?v=site-footer-1';const menuStyles=document.createElement('link');menuStyles.rel='stylesheet';menuStyles.href='site-nav-menu.css';
+  const stylesheet=document.createElement('link');stylesheet.rel='stylesheet';stylesheet.href='site-nav.css?v=theme-accent-1';const menuStyles=document.createElement('link');menuStyles.rel='stylesheet';menuStyles.href='site-nav-menu.css';
   const signedIn=()=>!!(sessionStorage.getItem('clearly_access_token')||localStorage.getItem('clearly_access_token'));
   let profile={};try{profile=JSON.parse(localStorage.getItem('clearly_profile')||'{}')||{};}catch(error){}
   const fallbackCategories=[
@@ -16,6 +16,11 @@
     ['Construction Chemicals','construction-chemicals','assets/categories/construction-chemicals.png']
   ];
   const categoryApi=(location.protocol==='file:'||location.port==='4173')?'http://localhost:8080/api/categories':'/api/categories';
+  const homepageApi=(location.protocol==='file:'||location.port==='4173')?'http://localhost:8080/api/homepage':'/api/homepage';
+  const validAccent=value=>/^#[0-9a-f]{6}$/i.test(String(value||''))?String(value):'#557A9B';
+  const accentShade=(hex,amount)=>{const value=validAccent(hex).slice(1),channels=[0,2,4].map(index=>parseInt(value.slice(index,index+2),16));return '#'+channels.map(channel=>Math.max(0,Math.min(255,Math.round(channel+(amount<0?channel*amount:(255-channel)*amount)))).toString(16).padStart(2,'0')).join('');};
+  const applyThemeAccent=value=>{const accent=validAccent(value),root=document.documentElement.style;root.setProperty('--blue',accent);root.setProperty('--site-blue',accent);root.setProperty('--blue-dark',accentShade(accent,-.18));root.setProperty('--site-blue-dark',accentShade(accent,-.18));root.setProperty('--site-blue-soft',accentShade(accent,.88));document.documentElement.dataset.themeAccent=accent.slice(1);};
+  applyThemeAccent();
   const categoryImages={
     'home-care-cleaning':'assets/categories/floor-care-living-hall.png','restaurant-food-service':'assets/categories/restaurant-food-service.png','healthcare-institutions':'assets/categories/healthcare-institutions.png','laundry-chemicals':'assets/categories/laundry-chemicals.png','swimming-pool-chemicals':'assets/categories/swimming-pool-chemicals.png','hotel-hospitality':'assets/categories/hotel-hospitality.png','specialty-chemicals':'assets/categories/specialty-chemicals.png','construction-chemicals':'assets/categories/construction-chemicals.png'
   };
@@ -37,6 +42,7 @@
   const renderCategories=items=>{categoryList.innerHTML=items.map(category=>{const name=Array.isArray(category)?category[0]:category.name,slug=Array.isArray(category)?category[1]:category.slug,image=Array.isArray(category)?category[2]:(category.imageUrl||categoryImages[category.slug]||'assets/categories/floor-care-living-hall.png');return `<a class="site-category-item" href="category.html?category=${encodeURIComponent(slug)}"><img src="${escapeHtml(image)}" alt=""><b>${escapeHtml(name)}</b><i>›</i></a>`;}).join('')||'<p class="site-category-empty">No categories are available right now.</p>';};
   renderCategories(fallbackCategories);
   fetch(categoryApi,{cache:'no-store'}).then(response=>{if(!response.ok)throw new Error('Categories unavailable');return response.json();}).then(rows=>renderCategories((rows||[]).filter(category=>category.enabled!==false).sort((a,b)=>Number(a.sortOrder||0)-Number(b.sortOrder||0)||String(a.name).localeCompare(String(b.name))))).catch(()=>{});
+  fetch(homepageApi,{cache:'no-store'}).then(response=>response.ok?response.json():{}).then(settings=>applyThemeAccent(settings.themeAccent)).catch(()=>applyThemeAccent());
   const searchForm=nav.querySelector('.site-search'),searchInput=searchForm.querySelector('input'),searchResults=document.createElement('div');searchResults.className='site-search-results';searchResults.hidden=true;searchForm.appendChild(searchResults);
   const hideSearchResults=()=>{searchResults.hidden=true;searchResults.replaceChildren();};
   let remoteSearchProducts=[],searchLoad=null,searchSequence=0;const searchApi=(location.protocol==='file:'||location.port==='4173')?'http://localhost:8080/api/products':'/api/products';

@@ -42,6 +42,7 @@ public class CatalogRepository {
     }
 
     private static final Map<String,String> HOMEPAGE_DEFAULTS = Map.ofEntries(
+            Map.entry("themeAccent", "#557A9B"),
             Map.entry("heroEyebrow", "CLEAN HOME. HAPPY LIFE."),
             Map.entry("heroTitleLine1", "Cleaning"),
             Map.entry("heroTitleLine2", "Made Effortless,"),
