@@ -67,33 +67,14 @@ const categoryCarouselReady = (() => {
     ? 'http://localhost:8080/api/categories' : '/api/categories';
   const homepageApi = (location.protocol === 'file:' || location.port === '4173')
     ? 'http://localhost:8080/api/homepage' : '/api/homepage';
-  const existing = new Map([...track.children].map(card => [new URL(card.href, location.href).searchParams.get('category'), card]));
   const copy = value => String(value == null ? '' : value).replace(/[&<>"']/g, char => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char]));
   const cardFor = category => {
-    const saved = existing.get(category.slug);
-    if (saved) {
-      const card = saved.cloneNode(true);
-      const image = card.querySelector('.category-scene');
-      card.href = `./category.html?category=${encodeURIComponent(category.slug)}`;
-      card.setAttribute('aria-label', `Open ${category.name} collection`);
-      card.title = `View ${category.name} collection`;
-      const heading = card.querySelector('h3');
-      if (heading) heading.textContent = category.name;
-      if (category.description) {
-        const description = card.querySelector('p');
-        if (description) description.textContent = category.description;
-      }
-      if (image && category.imageUrl) {
-        image.src = category.imageUrl;
-        image.alt = category.name;
-      }
-      return card;
-    }
     const card = document.createElement('a');
-    card.className = 'cat purple';
+    card.className = 'cat';
     card.href = `./category.html?category=${encodeURIComponent(category.slug)}`;
     card.setAttribute('aria-label', `Open ${category.name} collection`);
-    card.innerHTML = `<div><h3>${copy(category.name)}</h3><p>Explore our<br />collection.</p></div><img class="category-scene" src="${copy(category.imageUrl || 'assets/categories/floor-care-living-hall.png')}" alt=""><span class="cat-arrow" aria-hidden="true">→</span>`;
+    card.title = `View ${category.name} collection`;
+    card.innerHTML = `<div><h3>${copy(category.name)}</h3><p>${copy(category.description || 'Explore our collection.')}</p></div><img class="category-scene" src="${copy(category.imageUrl || 'assets/categories/floor-care-living-hall.png')}" alt="${copy(category.name)}"><span class="cat-arrow" aria-hidden="true">→</span>`;
     return card;
   };
   return fetch(api, {cache: 'no-store'}).then(response => {
