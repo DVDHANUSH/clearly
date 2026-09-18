@@ -74,7 +74,8 @@ const categoryCarouselReady = (() => {
     card.href = `./category.html?category=${encodeURIComponent(category.slug)}`;
     card.setAttribute('aria-label', `Open ${category.name} collection`);
     card.title = `View ${category.name} collection`;
-    card.innerHTML = `<div><h3>${copy(category.name)}</h3><p>${copy(category.description || 'Explore our collection.')}</p></div><img class="category-scene" src="${copy(category.imageUrl || 'assets/categories/floor-care-living-hall.png')}" alt="${copy(category.name)}"><span class="cat-arrow" aria-hidden="true">→</span>`;
+    const sceneImage = category.slug === 'housekeeping-cleaning-supplies' ? 'assets/categories/floor-care-living-hall.png' : (category.imageUrl || 'assets/categories/floor-care-living-hall.png');
+    card.innerHTML = `<div><h3>${copy(category.name)}</h3><p>${copy(category.description || 'Explore our collection.')}</p></div><img class="category-scene" src="${copy(sceneImage)}" alt="${copy(category.name)}"><span class="cat-arrow" aria-hidden="true">→</span>`;
     return card;
   };
   return fetch(api, {cache: 'no-store'}).then(response => {
