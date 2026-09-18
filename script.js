@@ -70,7 +70,8 @@ const categoryCarouselReady = (() => {
   const copy = value => String(value == null ? '' : value).replace(/[&<>"']/g, char => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char]));
   const cardFor = category => {
     const card = document.createElement('a');
-    card.className = 'cat' + (category.slug === 'housekeeping-cleaning-supplies' ? ' housekeeping-card' : '');
+    const cardVariant = category.slug === 'housekeeping-cleaning-supplies' ? ' housekeeping-card' : (category.slug === 'construction-chemicals' ? ' construction-card' : '');
+    card.className = 'cat' + cardVariant;
     card.href = `./category.html?category=${encodeURIComponent(category.slug)}`;
     card.setAttribute('aria-label', `Open ${category.name} collection`);
     card.title = `View ${category.name} collection`;
