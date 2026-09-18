@@ -44,6 +44,9 @@ public class CatalogRepository {
     private static final Map<String,String> HOMEPAGE_DEFAULTS = Map.ofEntries(
             Map.entry("themeAccent", "#557A9B"),
             Map.entry("categoryAutoScroll", "false"),
+            Map.entry("saverPackPrice", "599"),
+            Map.entry("saverPackOriginalPrice", "675"),
+            Map.entry("saverPackItems", "[{\"label\":\"Floor Cleaner\",\"productCode\":\"PROD-21\",\"packageLabel\":\"1 L\"},{\"label\":\"Bathroom Cleaner\",\"productCode\":\"PROD-22\",\"packageLabel\":\"1 L\"},{\"label\":\"Glass Cleaner\",\"productCode\":\"SHA-KC-410\",\"packageLabel\":\"1 L\"},{\"label\":\"Garbage Bags\",\"productCode\":\"SHA-ACC-407\",\"packageLabel\":\"19 x 21 · 30 pcs per roll\"},{\"label\":\"Green Scrubbers\",\"productCode\":\"SHA-ACC-409\",\"packageLabel\":\"Pack of 5\"}]"),
             Map.entry("heroEyebrow", "CLEAN HOME. HAPPY LIFE."),
             Map.entry("heroTitleLine1", "Cleaning"),
             Map.entry("heroTitleLine2", "Made Effortless,"),
