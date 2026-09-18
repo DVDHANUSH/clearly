@@ -55,7 +55,7 @@ const originalCategories = document.querySelector('#categories');
 if (originalCategories && !document.querySelector('#categories-continuous')) {
   const duplicate = originalCategories.cloneNode(true);
   duplicate.id = 'categories-continuous';
-  duplicate.dataset.autoscroll = 'continuous';
+  duplicate.dataset.autoscroll = 'off';
   originalCategories.replaceWith(duplicate);
 }
 
@@ -65,6 +65,8 @@ const categoryCarouselReady = (() => {
   if (!track) return Promise.resolve();
   const api = (location.protocol === 'file:' || location.port === '4173')
     ? 'http://localhost:8080/api/categories' : '/api/categories';
+  const homepageApi = (location.protocol === 'file:' || location.port === '4173')
+    ? 'http://localhost:8080/api/homepage' : '/api/homepage';
   const existing = new Map([...track.children].map(card => [new URL(card.href, location.href).searchParams.get('category'), card]));
   const copy = value => String(value == null ? '' : value).replace(/[&<>"']/g, char => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char]));
   const cardFor = category => {
@@ -101,6 +103,9 @@ const categoryCarouselReady = (() => {
     const categories = (rows || []).filter(category => category.enabled !== false)
       .sort((a, b) => Number(a.sortOrder || 0) - Number(b.sortOrder || 0) || String(a.name).localeCompare(String(b.name)));
     track.replaceChildren(...categories.map(cardFor));
+    return fetch(homepageApi, {cache: 'no-store'}).then(response => response.ok ? response.json() : {});
+  }).then(settings => {
+    section.dataset.autoscroll = String(settings?.categoryAutoScroll).toLowerCase() === 'true' ? 'continuous' : 'off';
   }).catch(() => {});
 })();
 
@@ -111,6 +116,7 @@ function initialiseCategoryCarousels() { document.querySelectorAll('.categories'
   const prev = section.querySelector('.category-prev');
   const next = section.querySelector('.category-next');
   const continuous = section.dataset.autoscroll === 'continuous';
+  const autoScroll = continuous;
   let loopWidth = 0;
   let originalCards = [];
   let repeatedCards = [];
@@ -165,7 +171,7 @@ function initialiseCategoryCarousels() { document.querySelectorAll('.categories'
   function schedule() {
     clearTimeout(timer);
     cancelAnimationFrame(autoFrame);
-    if (gesture || document.hidden) return;
+    if (!autoScroll || gesture || document.hidden) return;
     if (continuous) {
       if (animation) return;
       let last = performance.now();
