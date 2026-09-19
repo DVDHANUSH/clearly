@@ -30,12 +30,14 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.support.TransactionSynchronization;
+import org.springframework.transaction.support.TransactionSynchronizationManager;
 import org.springframework.web.server.ResponseStatusException;
 
 @Service
 public class CheckoutService {
-    private final CheckoutRepository repository; private final ObjectMapper json; private final String keyId; private final String keySecret;
-    public CheckoutService(CheckoutRepository repository,ObjectMapper json,@Value("${razorpay.key-id:}") String keyId,@Value("${razorpay.key-secret:}") String keySecret){this.repository=repository;this.json=json;this.keyId=keyId;this.keySecret=keySecret;}
+    private final CheckoutRepository repository; private final ObjectMapper json; private final OrderNotificationClient notifications; private final String keyId; private final String keySecret;
+    public CheckoutService(CheckoutRepository repository,ObjectMapper json,OrderNotificationClient notifications,@Value("${razorpay.key-id:}") String keyId,@Value("${razorpay.key-secret:}") String keySecret){this.repository=repository;this.json=json;this.notifications=notifications;this.keyId=keyId;this.keySecret=keySecret;}
     public Map<String,Object> config(){return Map.of("configured",configured(),"keyId",keyId,"seller",repository.seller());}
 
     @Transactional
@@ -51,9 +53,37 @@ public class CheckoutService {
         }catch(ResponseStatusException error){throw error;}catch(Exception error){throw new ResponseStatusException(HttpStatus.BAD_REQUEST,error.getMessage(),error);}
     }
     @Transactional
-    public Map<String,Object> verify(String identity,Map<String,Object> payload){try{long userId=repository.userId(identity),orderId=Long.parseLong(String.valueOf(payload.get("localOrderId")));Map<String,Object> order=repository.order(userId,orderId);String stored=String.valueOf(order.get("razorpay_order_id")),returned=String.valueOf(payload.get("razorpayOrderId")),payment=String.valueOf(payload.get("razorpayPaymentId")),signature=String.valueOf(payload.get("razorpaySignature"));if(!MessageDigest.isEqual(stored.getBytes(StandardCharsets.UTF_8),returned.getBytes(StandardCharsets.UTF_8))||!MessageDigest.isEqual(hmac(stored+"|"+payment).getBytes(StandardCharsets.UTF_8),signature.getBytes(StandardCharsets.UTF_8)))throw new ResponseStatusException(HttpStatus.UNAUTHORIZED,"Payment signature verification failed");repository.markPaid(orderId,payment,stored,signature);repository.clearCart(userId);return Map.of("success",true,"orderId",orderId,"orderNo",order.get("order_no"),"invoiceUrl","/api/checkout/orders/"+orderId+"/invoice","slipUrl","/api/checkout/orders/"+orderId+"/slip");}catch(ResponseStatusException error){throw error;}catch(Exception error){throw new ResponseStatusException(HttpStatus.BAD_REQUEST,error.getMessage(),error);}}
+    public Map<String,Object> verify(String identity,Map<String,Object> payload){
+        try{
+            long userId=repository.userId(identity),orderId=Long.parseLong(String.valueOf(payload.get("localOrderId")));
+            Map<String,Object> order=repository.order(userId,orderId);
+            String stored=String.valueOf(order.get("razorpay_order_id")),returned=String.valueOf(payload.get("razorpayOrderId")),payment=String.valueOf(payload.get("razorpayPaymentId")),signature=String.valueOf(payload.get("razorpaySignature"));
+            if(!MessageDigest.isEqual(stored.getBytes(StandardCharsets.UTF_8),returned.getBytes(StandardCharsets.UTF_8))||!MessageDigest.isEqual(hmac(stored+"|"+payment).getBytes(StandardCharsets.UTF_8),signature.getBytes(StandardCharsets.UTF_8)))throw new ResponseStatusException(HttpStatus.UNAUTHORIZED,"Payment signature verification failed");
+            boolean newlyPaid=repository.markPaid(orderId,payment,stored,signature);
+            repository.clearCart(userId);
+            if(newlyPaid){
+                Map<String,Object> notificationOrder=new LinkedHashMap<>(order);
+                TransactionSynchronizationManager.registerSynchronization(new TransactionSynchronization(){
+                    @Override public void afterCommit(){notifications.sendPaidOrder(orderId,notificationOrder,payment);}
+                });
+            }
+            return Map.of("success",true,"orderId",orderId,"orderNo",order.get("order_no"),"invoiceUrl","/api/checkout/orders/"+orderId+"/invoice","slipUrl","/api/checkout/orders/"+orderId+"/slip");
+        }catch(ResponseStatusException error){throw error;}catch(Exception error){throw new ResponseStatusException(HttpStatus.BAD_REQUEST,error.getMessage(),error);}
+    }
     public byte[] document(String identity,long orderId,boolean invoice){long userId=repository.userId(identity);Map<String,Object> order=repository.order(userId,orderId),seller=repository.seller();if(!"PAID".equals(String.valueOf(order.get("payment_status"))))throw new ResponseStatusException(HttpStatus.CONFLICT,"Documents are available only after verified payment");List<Map<String,Object>> items=repository.items(orderId);try{ByteArrayOutputStream out=new ByteArrayOutputStream();Document doc=new Document();PdfWriter.getInstance(doc,out);doc.open();Font title=new Font(Font.HELVETICA,20,Font.BOLD);doc.add(new Paragraph(invoice?"TAX INVOICE":"ORDER SLIP",title));doc.add(new Paragraph(String.valueOf(seller.get("displayName"))));doc.add(new Paragraph(seller.get("addressLine1")+", "+seller.get("addressLine2")));doc.add(new Paragraph(seller.get("city")+", "+seller.get("state")+" - "+seller.get("postalCode")+" | "+seller.get("phone")+" | "+seller.get("email")));doc.add(new Paragraph(" "));doc.add(new Paragraph((invoice?"Invoice: "+order.get("invoice_no"):"Order: "+order.get("order_no"))+"    Date: "+order.get("created_at")));doc.add(new Paragraph("Bill to: "+order.get("billing_name")+", "+order.get("billing_address")+", "+order.get("billing_city")+", "+order.get("billing_state")+" - "+order.get("billing_postal_code")));doc.add(new Paragraph(" "));PdfPTable table=new PdfPTable(4);table.setWidthPercentage(100);for(String heading:List.of("Product","Qty","Unit price","Total"))table.addCell(heading);for(Map<String,Object> row:items){table.addCell(String.valueOf(row.get("productName")));table.addCell(String.valueOf(row.get("quantity")));table.addCell("Rs. "+row.get("unitPrice"));table.addCell("Rs. "+row.get("lineTotal"));}doc.add(table);doc.add(new Paragraph("Subtotal: Rs. "+order.get("subtotal")));doc.add(new Paragraph("Delivery: Rs. "+order.get("shipping_amount")));doc.add(new Paragraph("Grand total: Rs. "+order.get("total_amount"),new Font(Font.HELVETICA,13,Font.BOLD)));doc.add(new Paragraph("Payment status: VERIFIED / PAID"));doc.close();return out.toByteArray();}catch(Exception error){throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR,"Could not generate document",error);}}
-    private String createRazorpayOrder(BigDecimal total,String receipt)throws Exception{Map<String,Object> body=Map.of("amount",total.multiply(BigDecimal.valueOf(100)).setScale(0,RoundingMode.HALF_UP).longValueExact(),"currency","INR","receipt",receipt);String auth=Base64.getEncoder().encodeToString((keyId+":"+keySecret).getBytes(StandardCharsets.UTF_8));HttpRequest request=HttpRequest.newBuilder(URI.create("https://api.razorpay.com/v1/orders")).header("Authorization","Basic "+auth).header("Content-Type","application/json").POST(HttpRequest.BodyPublishers.ofString(json.writeValueAsString(body))).build();HttpResponse<String> response=HttpClient.newHttpClient().send(request,HttpResponse.BodyHandlers.ofString());if(response.statusCode()/100!=2)throw new ResponseStatusException(HttpStatus.BAD_GATEWAY,"Razorpay could not create the payment order");JsonNode result=json.readTree(response.body());return result.path("id").asText();}
+    private String createRazorpayOrder(BigDecimal total,String receipt)throws Exception{
+        Map<String,Object> body=Map.of("amount",total.multiply(BigDecimal.valueOf(100)).setScale(0,RoundingMode.HALF_UP).longValueExact(),"currency","INR","receipt",receipt);
+        String auth=Base64.getEncoder().encodeToString((keyId+":"+keySecret).getBytes(StandardCharsets.UTF_8));
+        HttpRequest request=HttpRequest.newBuilder(URI.create("https://api.razorpay.com/v1/orders")).header("Authorization","Basic "+auth).header("Content-Type","application/json").POST(HttpRequest.BodyPublishers.ofString(json.writeValueAsString(body))).build();
+        HttpResponse<String> response=HttpClient.newHttpClient().send(request,HttpResponse.BodyHandlers.ofString());
+        if(response.statusCode()/100!=2){
+            if(response.statusCode()==401)throw new ResponseStatusException(HttpStatus.BAD_GATEWAY,"Razorpay rejected the configured API key and secret. Generate a matching key pair in Razorpay Test Mode and restart the server.");
+            String providerMessage="";
+            try{providerMessage=json.readTree(response.body()).path("error").path("description").asText("");}catch(Exception ignored){}
+            throw new ResponseStatusException(HttpStatus.BAD_GATEWAY,providerMessage.isBlank()?"Razorpay could not create the payment order":providerMessage);
+        }
+        JsonNode result=json.readTree(response.body());return result.path("id").asText();
+    }
     private String hmac(String value)throws Exception{Mac mac=Mac.getInstance("HmacSHA256");mac.init(new SecretKeySpec(keySecret.getBytes(StandardCharsets.UTF_8),"HmacSHA256"));return java.util.HexFormat.of().formatHex(mac.doFinal(value.getBytes(StandardCharsets.UTF_8)));}
     public byte[] brandedInvoice(String identity,long orderId){
         long userId=repository.userId(identity); Map<String,Object> order=repository.order(userId,orderId);

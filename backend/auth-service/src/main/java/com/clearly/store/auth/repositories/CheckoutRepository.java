@@ -41,12 +41,13 @@ public class CheckoutRepository {
     public void addItem(long orderId,String ref,String name,int quantity,BigDecimal unitPrice){jdbc.update("INSERT INTO customer_order_items(order_id,product_ref,product_name,quantity,unit_price,line_total) VALUES(?,?,?,?,?,?)",orderId,ref,name,quantity,unitPrice,unitPrice.multiply(BigDecimal.valueOf(quantity)));}
     public Map<String,Object> order(long userId,long orderId){return jdbc.queryForMap("SELECT * FROM customer_orders WHERE id=? AND user_id=?",orderId,userId);}
     public List<Map<String,Object>> items(long orderId){return jdbc.queryForList("SELECT product_ref AS productRef,product_name AS productName,quantity,unit_price AS unitPrice,line_total AS lineTotal FROM customer_order_items WHERE order_id=? ORDER BY id",orderId);}
-    public void markPaid(long orderId,String paymentId,String providerOrderId,String signature){
+    public boolean markPaid(long orderId,String paymentId,String providerOrderId,String signature){
         String invoice="INV-"+String.format("%06d",orderId);
+        int updated=jdbc.update("UPDATE customer_orders SET payment_status='PAID',order_status='CONFIRMED',invoice_no=?,paid_at=CURRENT_TIMESTAMP WHERE id=? AND payment_status='PENDING'",invoice,orderId);
+        if(updated==0) return false;
         jdbc.update("INSERT INTO payment_transactions(order_id,provider_payment_id,provider_order_id,signature_hash,status) VALUES(?,?,?,?, 'VERIFIED')",orderId,paymentId,providerOrderId,signature);
-        jdbc.update("UPDATE customer_orders SET payment_status='PAID',order_status='CONFIRMED',invoice_no=?,paid_at=CURRENT_TIMESTAMP WHERE id=? AND payment_status='PENDING'",invoice,orderId);
         List<Map<String,Object>> companies=jdbc.queryForList("SELECT c.id FROM companies c JOIN customer_orders o ON o.user_id=c.user_id WHERE o.id=? ORDER BY c.created_at,c.id LIMIT 1",orderId);
-        if(companies.isEmpty()) return;
+        if(companies.isEmpty()) return true;
         long companyId=((Number)companies.get(0).get("id")).longValue();
         Map<String,Object> order=jdbc.queryForMap("SELECT order_no,total_amount,billing_city,billing_state FROM customer_orders WHERE id=?",orderId);
         Integer itemCount=jdbc.queryForObject("SELECT COALESCE(SUM(quantity),0) FROM customer_order_items WHERE order_id=?",Integer.class,orderId);
@@ -54,6 +55,7 @@ public class CheckoutRepository {
         jdbc.update("INSERT IGNORE INTO company_invoices(company_id,invoice_no,invoice_date,items,amount,status) VALUES(?,?,CURRENT_DATE,?,?, 'Paid')",companyId,invoice,itemCount,order.get("total_amount"));
         jdbc.update("INSERT IGNORE INTO company_shipments(company_id,shipped_at,tracking_no,carrier,destination,status) VALUES(?,CURRENT_DATE,?,'To be assigned',?,'Preparing')",companyId,"PENDING-"+orderId,order.get("billing_city")+", "+order.get("billing_state"));
         jdbc.update("INSERT INTO company_ledger_entries(company_id,entry_date,document_no,debit,credit,balance) VALUES(?,CURRENT_DATE,?,0,?,0)",companyId,invoice,order.get("total_amount"));
+        return true;
     }
     public void clearCart(long userId){jdbc.update("DELETE FROM user_cart_items WHERE user_id=?",userId);}
     private static String text(Map<String,Object> map,String key){String value=String.valueOf(map.getOrDefault(key,"")).trim();if(value.isBlank())throw new IllegalArgumentException(key+" is required");return value;}

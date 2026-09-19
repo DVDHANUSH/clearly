@@ -25,9 +25,10 @@ public class SecurityConfig {
         http.csrf(csrf -> csrf.disable())
             .cors(cors -> {})
             .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+            .exceptionHandling(exceptions -> exceptions.authenticationEntryPoint((request, response, error) -> response.sendError(401)))
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
-                .requestMatchers("/api/auth/register", "/api/auth/login", "/api/auth/verify-otp", "/api/auth/resend-otp", "/api/auth/google", "/api/auth/config", "/api/auth/health", "/actuator/health", "/swagger-ui/**", "/v3/api-docs/**").permitAll()
+                .requestMatchers("/error", "/api/auth/register", "/api/auth/login", "/api/auth/verify-otp", "/api/auth/resend-otp", "/api/auth/google", "/api/auth/config", "/api/auth/health", "/actuator/health", "/swagger-ui/**", "/v3/api-docs/**").permitAll()
                 .anyRequest().authenticated())
             .httpBasic(basic -> basic.disable())
             .formLogin(form -> form.disable())

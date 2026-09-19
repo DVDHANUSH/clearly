@@ -25,6 +25,7 @@ work/
 output/
 outputs/
 reference-microservices/
+backend/catalog-service/catalog-before-hierarchy-*.sql
 
 # Editor and operating-system files
 .vscode/

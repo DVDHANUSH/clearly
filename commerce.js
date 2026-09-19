@@ -96,12 +96,21 @@
       const cart = readCart();
       const id = row.dataset.cartId;
       const quantityButton = event.target.closest('[data-qty]');
+      const confirmRemoval = () => {
+        const part = cartPart(id);
+        const product = productById[part.id];
+        const label = product.name + (part.size ? ` (${part.size})` : '');
+        return window.confirm(`Remove ${label} from your cart?`);
+      };
       if (quantityButton) {
-        cart[id] = Number(cart[id] || 0) + Number(quantityButton.dataset.qty);
+        const nextQuantity = Number(cart[id] || 0) + Number(quantityButton.dataset.qty);
+        if (nextQuantity < 1 && !confirmRemoval()) return;
+        cart[id] = nextQuantity;
         if (cart[id] < 1) delete cart[id];
         saveCart(cart); renderCart(); return;
       }
       if (event.target.closest('[data-remove]')) {
+        if (!confirmRemoval()) return;
         delete cart[id]; saveCart(cart); renderCart(); toast('Removed from cart');
       }
     });
