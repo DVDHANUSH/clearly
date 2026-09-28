@@ -1,0 +1,7 @@
+/* Shared readability pass: prevents bold letters from visually touching. */
+body{letter-spacing:.14px}
+h1,h2,h3,h4,h5,h6{letter-spacing:.28px!important}
+p,li,dd,blockquote{letter-spacing:.2px}
+nav a,footer a,label,button,select,input,textarea{letter-spacing:.16px}
+.eyebrow,[class*="eyebrow"],[class*="kicker"]{letter-spacing:1.8px!important}
+.price,[class*="price"],.stars,[class*="stars"],.site-badge{letter-spacing:0}

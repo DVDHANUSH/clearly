@@ -36,9 +36,15 @@ import org.springframework.web.server.ResponseStatusException;
 
 @Service
 public class CheckoutService {
-    private final CheckoutRepository repository; private final ObjectMapper json; private final OrderNotificationClient notifications; private final String keyId; private final String keySecret;
-    public CheckoutService(CheckoutRepository repository,ObjectMapper json,OrderNotificationClient notifications,@Value("${razorpay.key-id:}") String keyId,@Value("${razorpay.key-secret:}") String keySecret){this.repository=repository;this.json=json;this.notifications=notifications;this.keyId=keyId;this.keySecret=keySecret;}
+    private final CheckoutRepository repository; private final ObjectMapper json; private final OrderNotificationClient notifications; private final String keyId; private final String keySecret; private final String storefrontUrl;
+    public CheckoutService(CheckoutRepository repository,ObjectMapper json,OrderNotificationClient notifications,@Value("${razorpay.key-id:}") String keyId,@Value("${razorpay.key-secret:}") String keySecret,@Value("${storefront.public-url:http://127.0.0.1:4173}") String storefrontUrl){this.repository=repository;this.json=json;this.notifications=notifications;this.keyId=keyId;this.keySecret=keySecret;this.storefrontUrl=storefrontUrl.replaceAll("/+$","");}
     public Map<String,Object> config(){return Map.of("configured",configured(),"keyId",keyId,"seller",repository.seller());}
+    public Map<String,Object> track(String identity,String orderRef){
+        String ref=orderRef==null?"":orderRef.trim();if(ref.isBlank())throw new ResponseStatusException(HttpStatus.BAD_REQUEST,"Enter your order ID");
+        long userId=repository.userId(identity);List<Map<String,Object>> matches=repository.trackedOrder(userId,ref);
+        if(matches.isEmpty())throw new ResponseStatusException(HttpStatus.NOT_FOUND,"We could not find this order in your account");
+        Map<String,Object> result=new LinkedHashMap<>(matches.get(0));long orderId=((Number)result.get("id")).longValue();result.put("items",repository.items(orderId));return result;
+    }
 
     @Transactional
     public Map<String,Object> create(String identity,Map<String,Object> payload){
@@ -62,9 +68,11 @@ public class CheckoutService {
             boolean newlyPaid=repository.markPaid(orderId,payment,stored,signature);
             repository.clearCart(userId);
             if(newlyPaid){
-                Map<String,Object> notificationOrder=new LinkedHashMap<>(order);
+                Map<String,Object> notificationOrder=new LinkedHashMap<>(repository.order(userId,orderId));
+                List<Map<String,Object>> notificationItems=repository.items(orderId);
+                notificationItems.forEach(this::addEmailProductLinks);
                 TransactionSynchronizationManager.registerSynchronization(new TransactionSynchronization(){
-                    @Override public void afterCommit(){notifications.sendPaidOrder(orderId,notificationOrder,payment);}
+                    @Override public void afterCommit(){notifications.sendPaidOrder(orderId,notificationOrder,notificationItems,payment);}
                 });
             }
             return Map.of("success",true,"orderId",orderId,"orderNo",order.get("order_no"),"invoiceUrl","/api/checkout/orders/"+orderId+"/invoice","slipUrl","/api/checkout/orders/"+orderId+"/slip");
@@ -93,5 +101,11 @@ public class CheckoutService {
         catch(Exception error){throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR,"Could not generate invoice",error);}
     }
     private boolean configured(){return !keyId.isBlank()&&!keySecret.isBlank();}
+    private void addEmailProductLinks(Map<String,Object> item){
+        String ref=String.valueOf(item.getOrDefault("productRef","")).trim();
+        if(!ref.isBlank()) item.put("productUrl",storefrontUrl+"/product.html?id="+java.net.URLEncoder.encode(ref,StandardCharsets.UTF_8));
+        String image=String.valueOf(item.getOrDefault("imageUrl","")).trim();
+        if(!image.isBlank()&&!image.startsWith("http://")&&!image.startsWith("https://")) item.put("imageUrl",storefrontUrl+"/"+image.replaceFirst("^/+","").replace(" ","%20"));
+    }
     @SuppressWarnings("unchecked") private Map<String,Object> castMap(Object value){if(value instanceof Map<?,?> map)return (Map<String,Object>)map;throw new IllegalArgumentException("Billing address is required");}
 }

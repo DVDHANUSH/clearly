@@ -37,4 +37,57 @@ public class OrderNotificationController {
         notifications.send(order);
         return ResponseEntity.accepted().body(Map.of("accepted", true, "orderNo", order.orderNo()));
     }
+
+    @PostMapping("/test-order-email")
+    public ResponseEntity<Map<String, Object>> testOrderEmail(
+        @RequestHeader(value = "X-Internal-Key", defaultValue = "") String suppliedKey,
+        @RequestBody Map<String, String> request
+    ) {
+        if (!MessageDigest.isEqual(internalKey.getBytes(StandardCharsets.UTF_8), suppliedKey.getBytes(StandardCharsets.UTF_8))) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(Map.of("accepted", false));
+        }
+        try {
+            notifications.sendTestEmail(request.get("email"), request.getOrDefault("customerName", "Clearly customer"));
+            return ResponseEntity.accepted().body(Map.of("accepted", true, "message", "Test order email sent"));
+        } catch (IllegalStateException | IllegalArgumentException error) {
+            String detail = error.getCause() == null || error.getCause().getMessage() == null
+                ? error.getMessage()
+                : error.getCause().getMessage();
+            return ResponseEntity.status(HttpStatus.SERVICE_UNAVAILABLE).body(Map.of("accepted", false, "message", detail));
+        }
+    }
+
+    @PostMapping("/contact-enquiry")
+    public ResponseEntity<Map<String, Object>> contactEnquiry(
+        @RequestHeader(value = "X-Internal-Key", defaultValue = "") String suppliedKey,
+        @RequestBody Map<String, Object> request
+    ) {
+        if (!MessageDigest.isEqual(internalKey.getBytes(StandardCharsets.UTF_8), suppliedKey.getBytes(StandardCharsets.UTF_8))) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(Map.of("accepted", false));
+        }
+        try {
+            notifications.sendContactEnquiry(request);
+            return ResponseEntity.accepted().body(Map.of("accepted", true));
+        } catch (IllegalStateException | IllegalArgumentException error) {
+            String detail = error.getCause() == null || error.getCause().getMessage() == null
+                ? error.getMessage() : error.getCause().getMessage();
+            return ResponseEntity.status(HttpStatus.SERVICE_UNAVAILABLE).body(Map.of("accepted", false, "message", detail));
+        }
+    }
+
+    @PostMapping("/contact-otp")
+    public ResponseEntity<Map<String, Object>> contactOtp(
+        @RequestHeader(value = "X-Internal-Key", defaultValue = "") String suppliedKey,
+        @RequestBody Map<String, String> request
+    ) {
+        if (!MessageDigest.isEqual(internalKey.getBytes(StandardCharsets.UTF_8), suppliedKey.getBytes(StandardCharsets.UTF_8))) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(Map.of("accepted", false));
+        }
+        try {
+            notifications.sendContactOtp(request.get("phone"), request.get("otp"));
+            return ResponseEntity.accepted().body(Map.of("accepted", true));
+        } catch (Exception error) {
+            return ResponseEntity.status(HttpStatus.SERVICE_UNAVAILABLE).body(Map.of("accepted", false, "message", error.getMessage() == null ? "OTP SMS could not be sent" : error.getMessage()));
+        }
+    }
 }

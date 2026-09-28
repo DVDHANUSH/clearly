@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Track your order — Clearly.</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="track-order.css?v=1" />
+  <link rel="stylesheet" href="typography-spacing.css?v=readability-1" />
+</head>
+<body>
+  <header class="track-header"><div class="track-wrap"><a class="track-logo" href="index.html">Clearly<span>.</span></a><nav><a href="index.html">Home</a><a href="products.html">Shop</a><a href="account.html">My account</a></nav></div></header>
+  <main class="tracking-page">
+    <section class="tracking-hero">
+      <p class="tracking-eyebrow">ORDER UPDATES</p>
+      <h1>Track your order</h1>
+      <p>Enter the Order ID from your confirmation email to see its latest status.</p>
+      <form id="tracking-form" novalidate>
+        <label for="tracking-order-id">Order ID</label>
+        <div class="tracking-input-row"><input id="tracking-order-id" autocomplete="off" placeholder="Example: CLR-260925123456-ABC123" required /><button type="submit">Track my order</button></div>
+        <span id="tracking-message" role="status" aria-live="polite"></span>
+      </form>
+    </section>
+    <section class="tracking-result" id="tracking-result" hidden></section>
+    <section class="tracking-help"><div><b>Where can I find my Order ID?</b><p>It is included in your successful-payment email and order documents.</p></div><a href="account.html">Open my account</a></section>
+  </main>
+  <script src="shop-state.js?v=cart-race-1"></script>
+  <script src="track-order.js?v=1"></script>
+</body>
+</html>

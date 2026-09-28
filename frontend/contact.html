@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="description" content="Contact Clearly by Adhithya Chemicals for product help, order support and business enquiries." />
+  <title>Contact us — Clearly.</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="contact.css?v=1" />
+  <link rel="stylesheet" href="contact-v2.css?v=pleasant-redesign-1" />
+  <link rel="stylesheet" href="contact-v3.css?v=executive-hero-1" />
+  <link rel="stylesheet" href="contact-v4.css?v=compact-phone-layout-3" />
+</head>
+<body>
+  <main class="contact-page">
+    <section class="contact-hero">
+      <div class="contact-hero-copy">
+        <p class="contact-eyebrow">WE ARE HERE TO HELP</p>
+        <h1>Let’s make things<br><span>clear and simple.</span></h1>
+        <p>Need help choosing a product, checking an order, or planning a bulk purchase? Our team will help you find the right answer.</p>
+        <div class="contact-quick-links">
+          <a href="tel:+919791046050"><span class="contact-icon">☎</span><span><small>Call our team</small><strong>+91 97910 46050</strong></span></a>
+          <a href="mailto:adhithyachem@gmail.com"><span class="contact-icon">✉</span><span><small>Email support</small><strong>adhithyachem@gmail.com</strong></span></a>
+        </div>
+      </div>
+      <div class="contact-visual">
+        <img src="assets/homepage/contact-support-executive.png?v=creative-office-2" alt="Customer-care executive answering a phone call in a bright, creative support office" />
+        <div class="contact-hero-card" aria-label="Support availability"><span class="contact-available-dot"></span><p>Our support team is here for</p><strong>Products, orders<br>and bulk enquiries</strong><small>Monday–Saturday · 9:30 AM–6:30 PM IST</small></div>
+      </div>
+    </section>
+    <section class="contact-content">
+      <div class="contact-form-panel">
+        <p class="contact-eyebrow">SEND AN ENQUIRY</p><h2>How can we help?</h2><p class="contact-intro">Share a few details and we’ll prepare your message for our support team.</p>
+        <form id="contact-form" novalidate>
+          <div class="contact-form-grid">
+            <label>Full name<input id="contact-name" autocomplete="name" placeholder="Your name" required /></label>
+            <label>Email address<input id="contact-email" type="email" autocomplete="email" placeholder="you@example.com" required /></label>
+            <label class="contact-phone-field">Phone number
+              <span class="contact-phone-row">
+                <select id="contact-country-code" aria-label="Country code">
+                  <option value="+91" selected>🇮🇳 +91</option><option value="+1">🇺🇸 +1</option><option value="+44">🇬🇧 +44</option><option value="+61">🇦🇺 +61</option><option value="+65">🇸🇬 +65</option><option value="+971">🇦🇪 +971</option><option value="+974">🇶🇦 +974</option><option value="+966">🇸🇦 +966</option>
+                </select>
+                <input id="contact-phone" type="tel" autocomplete="tel-national" inputmode="numeric" placeholder="97910 46050" required />
+                <button id="contact-send-otp" class="contact-secondary-button" type="button">Send OTP</button>
+              </span>
+              <small>Select the country code, then verify your phone number.</small>
+            </label>
+            <label>What is this about?<select id="contact-topic"><option>Product enquiry</option><option>Order support</option><option>Bulk or business order</option><option>Delivery and returns</option><option>Other enquiry</option></select></label>
+          </div>
+          <div id="contact-otp-panel" class="contact-otp-panel" hidden>
+            <label>Enter the 6-digit OTP
+              <span class="contact-phone-row"><input id="contact-otp" inputmode="numeric" maxlength="6" autocomplete="one-time-code" placeholder="000000" /><button id="contact-verify-otp" class="contact-secondary-button" type="button">Verify</button></span>
+            </label>
+            <span id="contact-otp-status" role="status" aria-live="polite"></span>
+          </div>
+          <label>Order ID <small>(optional)</small><input id="contact-order" placeholder="Example: CLR-260925123456-ABC123" /></label>
+          <label>Your message<textarea id="contact-message" rows="5" placeholder="Tell us how we can help you" required></textarea></label>
+          <label class="contact-upload">Add images <small>(optional — up to 3 JPG, PNG or WebP files, 5 MB each)</small>
+            <input id="contact-images" type="file" accept="image/jpeg,image/png,image/webp" multiple />
+            <span id="contact-file-summary">No images selected</span>
+          </label>
+          <div class="contact-submit-row"><span id="contact-status" role="status" aria-live="polite"></span><button type="submit">Send enquiry <b>→</b></button></div>
+        </form>
+      </div>
+      <aside class="contact-details">
+        <div><p class="contact-eyebrow">VISIT OR WRITE TO US</p><h2>Adhithya Chemicals</h2><p>D.No: 1-119-10, Adithya Nilayam, 1st Floor,<br>Near Ushodaya Junction, Sector 12, MVP Colony,<br>Visakhapatnam, Andhra Pradesh 530017</p></div>
+        <div class="contact-detail-row"><span>01</span><div><small>Order assistance</small><strong>Keep your Order ID ready for faster support.</strong></div></div>
+        <div class="contact-detail-row"><span>02</span><div><small>Product guidance</small><strong>Tell us the surface, application and quantity required.</strong></div></div>
+        <div class="contact-detail-row"><span>03</span><div><small>Business purchases</small><strong>Ask about GST invoices and bulk pricing.</strong></div></div>
+        <a class="track-order-link" href="track-order.html">Already placed an order? <b>Track it here →</b></a>
+      </aside>
+    </section>
+  </main>
+  <script src="shop-state.js?v=cart-race-1"></script><script src="site-nav.js?v=contact-page-1"></script><script src="contact.js?v=verified-enquiry-1"></script>
+</body>
+</html>

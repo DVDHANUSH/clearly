@@ -40,7 +40,25 @@ public class CheckoutRepository {
     }
     public void addItem(long orderId,String ref,String name,int quantity,BigDecimal unitPrice){jdbc.update("INSERT INTO customer_order_items(order_id,product_ref,product_name,quantity,unit_price,line_total) VALUES(?,?,?,?,?,?)",orderId,ref,name,quantity,unitPrice,unitPrice.multiply(BigDecimal.valueOf(quantity)));}
     public Map<String,Object> order(long userId,long orderId){return jdbc.queryForMap("SELECT * FROM customer_orders WHERE id=? AND user_id=?",orderId,userId);}
-    public List<Map<String,Object>> items(long orderId){return jdbc.queryForList("SELECT product_ref AS productRef,product_name AS productName,quantity,unit_price AS unitPrice,line_total AS lineTotal FROM customer_order_items WHERE order_id=? ORDER BY id",orderId);}
+    public List<Map<String,Object>> trackedOrder(long userId,String orderRef){return jdbc.queryForList("""
+        SELECT o.id,o.order_no AS orderNo,o.order_status AS orderStatus,o.payment_status AS paymentStatus,
+               o.total_amount AS totalAmount,o.currency,o.billing_city AS destinationCity,
+               o.billing_state AS destinationState,o.created_at AS createdAt,o.paid_at AS paidAt,
+               COALESCE(SUM(i.quantity),0) AS itemCount
+        FROM customer_orders o LEFT JOIN customer_order_items i ON i.order_id=o.id
+        WHERE o.user_id=? AND (UPPER(o.order_no)=UPPER(?) OR CAST(o.id AS CHAR)=?)
+        GROUP BY o.id ORDER BY o.created_at DESC LIMIT 1
+        """,userId,orderRef,orderRef);}
+    public List<Map<String,Object>> items(long orderId){return jdbc.queryForList("""
+        SELECT coi.product_ref AS productRef,coi.product_name AS productName,coi.quantity,
+               coi.unit_price AS unitPrice,coi.line_total AS lineTotal,
+               COALESCE(NULLIF(pp.image_url,''),NULLIF(p.image_url,'')) AS imageUrl
+        FROM customer_order_items coi
+        LEFT JOIN products p ON p.product_code=coi.product_ref
+        LEFT JOIN product_packages pp ON pp.product_id=p.id
+            AND coi.product_name=CONCAT(p.name,' — ',pp.label)
+        WHERE coi.order_id=? ORDER BY coi.id
+        """,orderId);}
     public boolean markPaid(long orderId,String paymentId,String providerOrderId,String signature){
         String invoice="INV-"+String.format("%06d",orderId);
         int updated=jdbc.update("UPDATE customer_orders SET payment_status='PAID',order_status='CONFIRMED',invoice_no=?,paid_at=CURRENT_TIMESTAMP WHERE id=? AND payment_status='PENDING'",invoice,orderId);

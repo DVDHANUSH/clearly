@@ -30,17 +30,26 @@ public class OrderNotificationClient {
     }
 
     @Async
-    public void sendPaidOrder(long orderId, Map<String, Object> order, String paymentId) {
+    public void sendPaidOrder(long orderId, Map<String, Object> order, java.util.List<Map<String, Object>> items, String paymentId) {
         try {
             Map<String, Object> payload = new LinkedHashMap<>();
             payload.put("orderId", orderId);
             payload.put("orderNo", order.get("order_no"));
+            payload.put("invoiceNo", order.get("invoice_no"));
             payload.put("customerName", order.get("billing_name"));
             payload.put("email", order.get("billing_email"));
             payload.put("phone", order.get("billing_phone"));
+            payload.put("billingAddress", order.get("billing_address"));
+            payload.put("billingCity", order.get("billing_city"));
+            payload.put("billingState", order.get("billing_state"));
+            payload.put("billingPostalCode", order.get("billing_postal_code"));
+            payload.put("items", items);
+            payload.put("subtotal", order.get("subtotal"));
+            payload.put("shippingAmount", order.get("shipping_amount"));
             payload.put("amount", order.get("total_amount"));
             payload.put("currency", order.getOrDefault("currency", "INR"));
             payload.put("paymentId", paymentId);
+            payload.put("paidAt", order.get("paid_at"));
             HttpRequest request = HttpRequest.newBuilder(URI.create(serviceUrl + "/api/notifications/order-paid"))
                 .header("Content-Type", "application/json")
                 .header("X-Internal-Key", internalKey)
@@ -51,6 +60,30 @@ public class OrderNotificationClient {
             log.info("Paid-order notification accepted for {}", order.get("order_no"));
         } catch (Exception error) {
             log.error("Paid-order notification dispatch failed for {}: {}", order.get("order_no"), error.getMessage());
+        }
+    }
+
+    public void sendContactEnquiry(Map<String, Object> enquiry) throws Exception {
+        HttpRequest request = HttpRequest.newBuilder(URI.create(serviceUrl + "/api/notifications/contact-enquiry"))
+            .header("Content-Type", "application/json")
+            .header("X-Internal-Key", internalKey)
+            .POST(HttpRequest.BodyPublishers.ofString(json.writeValueAsString(enquiry)))
+            .build();
+        HttpResponse<String> response = http.send(request, HttpResponse.BodyHandlers.ofString());
+        if (response.statusCode() != 202) throw new IllegalStateException("notification service returned HTTP " + response.statusCode());
+    }
+
+    public void sendContactOtp(String phone, String otp) throws Exception {
+        Map<String, Object> payload = Map.of("phone", phone, "otp", otp);
+        HttpRequest request = HttpRequest.newBuilder(URI.create(serviceUrl + "/api/notifications/contact-otp"))
+            .header("Content-Type", "application/json")
+            .header("X-Internal-Key", internalKey)
+            .POST(HttpRequest.BodyPublishers.ofString(json.writeValueAsString(payload)))
+            .build();
+        HttpResponse<String> response = http.send(request, HttpResponse.BodyHandlers.ofString());
+        if (response.statusCode() != 202) {
+            String detail = json.readTree(response.body()).path("message").asText("SMS provider rejected the OTP");
+            throw new IllegalStateException(detail);
         }
     }
 }

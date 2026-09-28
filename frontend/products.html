@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>All Products — Clearly.</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="products.css?v=store-footer-1" />
+    <link rel="stylesheet" href="products-toolbar.css?v=3" />
+    <link rel="stylesheet" href="product-card-shared.css?v=compact-cards-1" />
+  </head>
+  <body>
+    <header class="nav wrap">
+      <a class="logo" href="index.html">Clearly<span>.</span></a>
+      <a class="back brand-mark" id="brand-mark" href="index.html#categories" aria-label="Back to brand collection"></a>
+      <div class="actions">
+        <a href="profile.html" aria-label="My account" title="My account"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.5"/><path d="M4.5 20c.7-3.5 3.3-5.4 7.5-5.4s6.8 1.9 7.5 5.4"/></svg></a>
+        <a class="bag" id="bag" href="cart.html" aria-label="Shopping cart" title="Shopping cart"><svg viewBox="0 0 24 24"><path d="M3.8 5h2.3l1.5 9.5h10.2l2.1-6.8H7"/><circle cx="10" cy="18.5" r="1.3"/><circle cx="17" cy="18.5" r="1.3"/></svg><i id="bag-count">0</i></a>
+        <a class="saved-toggle" id="saved-toggle" href="wishlist.html" aria-label="Wishlist" title="Wishlist"><svg viewBox="0 0 24 24"><path d="M20.5 8.6c0 5.1-8.5 10-8.5 10s-8.5-4.9-8.5-10A4.6 4.6 0 0 1 12 6.1a4.6 4.6 0 0 1 8.5 2.5Z"/></svg><i id="saved-count">0</i></a>
+      </div>
+    </header>
+
+    <main>
+      <section class="catalog wrap">
+        <div class="catalog-toolbar">
+          <div class="filters">
+            <div class="category-filter" id="category-filter" aria-label="Filter by subcategory">
+              <button class="category-all" id="category-all" type="button">All</button>
+              <div id="category-select" class="category-menu" aria-label="Filter by category"></div>
+            </div>
+          </div>
+
+          <div class="filter-side">
+            <details class="brand-filter" id="brand-filter">
+              <summary>Brands</summary>
+              <div id="brand-select" class="brand-menu" aria-label="Filter by brand"></div>
+            </details>
+            <div class="sort">
+              <label class="sort-label" for="sort-select">Sort</label>
+              <select id="sort-select" aria-label="Sort products">
+                <option value="relevance">Relevance</option>
+                <option value="price-asc">Price: low to high</option>
+                <option value="price-desc">Price: high to low</option>
+                <option value="rating">Rating</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="catalog-meta">
+          <div id="breadcrumb" class="breadcrumb"></div>
+          <div id="result-count" class="result-count"></div>
+        </div>
+
+        <div class="product-grid" id="product-grid"></div>
+        <div class="empty-state" id="empty-state" hidden>
+          <div class="empty-ico">⌕</div>
+          <h3>No products found</h3>
+          <p>Try a different search, brand or category, or clear the filters.</p>
+          <button class="button secondary" id="clear-filters">Clear filters</button>
+        </div>
+      </section>
+    </main>
+
+    <footer class="store-footer">
+      <div class="wrap store-footer-grid">
+        <div class="store-footer-intro"><a class="store-footer-logo" href="index.html">Clearly<span>.</span></a><p>Thoughtfully selected cleaning and care essentials for homes and businesses.</p><a class="footer-support" href="mailto:adhithyachem@gmail.com">adhithyachem@gmail.com</a></div>
+        <div><h2>Shop</h2><a href="products.html">All products</a><a href="products.html#shine-all">Shine All</a><a href="index.html#categories">Shop by category</a></div>
+        <div><h2>Your account</h2><a href="account.html">Sign in or create account</a><a href="track-order.html">Track your order</a><a href="cart.html">Your cart</a><a href="wishlist.html">Wishlist</a></div>
+        <div><h2>Customer care</h2><a href="mailto:adhithyachem@gmail.com">Email us</a><a href="tel:+919791046050">Call 97910 46050</a><span>Secure payments · GST invoices</span></div>
+      </div>
+      <div class="wrap store-footer-bottom"><span>© 2026 Clearly. All rights reserved.</span><span>Quality care, delivered simply.</span></div>
+    </footer>
+
+  <script src="taski-catalog.js"></script><script src="shop-state.js?v=guest-cart-1"></script><script src="site-nav.js?v=track-order-link-1"></script>
+  <script src="products-app.v2.js?v=compact-cards-1"></script><script src="catalog-live.js?v=3"></script>
+  </body>
+</html>

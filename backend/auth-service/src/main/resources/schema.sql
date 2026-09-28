@@ -210,3 +210,23 @@ CREATE TABLE IF NOT EXISTS payment_transactions (
     CONSTRAINT fk_payment_order FOREIGN KEY (order_id) REFERENCES customer_orders(id),
     INDEX idx_payment_order (order_id)
 );
+
+CREATE TABLE IF NOT EXISTS product_reviews (
+    id BIGINT PRIMARY KEY AUTO_INCREMENT,
+    product_ref VARCHAR(100) NOT NULL,
+    user_id BIGINT NULL,
+    reviewer_name VARCHAR(120) NOT NULL,
+    rating TINYINT NOT NULL,
+    title VARCHAR(120) NULL,
+    review_text VARCHAR(1200) NOT NULL,
+    image_url VARCHAR(500) NULL,
+    verified_purchase BOOLEAN NOT NULL DEFAULT FALSE,
+    created_by_admin BOOLEAN NOT NULL DEFAULT FALSE,
+    enabled BOOLEAN NOT NULL DEFAULT TRUE,
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    CONSTRAINT fk_product_review_user FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE SET NULL,
+    CONSTRAINT chk_product_review_rating CHECK (rating BETWEEN 1 AND 5),
+    UNIQUE KEY uq_product_review_customer (product_ref, user_id),
+    INDEX idx_product_reviews_product (product_ref, enabled, created_at)
+);

@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Product — Clearly.</title>
+  <link rel="stylesheet" href="style.css" /><link rel="stylesheet" href="product-view.css?v=premium-client-reviews-1" />
+</head>
+<body>
+  <header class="product-nav wrap">
+    <a class="logo" href="index.html">Clearly<span>.</span></a>
+    <a class="product-back" href="products.html">← Back to products</a>
+    <div class="product-actions">
+      <a id="profile" href="profile.html" aria-label="My account"><span class="nav-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.5"/><path d="M4.5 20c.7-3.4 3.3-5.3 7.5-5.3s6.8 1.9 7.5 5.3"/></svg></span><small>Account</small></a>
+      <a id="wishlist" href="wishlist.html" aria-label="Wishlist"><span class="nav-icon"><svg viewBox="0 0 24 24"><path d="M20.8 8.7c0 5.3-8.8 10.2-8.8 10.2S3.2 14 3.2 8.7A4.7 4.7 0 0 1 12 6.2a4.7 4.7 0 0 1 8.8 2.5Z"/></svg></span><small>Wishlist</small></a>
+      <a id="cart" href="cart.html" aria-label="Cart"><span class="nav-icon"><svg viewBox="0 0 24 24"><path d="M4 5h2l1.5 10h10L20 8H7"/><circle cx="10" cy="19" r="1.5"/><circle cx="17" cy="19" r="1.5"/></svg></span><small>Cart <b id="cart-count">0</b></small></a>
+    </div>
+  </header>
+  <main class="product-view wrap">
+    <div class="product-crumb" id="crumb"></div>
+    <section class="product-detail">
+      <div class="detail-gallery"><div class="gallery-main"><button class="gallery-arrow prev" id="prev-image">‹</button><img id="product-image" alt="" /><button class="gallery-arrow next" id="next-image">›</button></div><div class="gallery-progress" id="gallery-progress" aria-hidden="true"><span></span></div><div class="gallery-thumbs" id="gallery-thumbs"></div></div>
+      <div class="detail-copy">
+        <span class="detail-brand" id="brand"></span><h1 id="name"></h1><p class="detail-category" id="category"></p><p class="description" id="description"></p>
+        <div class="rating" id="rating"></div><hr />
+        <div class="price"><strong id="price"></strong><del id="original-price"></del><span id="discount"></span></div>
+        <p class="tax">Inclusive of all taxes</p>
+        <div class="bulk-discounts" id="bulk-section"><h3>Quantity discounts</h3><p>Save more when you buy in bulk</p><div class="bulk-table-wrap" id="bulk-discounts"></div></div>
+        <div class="detail-block"><h3>Available sizes</h3><div class="sizes" id="sizes"></div></div>
+        <div class="detail-buttons"><button class="add-button" id="add">Add to bag</button><button class="wish-button" id="save" aria-label="Save to wishlist" title="Save to wishlist">♡</button></div>
+        <div class="purchase-tags" aria-label="Dispatch and returns">
+          <span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7h11v9H3zM14 10h3.5l3 3v3H14z"/><circle cx="7" cy="18" r="1.7"/><circle cx="17.5" cy="18" r="1.7"/></svg>Free delivery ₹500+ · Dispatch 24–48h</span>
+          <span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7.2 7.2A7 7 0 1 1 5 12"/><path d="M4 5v5h5"/></svg>Free 30-day returns</span>
+        </div>
+        <form class="delivery-checker" id="delivery-checker" novalidate>
+          <label for="delivery-pincode">Check expected delivery</label>
+          <div class="delivery-check-row">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s6-5.1 6-11a6 6 0 1 0-12 0c0 5.9 6 11 6 11Z"/><circle cx="12" cy="10" r="2"/></svg>
+            <input id="delivery-pincode" name="pincode" inputmode="numeric" autocomplete="postal-code" maxlength="6" placeholder="Enter 6-digit PIN code" aria-describedby="delivery-result" />
+            <button type="submit" id="delivery-check-button">Check</button>
+          </div>
+          <div class="delivery-result" id="delivery-result" aria-live="polite"></div>
+        </form>
+      </div>
+    </section>
+    <section class="buyer-info" id="buyer-info"></section>
+    <section class="product-documents" aria-labelledby="documents-title">
+      <h2 id="documents-title">Product documents</h2>
+      <div class="document-card"><span class="document-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 3.5h8l4 4V20a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V4.5a1 1 0 0 1 1-1Z"/><path d="M14 3.5V8h4M8.5 12h7M8.5 15.5h7"/></svg></span><div><h3>Product Information Sheet</h3><p id="document-description">Technical specifications, safety information, and usage guidelines</p></div><a id="download-document" class="document-download" download>Download</a></div>
+    </section>
+    <section class="product-specifications" aria-labelledby="specifications-title">
+      <h2 id="specifications-title">Product specifications</h2>
+      <div id="product-spec-table"></div>
+      <p class="spec-note"><strong>Note:</strong> Specifications are provided as a buying guide and may vary by pack or manufacturer update. Always follow the product label and current technical document.</p>
+    </section>
+    <section class="product-poster"><img id="product-info-image" src="assets/conbextra-gp2-how-to.png" alt="Conbextra GP2 three-step application procedure" /></section>
+    <section class="reviews-section" id="product-reviews"><div class="reviews-heading"><div><small>HAPPY CUSTOMERS</small><h2>Customer reviews</h2><p>Honest feedback from customers who purchased this product.</p></div><button class="review-action" id="open-review-form" type="button" hidden>Write a review</button></div><div class="review-summary" id="review-summary"></div><form class="review-form" id="review-form" hidden><h3>Share your experience</h3><p id="review-form-note">Reviews are available to verified buyers of this product.</p><label>Your rating<select id="review-rating" required><option value="5">5 — Excellent</option><option value="4">4 — Good</option><option value="3">3 — Average</option><option value="2">2 — Fair</option><option value="1">1 — Poor</option></select></label><label>Your review<textarea id="review-text" minlength="5" maxlength="1200" rows="4" required placeholder="Tell other buyers about this product"></textarea></label><label class="review-photo-field">Add a product photo <small>Optional · JPG, PNG or WebP · maximum 5 MB</small><input id="review-image-file" type="file" accept="image/png,image/jpeg,image/webp" /></label><div class="review-image-preview" id="review-image-preview" hidden><img alt="Review photo preview" /><button type="button" id="remove-review-image">Remove photo</button></div><div><span id="review-status"></span><button class="review-action" type="submit">Post review</button></div></form><div class="review-list" id="review-list"><p class="review-empty">Loading reviews…</p></div></section>
+    <section class="related-section"><div class="section-title"><h2>Related products</h2><a href="products.html">View all</a></div><div class="related-grid" id="related-grid"></div></section>
+  </main>
+  <footer class="site-footer"><div class="footer-inner wrap"><div><a class="logo" href="index.html">Clearly<span>.</span></a><p>Clean home. Happy life.</p></div><div><h3>Shop</h3><a href="products.html">All products</a><a href="index.html#categories">Categories</a></div><div><h3>Information</h3><a href="track-order.html">Track your order</a><a href="#">Shipping policy</a><a href="#">Returns & refunds</a></div><div><h3>Company</h3><a href="#">About us</a><a href="#">Contact us</a></div></div><div class="footer-bottom wrap">© 2026 Clearly. · Made for cleaner homes.</div></footer>
+  <script src="taski-catalog.js"></script><script src="shop-state.js?v=cart-race-1"></script><script src="site-nav.js?v=track-order-link-1"></script><script src="products-app.v2.js?v=guest-cart-1"></script><script src="catalog-live.js?v=product-identity-1"></script><script src="product-view.js?v=larger-all-carousel-images-1"></script>
+</body>
+</html>
