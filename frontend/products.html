@@ -8,7 +8,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="style.css" />
-    <link rel="stylesheet" href="products.css?v=browse-subcategories-1" />
+    <link rel="stylesheet" href="products.css?v=advanced-filters-2" />
     <link rel="stylesheet" href="products-toolbar.css?v=3" />
     <link rel="stylesheet" href="product-card-shared.css?v=compact-cards-1" />
   </head>
@@ -38,6 +38,7 @@
           </div>
 
           <div class="filter-side">
+            <button class="advanced-filter-button" id="open-product-filters" type="button">Filters <span id="active-filter-count" hidden>0</span></button>
             <details class="brand-filter" id="brand-filter">
               <summary>Brands</summary>
               <div id="brand-select" class="brand-menu" aria-label="Filter by brand"></div>
@@ -69,6 +70,9 @@
       </section>
     </main>
 
+    <div class="product-filter-backdrop" id="product-filter-backdrop" hidden></div>
+    <aside class="product-filter-drawer" id="product-filter-drawer" aria-label="Product filters" aria-hidden="true"><div class="product-filter-header"><h2>Filters</h2><button id="close-product-filters" type="button" aria-label="Close filters">×</button></div><div class="product-filter-body" id="product-filter-groups"></div><div class="product-filter-actions"><button id="clear-product-filters" type="button">Clear all</button><button id="apply-product-filters" type="button">Apply filters</button></div></aside>
+
     <footer class="store-footer">
       <div class="wrap store-footer-grid">
         <div class="store-footer-intro"><a class="store-footer-logo" href="index.html">Clearly<span>.</span></a><p>Thoughtfully selected cleaning and care essentials for homes and businesses.</p><a class="footer-support" href="mailto:adhithyachem@gmail.com">adhithyachem@gmail.com</a></div>
@@ -80,6 +84,6 @@
     </footer>
 
   <script src="taski-catalog.js"></script><script src="shop-state.js?v=guest-cart-1"></script><script src="site-nav.js?v=track-order-link-1"></script>
-  <script src="products-app.v2.js?v=compact-cards-1"></script><script src="catalog-live.js?v=3"></script><script src="products-subcategories.js?v=1"></script>
+  <script src="products-app.v2.js?v=advanced-filters-2"></script><script src="catalog-live.js?v=3"></script><script src="products-subcategories.js?v=1"></script>
   </body>
 </html>

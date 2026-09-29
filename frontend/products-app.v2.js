@@ -236,6 +236,10 @@ if (typeof module !== "undefined" && module.exports) {
   var cartSummaryEl = document.getElementById("cart-summary");
   var cartItemsEl = document.getElementById("cart-items");
   var cartTotalEl = document.getElementById("cart-total");
+  var filterDrawerEl = document.getElementById("product-filter-drawer");
+  var filterBackdropEl = document.getElementById("product-filter-backdrop");
+  var filterGroupsEl = document.getElementById("product-filter-groups");
+  var FACETS = [{key:"brand",label:"Brand"},{key:"collection",label:"Collection"},{key:"material",label:"Material"},{key:"colour",label:"Colour"},{key:"manufacturer",label:"Manufacturer"},{key:"itemGroup",label:"Item Group"}];
 
   var url = new URL(location.href, location.origin);
   var CART_KEY_SEPARATOR = "@@";
@@ -331,6 +335,11 @@ if (typeof module !== "undefined" && module.exports) {
     return {
       brand: url.searchParams.getAll("brand"),
       category: url.searchParams.getAll("category"),
+      collection: url.searchParams.getAll("collection"),
+      material: url.searchParams.getAll("material"),
+      colour: url.searchParams.getAll("colour"),
+      manufacturer: url.searchParams.getAll("manufacturer"),
+      itemGroup: url.searchParams.getAll("itemGroup"),
       tags: url.searchParams.getAll("tag"),
       sort: url.searchParams.get("sort") || "relevance",
       search: url.searchParams.get("search") || ""
@@ -340,10 +349,12 @@ if (typeof module !== "undefined" && module.exports) {
   function writeParams(p) {
     url.searchParams.delete("brand");
     url.searchParams.delete("category");
+    ["collection","material","colour","manufacturer","itemGroup"].forEach(function(key){url.searchParams.delete(key);});
     url.searchParams.delete("sort");
     url.searchParams.delete("search");
     if (p.brand && p.brand.length) p.brand.forEach(function (b) { url.searchParams.append("brand", b); });
     if (p.category) p.category.forEach(function(c){url.searchParams.append("category",c);});
+    ["collection","material","colour","manufacturer","itemGroup"].forEach(function(key){if(p[key]&&p[key].length)p[key].forEach(function(value){url.searchParams.append(key,value);});});
     if (p.tags && p.tags.length) { url.searchParams.delete("tag"); p.tags.forEach(function (t) { url.searchParams.append("tag", t); }); }
     if (p.sort && p.sort !== "relevance") url.searchParams.set("sort", p.sort);
     if (p.search) url.searchParams.set("search", p.search);
@@ -352,6 +363,9 @@ if (typeof module !== "undefined" && module.exports) {
   }
 
   // ---------- Filtering / sort / search ----------
+  function inferredMaterial(product){var units=packageOptions(product).map(function(item){return String(item.unit||item.symbol||item.label||'').toLowerCase();}).join(' ');if(/\b(l|ml|litre|liter)\b/.test(units))return 'Liquid';if(/\b(kg|g|gram)\b/.test(units))return 'Powder / Solid';if(/accessor|bag|liner|mat|screen|dispenser|paper|roll|towel|napkin/i.test((product.name||'')+' '+(product.subcategory||product.category||'')))return 'Accessory';return product.material||'';}
+  function specificationValue(product,names){var wanted=names.map(function(name){return name.toLowerCase();}),row=(product.specifications||[]).find(function(item){return wanted.indexOf(String(item.name||item.specificationName||item.specification_name||'').toLowerCase())!==-1;});return row?String(row.value||row.specificationValue||row.specification_value||'').trim():'';}
+  function facetValue(product,key){if(key==='brand')return product.brandName||BRANDS[product.brand]||product.brand||'';if(key==='collection')return product.collection||product.subBrand||specificationValue(product,['Collection','Product collection','Range'])||product.brandName||BRANDS[product.brand]||'';if(key==='material')return product.material||specificationValue(product,['Material','Form','Product form'])||inferredMaterial(product);if(key==='colour')return product.colour||product.color||specificationValue(product,['Colour','Color'])||'';if(key==='manufacturer')return product.manufacturer||specificationValue(product,['Manufacturer','Manufactured by'])||product.brandName||BRANDS[product.brand]||'';if(key==='itemGroup')return product.itemGroup||specificationValue(product,['Item Group','Item group','Product group'])||product.subcategory||product.category||'';return '';}
   function currentFilters() {
     var p = readParams();
     var hb = hashBrand();
@@ -364,6 +378,7 @@ if (typeof module !== "undefined" && module.exports) {
     var list = PRODUCTS.slice();
     if (p.brand && p.brand.length) list = list.filter(function (x) { return p.brand.indexOf(x.brand) !== -1; });
     if (p.category && p.category.length) list = list.filter(function (x) { return p.category.indexOf(x.category) !== -1; });
+    ["collection","material","colour","manufacturer","itemGroup"].forEach(function(key){if(p[key]&&p[key].length)list=list.filter(function(product){return p[key].indexOf(facetValue(product,key))!==-1;});});
     if (p.tags && p.tags.length) {
       var tl = p.tags.map(function (t) { return t.toLowerCase(); });
       list = list.filter(function (x) { return x.tags.some(function (t) { return tl.indexOf(t.toLowerCase()) !== -1; }); });
@@ -452,7 +467,17 @@ if (typeof module !== "undefined" && module.exports) {
     var list = filterAndSort();
     countEl.textContent = list.length === 0 ? "No products" :
       (list.length + " product" + (list.length === 1 ? "" : "s"));
+    updateAdvancedFilterCount();
   }
+
+  function facetOptions(key){var values={},rows=[];PRODUCTS.forEach(function(product){var value=key==='brand'?(product.brand||''):facetValue(product,key),label=key==='brand'?(product.brandName||BRANDS[product.brand]||product.brand):value;if(value&&!values[value]){values[value]=true;rows.push({value:value,label:label});}});return rows.sort(function(a,b){return String(a.label).localeCompare(String(b.label));});}
+  function renderAdvancedFilters(){if(!filterGroupsEl)return;var params=readParams();filterGroupsEl.innerHTML=FACETS.map(function(facet){var options=facetOptions(facet.key),selected=params[facet.key]||[];return '<section class="product-filter-group"><h3>'+escapeHtml(facet.label)+'</h3>'+(options.length?options.map(function(option){return '<label class="product-filter-option"><input type="checkbox" data-facet="'+facet.key+'" value="'+escapeAttr(option.value)+'"'+(selected.indexOf(option.value)!==-1?' checked':'')+'><span>'+escapeHtml(option.label)+'</span></label>';}).join(''):'<div class="product-filter-empty">No values assigned yet</div>')+'</section>';}).join('');}
+  function advancedFilterCount(){var params=readParams(),count=0;FACETS.forEach(function(facet){count+=(params[facet.key]||[]).length;});return count;}
+  function updateAdvancedFilterCount(){var badge=document.getElementById('active-filter-count');if(!badge)return;var count=advancedFilterCount();badge.textContent=count;badge.hidden=!count;}
+  function openAdvancedFilters(){renderAdvancedFilters();filterBackdropEl.hidden=false;filterDrawerEl.classList.add('open');filterDrawerEl.setAttribute('aria-hidden','false');document.body.classList.add('filters-open');}
+  function closeAdvancedFilters(){filterDrawerEl.classList.remove('open');filterDrawerEl.setAttribute('aria-hidden','true');filterBackdropEl.hidden=true;document.body.classList.remove('filters-open');}
+  function applyAdvancedFilters(){var params=readParams();FACETS.forEach(function(facet){params[facet.key]=Array.from(filterGroupsEl.querySelectorAll('[data-facet="'+facet.key+'"]:checked')).map(function(input){return input.value;});});writeParams(params);renderOptions();renderGrid();closeAdvancedFilters();}
+  document.getElementById('open-product-filters').onclick=openAdvancedFilters;document.getElementById('close-product-filters').onclick=closeAdvancedFilters;filterBackdropEl.onclick=closeAdvancedFilters;document.getElementById('apply-product-filters').onclick=applyAdvancedFilters;document.getElementById('clear-product-filters').onclick=function(){filterGroupsEl.querySelectorAll('input[type="checkbox"]').forEach(function(input){input.checked=false;});};
 
   var gridTransitionTimer = null;
   function renderGrid() {
@@ -605,7 +630,7 @@ if (typeof module !== "undefined" && module.exports) {
   function restoreLocation() { url=new URL(location.href); renderOptions(); renderGrid(); }
   window.addEventListener('hashchange',restoreLocation);
   window.addEventListener('popstate',restoreLocation);
-  document.addEventListener('keydown',function(e){if(e.key==='Escape'){document.getElementById('category-filter').open=false;var bf=document.getElementById('brand-filter');if(bf)bf.open=false;}});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape'){document.getElementById('category-filter').open=false;var bf=document.getElementById('brand-filter');if(bf)bf.open=false;if(filterDrawerEl.classList.contains('open'))closeAdvancedFilters();}});
   updateSavedCount();
   renderCart();
   // initial render: populate options first so selected values are correct
