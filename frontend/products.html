@@ -8,7 +8,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="style.css" />
-    <link rel="stylesheet" href="products.css?v=store-footer-1" />
+    <link rel="stylesheet" href="products.css?v=browse-subcategories-1" />
     <link rel="stylesheet" href="products-toolbar.css?v=3" />
     <link rel="stylesheet" href="product-card-shared.css?v=compact-cards-1" />
   </head>
@@ -24,6 +24,10 @@
     </header>
 
     <main>
+      <section class="shop-subcategories wrap" aria-labelledby="shop-subcategory-title">
+        <div class="shop-subcategory-heading"><div><span class="shop-subcategory-kicker">SHOP BY NEED</span><h1 id="shop-subcategory-title">Browse subcategories</h1><p>Find the right products faster by choosing a cleaning or construction care category.</p></div></div>
+        <div class="shop-subcategory-grid" id="shop-subcategory-grid"><div class="shop-subcategory-loading">Loading subcategories…</div></div>
+      </section>
       <section class="catalog wrap">
         <div class="catalog-toolbar">
           <div class="filters">
@@ -76,6 +80,6 @@
     </footer>
 
   <script src="taski-catalog.js"></script><script src="shop-state.js?v=guest-cart-1"></script><script src="site-nav.js?v=track-order-link-1"></script>
-  <script src="products-app.v2.js?v=compact-cards-1"></script><script src="catalog-live.js?v=3"></script>
+  <script src="products-app.v2.js?v=compact-cards-1"></script><script src="catalog-live.js?v=3"></script><script src="products-subcategories.js?v=1"></script>
   </body>
 </html>
